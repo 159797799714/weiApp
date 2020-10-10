@@ -1,0 +1,228 @@
+//活动模块组件 以及详情页面的样式
+@import "theme_colors";
+.new_activity_module {
+  color: #333333;
+  .activity_header {
+    display: block;
+    font-size: 28rpx;
+    background-color: #fff;
+    height: 44rpx;
+    width: 100%;
+    padding: 20rpx;
+    line-height: 44rpx;
+    .view_more {
+      position: relative;
+      float: right;
+      margin-right: 60rpx;
+      color: #999;
+      font-size: 24rpx;
+      &:before {
+        position:absolute;
+        top:0rpx;
+        right:-24rpx;
+        font-family:'iconfont' !important;
+        font-size:24rpx;
+        font-style:normal;
+        color:#999;
+        display:block;
+        content:'\e636';
+        -webkit-font-smoothing:antialiased;
+        -moz-osx-font-smoothing:grayscale;
+      }
+    }
+  }
+  .activity_content {
+    background-color: #f9f9f9;
+    width: 100%;
+    height: 495rpx;
+    white-space: nowrap;
+  }
+  .activity_content_item {
+    display:inline-block;
+    width: 280rpx;
+    height: 465rpx;
+    background-color: #fff;
+    margin: 14rpx 0 14rpx 14rpx;
+    border-radius: 10rpx;
+    box-shadow:#eee 3rpx 3rpx 1rpx 1rpx;
+  }
+  .activity_img {
+    width: 280rpx;
+    height: 280rpx;
+    border-top-left-radius: 10rpx;
+    border-top-right-radius: 10rpx;
+  }
+  .activity_description {
+    padding: 5rpx 20rpx 10rpx 20rpx;
+  }
+  .activity_price_area{
+    margin-top: 5rpx;
+  }
+  .activity_tip{
+    margin-top: 5rpx;
+  }
+  &.tile{
+    .activity_content{
+      background-color: #ffffff;
+      white-space: normal;
+      height: auto;
+    }
+    .activity_content_item{
+      width: 354rpx;
+      height: 539rpx;
+      margin: 0 0 14rpx 14rpx;
+      box-shadow:none;
+      border: 1px solid #f9f9f9;
+    }
+    .activity_img{
+      width: 354rpx;
+      height: 354rpx;
+    }
+  }
+}
+
+.activity_module_page{
+  background-color: #EEEEEE;
+  .activity_header{
+    position: fixed;
+    top: 0;
+    display: flex;
+    height: 110rpx;
+    width: 100%;
+    text-align: center;
+    background-color: #ffffff;
+  }
+  .activity_header_item{
+    flex: 1;
+    width: 100rpx;
+    height: 48rpx;
+    margin-top: 37rpx;
+    font-size: 28rpx;
+    color: #333333;
+    margin-left: 20rpx;
+    margin-right: 20rpx;
+    &.active{
+      transition: all 0.3s;
+    }
+  }
+  .activity_list{
+    margin-top: 128rpx;
+    height: calc(100vh - 128rpx);
+    background-color: #f9f9f9;
+  }
+  .activity_list_item{
+    background-color: #ffffff;
+    width: 100%;
+  }
+  .activity_list_item_wrap{
+    display: flex;
+    margin-left: 20rpx;
+    height: 220rpx;
+    padding: 28rpx 20rpx 28rpx 0rpx;
+    border-bottom: 1px solid #eeeeee;
+    .item_image{
+      flex: 1;
+      width: 180rpx;
+      height: 100%;
+      image {
+        border-radius: 10rpx;
+      }
+    }
+    .item_description{
+      flex: 2;
+      padding: 13rpx 13rpx 33rpx 33rpx;
+    }
+    .activity_name{
+      margin-top: 15rpx;
+    }
+    .price_content{
+      margin-top: 15rpx;
+      height: 75rpx;
+    }
+    .activity_tip{
+      display: inline-block;
+      height: 40rpx;
+      line-height:40rpx;
+      width: unset;
+      padding: 0 10rpx 0 10rpx;
+      font-size: 24rpx;
+      -webkit-border-radius: 8rpx;
+      -moz-border-radius: 8rpx;
+      border-radius: 8rpx;
+    }
+    .price_detail{
+      display: inline-block;
+    }
+    .activity_time{
+      display: inline-block;
+      color: #ffffff;
+      font-size: 24rpx;
+      height: 40rpx;
+      line-height: 40rpx;
+      padding-left: 10rpx;
+      padding-right: 10rpx;
+      border-top-right-radius: 20rpx;
+      border-bottom-right-radius: 20rpx;
+    }
+    .activity_price_rmb{
+      margin-left: 10rpx;
+    }
+  }
+}
+@each $theme,$t_color in $theme_colors {
+  .#{$theme}{
+    .activity_min_price {
+      color: $t_color;
+      font-size: 32rpx;
+    }
+    .activity_price_rmb {
+      color: $t_color;
+      font-size: 22rpx;
+    }
+    .activity_header_item{
+      &.active{
+        color: $t_color;
+        border-bottom: 5rpx solid $t_color;
+      }
+    }
+    .activity_time{
+      background-color: $t_color;
+    }
+  }
+}
+.activity_price {
+  text-decoration: line-through;
+  font-size: 20rpx;
+  margin-left: 6rpx;
+  color: #adadad;
+}
+$tag_bg_color: (
+        1:(bgcolor:#fce2bf, text-color:#f36b00),
+        2:(bgcolor:#e9dcee, text-color:#a12ee5),
+        4:(bgcolor:#ffc9d5, text-color:#ff1d4e),
+        5:(bgcolor:#d2f0fb, text-color:#00b2f0)
+);
+.activity_tip {
+  width: 68rpx;
+  height: 34rpx;
+  font-size: 20rpx;
+  line-height: 34rpx;
+  text-align: center;
+  border-radius: 5rpx;
+  @each $i, $color in $tag_bg_color {
+    &.activity_tip_#{$i} {
+      background-color: map_get($color, bgcolor);
+      color: map_get($color, text-color)
+    }
+  }
+}
+.activity_name {
+  height: 75rpx;
+  overflow: hidden;
+  font-size: 26rpx;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+}

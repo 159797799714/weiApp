@@ -1,0 +1,1 @@
+page{width:100vw;height:100vh;padding:0;background:#f2f3f5}.video-wrap{width:100%;height:100%;display:flex;align-items:center}.video-wrap #myVideo{width:100%;height:100%}

@@ -1,0 +1,225 @@
+// out: cashout.wxss, compress: true
+page{
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  background: #f2f3f5;
+}
+
+.cashout-wrap{
+  padding: 30rpx;
+  .balance-part{
+    background: linear-gradient(90deg, #4A4844 0%, #282825 100%);
+    padding: 30rpx 40rpx;
+    margin-bottom: 40rpx;
+    border-radius: 8rpx;
+    position: relative;
+    .actitle{
+      font-size: 28rpx;
+      color: #fff;
+      line-height: 40rpx;
+      margin-bottom: 20rpx;
+    }
+    .acval{
+      max-width: 410rpx;
+      font-size: 68rpx;
+      color: #F6E7C7;
+      line-height: 60rpx;
+    }
+    .tocas{
+      width: 180rpx;
+      height: 60rpx;
+      font-size: 28rpx;
+      color: #F6E7C7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #59544c;
+      border-radius: 60rpx;
+      position: absolute;
+      top: 50%;
+      right: 40rpx;
+      transform: translateY(-50%);
+    }
+  }
+  .title{
+    font-size: 28rpx;
+    color: #333;
+    line-height: 40rpx;
+    margin-bottom: 16rpx;
+  }
+  .blocks{
+    background: #fff;
+    margin-bottom: 20rpx;
+    padding: 34rpx 30rpx 30rpx;
+    border-radius: 8rpx;
+  }
+  .input-box{
+    display: flex;
+    align-items: center;
+    padding: 25rpx 0;
+    margin-bottom: 20rpx;
+    .unit{
+      font-size: 58rpx;
+      color: #333;
+      line-height: 68rpx;
+      margin-right: 10rpx;
+    }
+    .input-and-place{
+      flex: 1;
+      position: relative;
+    }
+    .cainput{
+      width: 100%;
+      height: 68rpx;
+      font-size: 58rpx;
+      color: #333;
+      line-height: 68rpx;
+      font-weight: 500;
+      position: relative;
+      z-index: 2;
+    }
+    .place{
+      width: 100%;
+      height: 68rpx;
+      font-size: 26rpx;
+      color: #999;
+      line-height: 68rpx;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+    .all{
+      font-size: 26rpx;
+      color: #FF4444;
+      line-height: 68rpx;
+      margin-left: 10rpx;
+    }
+  }
+  .min{
+    font-size: 26rpx;
+    color: #999;
+    line-height: 37rpx;
+  }
+  .account-part{
+    margin-bottom: 30rpx;
+  }
+  .infos{
+    display: flex;
+    align-items: center;
+    font-size: 28rpx;
+    color: #666;
+    line-height: 40rpx;
+    .iconfont{
+      font-size: 38rpx;
+      color: #40BA49;
+      line-height: 38rpx;
+      margin-right: 20rpx;
+    }
+  }
+  .savebtn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 34rpx;
+    color: #fff;
+    background: #D1A96F;
+    margin-bottom: 50rpx;
+    border-radius: 8rpx;
+    &::after{
+      display: none;
+    }
+  }
+  .savebtn.unAllowed{
+    background: #c4c4c4;
+  }
+  .tips{
+    .tptitle{
+      width: 336rpx;
+      margin: 0 auto 40rpx;
+      border-bottom: 1rpx solid #DDDDDD;
+      .tcnt{
+        width: 168rpx;
+        font-size: 30rpx;
+        color: #333;
+        line-height: 42rpx;
+        text-align: center;
+        background: #f2f3f5;
+        margin: 0 auto -24rpx;
+      }
+    }
+    .tpitem{
+      display: flex;
+      font-size: 26rpx;
+      color: #747474;
+      line-height: 37rpx;
+      margin-bottom: 24rpx;
+      .order{
+        margin-right: 10rpx;
+      }
+    }
+  }
+}
+
+.cashout-modal-body{
+  width: 540rpx;
+  background: #fff;
+  padding-bottom: 60rpx;
+  .top-icons{
+    width: 540rpx;
+    height: 240rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url('https://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/cashout_bg.png') no-repeat;
+    background-size: contain;
+    margin-bottom: 50rpx;
+    .iconfont{
+      font-size: 90rpx;
+      color: #fff;
+      text-align: center;
+      line-height: 90rpx;
+    }
+  }
+  .title{
+    font-size: 32rpx;
+    color: #333;
+    line-height: 45rpx;
+    margin-bottom: 20rpx;
+  }
+  .cnts{
+    width: 450rpx;
+    font-size: 26rpx;
+    color: #5f5f5f;
+    line-height: 37rpx;
+    text-align: left;
+    margin: 0 auto;
+    .rd{
+      color: #f64445;
+    }
+    .gry-last{
+      color: #999;
+    }
+  }
+}
+.cashout-modal-footer{
+  background: #fff;
+  padding-bottom: 50rpx;
+}
+.casbtn{
+  width: 420rpx;
+  height: 80rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32rpx;
+  color: #fff;
+  line-height: 45rpx;
+  margin: 0 auto;
+  background: linear-gradient(90deg, #FF7979 4%, #FF4444 100%);
+  border-radius: 100rpx;
+  &::after{
+    display: none;
+  }
+}

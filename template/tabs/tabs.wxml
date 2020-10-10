@@ -1,0 +1,7 @@
+<template name="tabs">
+  <view class="tabs-wrap {{topborder?'scale-1px-top':''}}">
+    <view class="tabs-item {{activeTab==index?'tabactive' : ''}}" wx:for="{{tabs}}" wx:key="index" data-index="{{index}}" bindtap="tabChange">
+      <text class="tab-cnt">{{item}}</text>
+    </view>
+  </view>
+</template>

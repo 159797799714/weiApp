@@ -1,0 +1,74 @@
+<view class="instruction-wrap">
+  <view class="page-title">返现提现和订单状态说明</view>
+  <view class="main">
+    <view class="title">
+      <view class="line scale-1px-bottom"></view>
+      <text class="tcnt">返现提现说明</text>
+      <view class="line scale-1px-bottom"></view>
+    </view>
+    <view class="content">
+      <text class="red">每月25日结算</text>
+      <text class="cnt">上月【确认收货】的订单，已结算的金额可以直接提现到微信零钱，最低1元可提现</text>
+    </view>
+    <view class="content">
+      <text class="cnt">例如：您在7月份下单并且在7月内确认收货，那么您在8月25日就可以把这笔订单的返现提现。如果您7月订单在8月确认收货，则在9月25日就可以佣金提现</text>
+    </view>
+    <view class="takecare">注意</view>
+    <view class="care-part">
+      <view class="order">1.</view>
+      <view class="carecnt">所有订单数据及订单状态均以拼多多、京东官方平台返回数据为准</view>
+    </view>
+    <view class="care-part nomargin">
+      <view class="order">2.</view>
+      <view class="carecnt">电商平台不会再点击确认收货之后立即返佣，因为您即使确认收货了，也是在售后服务期内，享受7天或30天无理由退货，立刻返佣如后续产生退货维权，会给卖家和平台造成巨大损失，还请理解</view>
+    </view>
+  </view>
+
+  <view class="main">
+    <view class="title">
+      <view class="line scale-1px-bottom"></view>
+      <text class="tcnt">失效订单</text>
+      <view class="line scale-1px-bottom"></view>
+    </view>
+    <view class="content">
+      <text class="cnt">产生退货退款等售后维权后订单将会失效，</text>
+      <text class="red">失效订单无返现。</text>
+    </view>
+    <view class="takecare">注意</view>
+    <view class="care-part nomargin">
+      <view class="carecnt">如果您发现返现收益金额有所减少，是因为您出现了失效订单</view>
+    </view>
+  </view>
+
+  <view class="main">
+    <view class="title">
+      <view class="line scale-1px-bottom"></view>
+      <text class="tcnt">优选订单</text>
+      <view class="line scale-1px-bottom"></view>
+    </view>
+    <view class="content nomargin">
+      <text class="cnt">会在粉丝购买订单</text>
+      <text class="red">确认收货次月25日到账提现</text>
+      <text class="cnt">，可以通过微信零钱提现，最低1元可提现</text>
+    </view>
+  </view>
+
+  <view class="main">
+    <view class="title">
+      <view class="line scale-1px-bottom"></view>
+      <text class="tcnt">各店商品平台规定无返现的情况</text>
+      <view class="line scale-1px-bottom"></view>
+    </view>
+    <view class="care-part">
+      <view class="order">1.</view>
+      <view class="carecnt">京东：京东到家订单，使用特殊优惠的订单，京东集团员工订单，企业用户，经销商，高校代理，京东推广员及其发展的用户，京东加点专卖店的订单，京东帮等特殊情况无返现，被京东判定为“违规订单”的也将视为无效订单</view>
+    </view>
+    <view class="care-part">
+      <view class="order">2.</view>
+      <view class="carecnt">拼多多：被平台官方判定为“违规订单”的将视为无效订单。</view>
+    </view>
+    <view class="care-part nomargin">
+      <view class="carecnt">所有订单数据及订单状态均以京东、拼多多官方平台返回的数据未准</view>
+    </view>
+  </view>
+</view>

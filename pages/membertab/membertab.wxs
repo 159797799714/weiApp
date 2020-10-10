@@ -1,0 +1,66 @@
+function nickName(memberInfos) {
+    var name= memberInfos.nickName
+    if(memberInfos.memberGrade < 0 && !memberInfos.memberGrade) {
+        return '尚未登录'
+    } else {
+        return name
+    }
+}
+
+function vipIcon(memberInfos) {
+  var grade= memberInfos.memberGrade?memberInfos.memberGrade: 0;
+  // var grade= 3;
+  switch(grade) {
+    case "0":
+      return {
+        iconName: 'iconputonghuiyuan',
+        bg: 'background-image: linear-gradient(90deg, #495866, #253039);',
+        color: 'color: #ffffff;'
+      }
+      break;
+    case "1":
+      return {
+        iconName: 'iconputonghuiyuan-2',
+        bg: 'background-image: linear-gradient(90deg, #6194C4, #3673AB);',
+        color: 'color: #DAECFD;'
+      }
+      break;
+    case "2":
+      return {
+        iconName: 'iconhuiyuan',
+        bg: 'background-image: linear-gradient(-36deg, #543506, #7C561E);',
+        color: 'color: #F5E3C0'
+      }
+      break;
+    case "3":
+      return {
+        iconName: 'iconhehuoren',
+        bg: 'background-image: linear-gradient(107deg, #5954D6, #312CB4);',
+        color: 'color: #FDF0EA'
+      }
+      break;
+    case "4":
+      return {
+        iconName: 'iconlianhechuangshiren',
+        bg: 'background-image: linear-gradient(90deg, #353749, #585A6A);',
+        color: 'color: #F4E1B3'
+
+      }
+      break;
+    default:
+      return {
+        iconName: 'iconputonghuiyuan',
+        bg: 'background-image: linear-gradient(90deg, #495866, #253039);',
+        color: 'color: #ffffff;'
+      }
+      break;
+  }
+  
+}
+
+// function className(memberGrade, index)
+
+module.exports = {
+    nickName: nickName,
+    vipIcon: vipIcon
+}

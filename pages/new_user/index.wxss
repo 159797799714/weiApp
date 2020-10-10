@@ -1,0 +1,253 @@
+/* pages/newuser_product/index.wxss */
+
+page {
+  width: 100%;
+  padding-bottom: 100rpx;
+}
+.new_user_wrap_bj{
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  
+}
+.navbar{
+  position: relative;
+}
+.back-box{
+position:absolute;
+width:100%;
+left:0rpx;
+top:64rpx;
+display:flex;
+align-items:center;
+box-sizing: border-box;
+padding-left: 20rpx;
+padding-right: 45rpx;
+}
+.title{
+  flex: 1;
+  text-align: center;
+  font-size: 34rpx;
+}
+.img_bg {
+  width: 100vw;
+  height: 706rpx;
+}
+
+.new_user {
+  width: 100%;
+  height: 100%;
+}
+.new_user_wrap{
+  position: absolute;
+  top: 100rpx;
+  left: 0;
+  width: 100%;
+  height: 590rpx;
+  overflow: hidden;
+}
+
+.new_user__container {
+  width: 100%;
+  height: 100%;
+}
+
+.new_user__header {
+  margin-top: 66rpx;
+  margin-left: 61rpx;
+  height: 156rpx;
+  display: flex;
+}
+
+.new_user_leading {
+  margin-left: 18rpx;
+  width: 400rpx;
+}
+
+.new_user__avatar {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 50%;
+}
+
+.new_user__avatar image {
+  border-radius: 50%;
+}
+
+.new_user_nickname {
+  margin-bottom: 14rpx;
+  font-size: 30rpx;
+  height: 42rpx;
+  color: #fff;
+}
+
+.new_user_desc {
+  width:487rpx;
+  height:80rpx;
+  padding:10rpx 28rpx;
+  background-color:rgba(255, 255, 255,.8);
+  border-radius:0 35rpx 35rpx 35rpx;
+  font-size:28rpx;
+  line-height:44rpx;
+  color:#333;
+  font-weight:bold;
+
+}
+
+.new_user__title {
+  width: 584rpx;
+  height: 137rpx;
+  margin: 180rpx auto 0;
+}
+
+.new_user__subtitle {
+   width: 317rpx;
+  height: 83rpx;
+  margin: -20rpx auto 0;
+}
+
+.new_user_product_list{
+  width: 100%;
+  padding: 20rpx;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: #fff;
+}
+.new_user_product{
+  width:670rpx;
+  height:310rpx;
+  background:white;
+  border-radius:20rpx;
+  border:solid 12rpx #fddb8e;
+  margin:18rpx auto 36rpx;
+  box-sizing:border-box;
+
+}
+.new_user_product .new_user-product__image{
+  width: 196rpx;
+  height: 210rpx;
+  background: gainsboro;
+  margin: 50rpx 40rpx 25rpx 40rpx;
+  float:left;
+}
+/* .new_user-product__name{
+  width: 285rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 30rpx;
+	color: #333333;
+  padding-left:20rpx; 
+} */
+
+.new_user-product__name{
+  margin: 70rpx 0 10rpx;
+  width: 340rpx;
+  overflow:hidden; 
+  text-overflow:ellipsis;
+  white-space: nowrap;
+  /* display:-webkit-box;  */
+  /* -webkit-box-orient:vertical; */
+  /* -webkit-line-clamp:2;  */
+  font-size: 30rpx;
+	color: #333333;
+  padding-left:10rpx; 
+  height: 50rpx;
+  line-height: 50rpx;
+}
+
+.new_user-product__detail{
+  padding-left:10rpx; 
+  /* margin: 10rpx 0; */
+}
+.textclass{
+ display: flex;
+ align-items: center;
+}
+
+.new_user-product__price{
+  margin-right: 6rpx;
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #f62049;
+  
+}
+.new_user-product__price text{
+  font-weight: normal;
+  font-size: 30rpx;
+}
+/* .new_user-product_tag{
+  width: 120rpx;
+	height: 30rpx;
+	background-color: #f62049;
+	border-radius: 0px 15rpx 15rpx 15rpx;
+  line-height: 30rpx;
+  text-align: center;
+  font-size: 18rpx;
+  color: white;
+} */
+.new_user-product_tag{
+  display: inline-block;
+  align-items: flex-start;
+  width: 120rpx;
+	height: 40rpx;
+	background-color: #f62049;
+	border-radius: 0px 15rpx 15rpx 15rpx;
+  text-align: center;
+  font-size: 18rpx;
+  color: white;
+  line-height: 40rpx;
+  margin: 0 10rpx 0rpx 0;
+}
+.new_user-product__original_price{
+  float: left;
+  width: max-content;
+  font-size: 24rpx;
+	color: #999999;
+  padding-left:10rpx; 
+  position: relative;
+}
+.new_user-product__original_price .line{
+  width: 100%;
+  height: 1px;
+  background: #999999;
+  position: absolute;
+  top: 50%;
+}
+/* ----------------- */
+.new_user_product_two{
+  width:340rpx;
+  float:left;
+  height:570rpx;
+  border: none;
+  margin-right: 20rpx;
+  background-color: #ffffff;
+	box-shadow: 0rem 0rem 0.2rem 0rem 
+		rgba(144, 144, 144, 0.14);
+    overflow: hidden;
+}
+.new_user_product_two:nth-child(2n){
+  margin-right: 0;
+}
+.new_user_product_two .new_user-product__image{
+  width: 100%;
+  height: 340rpx;
+  clear: both;
+  float: none;
+  margin: 0;
+}
+.new_user_product_two .new_user-product__name{
+  margin:20rpx auto 30rpx;
+  display:-webkit-box;
+  line-height:44rpx;
+  height:88rpx;
+  -webkit-line-clamp:2;
+  white-space:normal;
+  -webkit-box-orient:vertical;
+
+}
+.isover_black{
+  color: #000;
+  margin-top:20rpx;
+}

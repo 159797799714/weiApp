@@ -1,0 +1,63 @@
+<view class="cashout-wrap">
+  <view class="balance-part">
+    <view class="actitle">可提现余额(元)</view>
+    <view class="acval">{{totlaMoney}}</view>
+    <navigator class="tocas" url="/subPages/sub-fund/pages/cashRecord/cashRecord" open-type="navigate" hover-class="none">提现记录</navigator>
+  </view>
+  <view class="cashout-part blocks">
+    <view class="catitle title">提现金额</view>
+    <view class="input-box scale-1px-bottom">
+      <text class="unit">￥</text>
+      <view class="input-and-place">
+        <!-- placeholder和input字体不一致，导致聚焦和失去焦点时光标大小和位置不一致 -->
+        <view class="place" wx:if="{{!isFocus && !(balance+'')}}">请输入提现金额</view>
+        <input class="cainput" type="digit" value="{{balance}}" maxlength="{{countsMax}}" data-key="balance" bindinput="bindKeyInput" bindfocus="bindfocus" bindblur="bindblur" />
+      </view>
+      <view class="all" bindtap="cashoutAll">全部提现</view>
+    </view>
+    <view class="min">最小提现金额1元{{has_cashed_today ? '，今日已提现过' : ''}}</view>
+  </view>
+  <view class="account-part blocks">
+    <view class="outtitle title">提现账户</view>
+    <view class="infos">
+      <text class="iconfont icontixianzhiweixin"></text>
+      <text class="account">提现至微信</text>
+    </view>
+  </view>
+  <button class="savebtn {{unAllowed ? 'unAllowed' : ''}}" type="primary" disabled="{{unAllowed}}" bindtap="saveFun">立即提现</button>
+  <view class="tips">
+    <view class="tptitle">
+      <view class="tcnt">温馨提示</view>
+    </view>
+    <view class="tpitem">
+      <view class="order">1.</view>
+      <view class="cnt">每人每天可提现一次，单笔提现需大于1元</view>
+    </view>
+    <view class="tpitem">
+      <view class="order">2.</view>
+      <view class="cnt">提现申请后将在24小时内发放到您的微信零钱，请确保您的微信零钱可以收取提现</view>
+    </view>
+    <view class="tpitem">
+      <view class="order">3.</view>
+      <view class="cnt">提现到账后，您会收到微信通知提醒，请注意查收</view>
+    </view>
+  </view>
+
+  <!-- 提现成功弹窗 -->
+  <com-modal className="nopadding-modal" show="{{isShowModal}}" width="540">
+    <view class="cashout-modal-body" slot="body">
+      <view class="top-icons">
+        <view class="iconfont iconcomplete"></view>
+      </view>
+      <view class="title">提现申请已提交</view>
+      <view class="cnts">
+        <text class="gry">您的提现申请已提交，</text>
+        <text class="rd">平台会在24小时内发放奖励到零钱，</text>
+        <text class="gry gry-last">请关注微信消息</text>
+      </view>
+    </view>
+    <view class="cashout-modal-footer" slot="footer">
+      <button class="casbtn" type="primary" bindtap="toMakesure">我知道了</button>
+    </view>
+  </com-modal>
+</view>

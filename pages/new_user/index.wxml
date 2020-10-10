@@ -1,0 +1,49 @@
+<!--新人专享商品列表-->
+<wxs src="../../utils/filter.wxs" module="filter"></wxs>
+<view class="new_user {{pageTheme}}">
+   <view class='navbar'>
+    <view class='back-box' style='top:{{nav_top?nav_top:61}}rpx;'>
+      <text class='iconfont icon-shangyibu' style='color:#fff' bindtap='goback'></text>
+      <text style='color:#fff;' class='title'>新人专享</text>
+    </view>
+    <view class='new_user_wrap'>
+        <!-- <image src='{{base_img_url}}/images/newuser/newuserbj.png' class='new_user_wrap_bj'></image> -->
+        <view class="new_user__header">
+            <view class="new_user__avatar clearfix">
+                <image src="{{storeDetails.logo}}"></image>
+            </view>
+            <view class="new_user_leading clearfix">
+                <view class="new_user_nickname">{{storeDetails.name}}</view>
+                <view class="new_user_desc">Hi，{{storeDetails.nickname}}~我为你精心挑选了新人大
+                    礼包，快来选一件吧~</view>
+            </view>
+        </view>
+          <view class="new_user__title" ><image src='{{base_img_url}}/images/newuser/text1.png'></image></view>
+          <view class="new_user__subtitle"><image src='{{base_img_url}}/images/newuser/text2.png'></image></view>
+      </view>
+    <image src='{{base_img_url}}/images/newuser//newuserbj.png' class='img_bg'></image>
+  </view>
+    <view class="new_user__container">
+      
+        <view class="new_user_product_list">
+          <block wx:for="{{product_list}}" wx:key="{{product_id}}">
+            <view class="new_user_product {{show_type==1?'':'new_user_product_two'}}" catchtap='gotoDetails' data-id="{{item.product_id}}">
+                <view class="new_user-product__image">
+                    <image src="{{item.image?item.image:'https://s.404.cn/applet/images/shop_03.png'}}"></image>
+                </view>
+                <view class="new_user-product__name">
+                  <!-- <view class="new_user-product_tag">新人专享价</view> -->
+                {{item.name}}</view>
+                <view class="new_user-product__detail {{item.price.length>7?'':'textclass'}}">
+                    <view class="new_user-product__price"> <text>￥</text>{{item.price}}</view>
+                    <view class="new_user-product_tag">新人专享价</view>
+                </view>
+                <view class="new_user-product__original_price" wx:if="{{item.original_price>0}}">￥{{item.original_price}} <view class="line"></view></view>
+            </view>
+          </block>
+        </view>
+        <view wx:if="{{isOver}}" class='isover isover_black'>没有更多数据啦~</view>
+    </view>
+</view>
+
+<include src="/pages/public/page_footer.wxml"></include>

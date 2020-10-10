@@ -1,0 +1,95 @@
+<view class="exc-goods-wrap">
+    <view class="goods-popup">
+        <view class="img-container">
+            <image src="{{excDetail.image}}" mode="aspectFit"></image>
+        </view>
+        <view class="redbag-con">
+            <view class="redbag-title">{{ excDetail.name}}</view>
+            <view class="redbag-points">
+                <text style=" margin-right: 8rpx;">{{excDetail.exchange_points}}</text>
+                <text>积分</text>
+            </view>
+
+        </view>
+
+        <!-- <view class="pay-way">
+            <view class="pay-title">支付方式</view>
+            <view class="pay-list">
+                <view class="pay-item notap {{type=='point'?'tap':''}}" bindtap="selectWay" data-type="point">
+                    {{excDetail.exchange_points}}积分
+                </view>
+                <view class="pay-item notap {{type=='money'?'tap':''}}" bindtap="selectWay" data-type="money">
+                    {{(excDetail.exchange_amount)/100}}元余额
+                </view>
+            </view>
+        </view> -->
+
+        <view class="pro-introduction">
+            <view class="pay-title ">商品简介</view>
+            <view class="rich-box">
+                <rich-text class="soft-content" nodes='{{excDetail.summary}}'></rich-text>
+            </view>
+        </view>
+    </view>
+    <view class="footer">
+        <view class="all-integral">
+            <text style="font-size: 26rpx; color: #999999;">合计</text>
+            <block wx:if="{{type=='point'}}">
+                <text class="num-style">{{excDetail.exchange_points}}</text>
+                <text style="color:#000;font-size: 30rpx;">积分</text>
+            </block>
+            <!-- <block wx:if="{{type=='money'}}">
+                <text class="num-style">{{(excDetail.exchange_amount)/100}}</text>
+                <text style="color:#000;font-size: 30rpx;">元</text>
+            </block> -->
+        </view>
+        <view class="btn" bindtap="judgeExc">确认兑换</view>
+
+        <!-- 用户没登录 -->
+        <button class='authbtn' type='primary' wx:if="{{_unlogin}}" open-type="getUserInfo" bindtap="clickUserButtonFun" bindgetuserinfo="userCall" binderror="errCall"></button>
+        <!-- 授权手机号码 -->
+        <button class='authbtn' type='primary' wx:if='{{!_unlogin&&!_has_phone}}' bindtap="toGetPhonenumAuth"></button>
+    </view>
+    <view class="safeArea"></view>
+</view>
+<!-- 兑换的弹窗样式 -->
+
+<com-modal className="sure-modal" show="{{isShowModal}}" width="540" radius="15" padding="0">
+    <view class="fail-modal" slot="body">
+        <view class="fail-icon">
+            <image wx:if="{{excStatus==1||excStatus==3}}" mode="widthFix"
+                src="https://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/exchange_fail_icon.png" />
+            <image wx:else mode="widthFix"
+                src="https://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/exchange_confirm_icon.png" />
+        </view>
+        <view class="fail-content" wx:if="{{excStatus==1}}">
+            <view class="fail-title">兑换失败</view>
+            <view class="fail-tips">您的{{ type=='point' ? '积分':"余额"}}不足</view>
+        </view>
+        <view class="fail-content" wx:if="{{excStatus==2}}">
+            <view class="fail-title">兑换成功</view>
+            <view class="fail-tips">恭喜您兑换成功</view>
+        </view>
+        <view class="fail-content" wx:if="{{excStatus==3}}">
+            <view class="fail-title">商品已兑完</view>
+            <view class="fail-tips">我们会尽快补货，请您保持关注</view>
+        </view>
+        <view class="fail-content" wx:if="{{excStatus==4}}">
+            <view class="fail-title">确认兑换</view>
+            <view class="fail-tips">确认消耗
+                <text
+                    style="color:#ff4444;display: inline-block;">{{type=="point"?excDetail.exchange_points+'积分':(excDetail.exchange_amount)/100+'元余额'}}</text>兑换
+            </view>
+        </view>
+        <view class="confirm-footer fail-footer" wx:if="{{excStatus==1||excStatus==2||excStatus==3}}"
+            bindtap="cancelExc">
+            我知道了
+        </view>
+        <view class="confirm-footer" wx:if="{{excStatus==4}}">
+            <view class="cancel-btn" bindtap="cancelExc">取消兑换</view>
+            <view class="confirm-btn" bindtap="confirmExc">确认兑换</view>
+        </view>
+    </view>
+</com-modal>
+
+<include src="/pages/public/page_footer.wxml"></include>

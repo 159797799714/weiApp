@@ -1,0 +1,117 @@
+<wxs module="indexModule">
+  module.exports.richText = function(str) {
+    return str.replace('&nbsp;', '<p style="display:inline-block;width:10px;"></p>')
+  }
+</wxs>
+<template name="articleTemp">
+  <view class="msg-list style{{show_type}}" wx:for='{{lists}}' wx:key='listidx' wx:for-index="listidx">
+    <!-- 图片 -->
+    <view wx:if='{{item.files && item.files.length>0}}' class="img-block pic-num-{{item.files.length}}" bindtap="goDetail" data-id="{{item.id}}" data-idx="{{listidx}}">
+      <block wx:if='{{show_type==1}}'>
+        <block wx:if="{{status_type=='details' || show_lay==0}}">
+          <image src="{{pic.thumb}}" mode="widthFix" data-src='{{pic.thumb}}' data-urls='{{item.files}}' bindtap="previewPic" wx:for='{{item.files}}' wx:for-item='pic' wx:for-index="idx" wx:key='idx' wx:if='{{item.files.length==1 && item.files[0].type==1}}'></image>
+
+          <image src="{{pic.thumb}}" mode="aspectFill" data-src='{{pic.thumb}}' data-urls='{{item.files}}' bindtap="previewPic" wx:for='{{item.files}}' wx:for-item='pic' wx:for-index="idx" wx:key='idx' wx:if='{{item.files.length>1 && item.files[0].type==1}}'></image>
+          <view class="vedio-block videoed" wx:if='{{status_type=="list" && item.files[0].type==2}}'>
+            <video class="video_label" poster='{{item.files[0].video_thumb}}' src="{{item.files[0].file_path}}" controls object-fit='cover' autoplay='{{false}}' loop='{{false}}'></video>
+            <view class="videoplay"></view>
+          </view>
+        </block>
+        <!-- 懒加载 -->
+        <block wx:else>
+          <image src="{{imgList[listidx]?pic.thumb:defaultImg}}" mode="widthFix" data-src='{{pic.thumb}}' data-urls='{{item.files}}' bindtap="previewPic" wx:for='{{item.files}}' wx:for-item='pic' wx:for-index="idx" wx:key='idx' wx:if='{{item.files.length==1}}'
+            lazy-load="true"></image>
+
+          <image src="{{imgList[listidx]?pic.thumb:defaultImg}}" mode="aspectFill" data-src='{{pic.thumb}}' data-urls='{{item.files}}' bindtap="previewPic" wx:for='{{item.files}}' wx:for-item='pic' wx:for-index="idx" wx:key='idx' wx:if='{{item.files.length>1}}'
+            lazy-load="true"></image>
+        </block>
+      </block>
+      <!-- 一屏两列 -->
+      <block wx:if='{{show_type==2}}'>
+        <block wx:if="{{status_type=='details'}}">
+          <image src="{{item.files[0].thumb}}" mode="widthFix" data-src='{{item.files[0].thumb}}' data-urls='{{item.files}}' bindtap="previewPic" bindload="imageLoad" style="width:{{imgwidth}}rpx; height:{{imgheight}}rpx;"></image>
+        </block>
+        <block wx:else>
+          <image src="{{item.files[0].thumb}}" mode="widthFix" data-src='{{item.files[0].thumb}}' data-urls='{{item.files}}' bindtap="previewPic" bindload="imageLoad" style="width:{{imgwidth}}rpx; height:{{imgheight}}rpx;"></image>
+        </block>
+      </block>
+
+    </view>
+    <!-- 详情页视频 -->
+    <view class="vedio-block" wx:if='{{item.files[0].type==2 && status_type=="details"}}'>
+      <video class="video_label" poster='{{item.files[0].video_thumb}}' src="{{item.files[0].file_path}}" controls autoplay='{{true}}' loop='{{true}}'></video>
+    </view>
+    <view class="list-contener">
+      <view class="soft-title" wx:if='{{status_type=="details"}}'>
+        <text class="title-cnt">{{item.title}}</text>
+        <text class="iconfont iconxiazai download-btn" bindtap="downloadImgFun">下载素材</text>
+      </view>
+      <!-- 内容 -->
+      <rich-text nodes='{{indexModule.richText(richtex || item.content)}}' class="soft-content style{{show_type}} {{moreData==item.id?'':'hide-more'}}" bindtap="goDetail" data-id="{{item.id}}" data-idx="{{listidx}}" wx:if="{{show_type==1}}"></rich-text>
+      <view class="soft-content style{{show_type}} {{moreData==item.id?'':'hide-more'}}" bindtap="goDetail" data-id="{{item.id}}" data-idx="{{listidx}}" wx:else>{{item.title}}</view>
+      <!-- 展开收起 -->
+      <view class="slide-block" wx:if='{{show_type==1 && marginBM[listidx]>5 && marginBM[listidx]!=6 && status_type=="list"}}' style="color:{{themeColorValue}}" bindtap="showMore" data-idxs="{{item.id}}">
+        <text wx:if="{{moreData==item.id}}">收起</text>
+        <text wx:else>展开</text>
+      </view>
+      <!-- 底部交互 -->
+      <view class="oprate style{{show_type}}" wx:if='{{status_type=="list" || !status_type}}'>
+        <view class="left">
+          <view class="publisher" wx:if="{{show_set.show_fber*1}}">
+            <image src="{{item.fbtximg || '../../../../images/photo_default.png'}}" mode="widthFix" data-src='{{item.fbtximg}}'></image>
+            <text>{{item.fbname}}</text>
+          </view>
+          <view class="read" style="margin-right:24rpx;" wx:if="{{show_set.show_addtime*1}}">{{item.addtime}}</view>
+          <view class="dot" wx:if="{{show_set.show_addtime*1 && show_set.show_view*1}}"></view>
+          <view class="read cricle" wx:if="{{show_set.show_view*1}}">{{item.view_num}}阅读</view>
+        </view>
+        <view class="like go-like" bindtap="clickHeart" data-id="{{item.id}}" data-idxs="{{listidx}}" wx:if="{{_unlogin == false}}" style="color:{{item.liked?themeColorValue:'#999'}}">
+          <view wx:if="{{show_set.show_like*1}}">
+            <text class="iconfont {{item.liked?'icon-xihuan':'icon-hert'}}"></text>{{item.like_num}}
+          </view>
+        </view>
+        <view class="like" wx:else>
+          <button type='primary' class='iconfont icon-hert user-icon' open-type="getUserInfo" bindgetuserinfo="userCall" binderror="errCall" wx:if="{{show_set.show_like*1}}">
+            <text class="like-num">{{item.like_num}}</text>
+          </button>
+        </view>
+      </view>
+      <view class="oprate style{{show_type}}" wx:if='{{status_type=="details"}}'>
+        <view class="left">
+          <view class="read" style="margin-right:24rpx;" wx:if="{{item.show_addtime*1}}">{{item.addtime}}</view>
+          <view class="dot" wx:if="{{item.show_addtime*1 && item.show_view*1}}"></view>
+          <view class="read cricle" wx:if="{{item.show_view*1}}">{{item.view_num}}阅读</view>
+        </view>
+        <view class="right">
+          <view class="like go-like" wx:if="{{_unlogin == false}}" style="color:{{item.liked?themeColorValue:'rgba(145,147,152,1)'}}">
+            <view wx:if="{{item.show_like*1}}" bindtap="clickHeart" data-id="{{item.id}}" data-idxs="{{listidx}}" style="display: flex;align-items: center;">
+              <text class="iconfont {{item.liked?'icon-xihuan':'icon-hert'}}"></text>{{item.like_num}}
+            </view>
+            <view class="share" style="margin-left:50rpx;color:rgba(145,147,152,1);" bindtap="shareTap">
+              <text class="iconfont icon-iconzhengli_fenxiang" style="padding-right:4rpx;"></text>{{item.share_num}}
+            </view>
+          </view>
+          <view class="like" wx:else>
+            <button type='primary' wx:if="{{item.show_like*1}}" class='iconfont icon-hert user-icon' open-type="getUserInfo" bindgetuserinfo="userCall" binderror="errCall">
+              <text class="like-num">{{item.like_num}}</text>
+            </button>
+          </view>
+          <view class="like" wx:if="{{_unlogin != false}}" style="margin-left:50rpx;padding-right:4rpx;">
+            <button type='primary' class='iconfont icon-iconzhengli_fenxiang user-icon' open-type="getUserInfo" bindgetuserinfo="userCall" binderror="errCall">
+              <text class="like-num">{{item.share_num}}</text>
+            </button>
+          </view>
+          <!-- <view class="share" style="margin-left:50rpx;color:rgba(145,147,152,1);" bindtap="shareTap">
+            <text class="iconfont icon-iconzhengli_fenxiang" style="padding-right:4rpx;"></text>{{item.share_num}}
+          </view> -->
+        </view>        
+      </view>
+      <view class="topic" wx:if='{{status_type=="details" && item.talktag.length>0}}'>
+        <navigator class="topic-list" wx:for="{{item.talktag}}" wx:for-item="topicList" url="/pages/SHOPKEEPER/pages/publish/publishList?way=1&tid={{topicList.tid}}" wx:key='index'>
+          <text class="topic-symbol" style="background-color:{{themeColorValue}}">#</text>
+          <text style="color:{{themeColorValue}}">{{topicList.talkname}}</text>
+        </navigator>
+      </view>
+    </view>
+  </view>
+</template>

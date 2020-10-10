@@ -1,0 +1,43 @@
+<!--选择默认地址通用模板-->
+<template name="choiceAddress">
+    <view class="addressPages" data-page="{{page.public.choiceAddress}}" style="margin-bottom: 120rpx;">
+        <view class="addressList" wx:for="{{addressData}}" wx:key="index" wx:if="{{item}}">
+            <view   bindtap="{{orderData.address ? 'useThisAddress' : ''}}" 
+                    data-bindtap="{{orderData.address ? 'useThisAddress' : ''}}"
+                    data-addId="{{item.address_id}}" style="position:relative;">
+                <view class="addressTop">
+                    <text>{{item.name}}</text>
+                    <text> {{item.tel}}</text>
+                </view>
+                <view class="addressDec" data-id="{{orderData.address_id}}">{{item.province_txt}}{{item.city_txt}}{{item.area_txt}}{{item.address}}{{item.address_detail}}</view>
+                <view wx:if="{{orderData.address}}" class="addressChecked iconfont {{ orderData && orderData.address == item.address_id? 'icon-correct': ''}} "  data-order="{{orderData}}"></view>
+            </view>
+            <view class="addressChoic clearfix">
+                
+                <view class="addressIcon" data-current="{{index}}" data-addId="{{item.address_id}}" bindtap="defaultAddress">
+                    <view class="iconBox {{currentTab==index ? 'active-green' : ''}}">
+                        <text class="iconfont {{currentTab==index ? 'icon-correct active-green' : ''}}"></text>
+                    </view>设为默认
+                </view>
+                <view class="addressEdit">
+                    <view class="editButton" bindtap="addressEditGO" data-addId="{{item.address_id}}">
+                        <text class="iconfont iconbianji" data-addId="{{item.address_id}}"></text>编辑</view>
+                    <view class="delButton" bindtap="delAddress" data-addId="{{item.address_id}}" data-index="{{index}}">
+                        <text class="iconfont icon-shanchu" data-addId="{{item.address_id}}" data-index="{{index}}"></text>删除</view>
+                </view>
+            </view>
+        </view>
+        <view class="productdDefault" wx:if="{{addressData==''}}">
+            <image src="https://s.404.cn/applet/images/wxcopy/shop_08.png"> </image>
+            <text>还没有收货地址呢,快来添加吧!</text>
+        </view>
+    </view>
+    <view class="bottom-btn bg-ff">
+      <button class="childBtn bg-f4" type="" bindtap="addressEditGO" data-addId="0">新增收货地址</button>
+    </view>
+    
+    <!-- <view class="buttonGroup flex flex-center"> -->
+        <!-- <button class="childBtn wxBtn" type="" bindtap="chooseWXAddress">使用微信地址</button> -->
+        <!-- <button class="childBtn bg-f4" type="" bindtap="addressEditGO" data-addId="0">新增收货地址</button> -->
+    <!-- </view> -->
+</template>

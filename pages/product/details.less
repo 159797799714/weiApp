@@ -1,0 +1,230 @@
+// out: details.wxss, compress: true
+@import "../../template/together-dialog/together-dialog.less";
+@import "../../wxParse/wxParse.wxss";
+/* //关于图片宽度和间隙问题 */
+.line-60{line-height: 60rpx;}
+.wxParse-img{
+  display: flex; 
+  margin-top:-5rpx;
+  width: 100% !important;
+}
+.playbill-box{width:100%;height:100%;position:fixed;top:0;left:0;z-index:200}.playbill-box .mask{width:100%;height:100%;opacity:.6;background:#000}.playbill-box .playbill{width:560rpx;position:absolute;top:50%;left:50%;transform:translate(-50%, -50%)}.playbill-box .playbill .plimgs{display:block;width:100%;height:980rpx}.playbill-box .playbill .plbtns{display:flex;margin-top:30rpx}.playbill-box .playbill .plbtns .pbtn{flex:1;height:76rpx;font-size:26rpx;color:#333;line-height:76rpx;text-align:center;background:#FEFFFF;margin-right:10rpx;padding:0;border-radius:8rpx}.playbill-box .playbill .plbtns .pbtn::after{display:none}.playbill-box .playbill .plbtns .tosave{color:#FEFFFF;background:#FF4444;margin:0 0 0 10rpx}
+.model-box{padding:20rpx 0}.model-box .sure-title{font-size:32rpx;color:#333;line-height:40rpx;margin-bottom:25rpx}.model-box .sure-cnt{font-size:28rpx;color:#666;line-height:40rpx}.footer-btn-box{display:flex}.footer-btn-box .surebtn{flex:1;height:90rpx;font-size:32rpx;color:#333;line-height:90rpx;text-align:center;background:none;padding:0}.footer-btn-box .surebtn::after{display:none}.footer-btn-box .surebtn.save{color:#FF4444}.footer-btn-box .btnline{width:1rpx;height:90rpx}
+.active{
+  color: #FF4444!important;
+  background: rgba(255,68,68,0.1)!important;
+  border-color: #FF4444!important;
+}
+page{
+  font-family: Microsoft YaHei, Arial, Helvetica, '\534E\6587\9ED1\4F53', sans-serif;
+  line-height: 1;
+  overflow: auto;
+}
+.inner-wrap{
+  position: relative;
+}
+.m-l-10{
+  margin-left: 10rpx;
+}
+.m-t-20{
+  margin-top: 20rpx;
+}
+.m-b-10{
+  margin-bottom: 10rpx;
+}
+.line-33{line-height: 33rpx;}
+.product-head{
+  height: 128rpx;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  background: url(http://112.74.41.190/memberBg.png);
+  background-size: cover;
+  .price{
+    line-height: 58rpx;
+    height: 58rpx;
+    overflow: hidden;
+  }
+  .origin-price{
+    color: #feffff;
+    opacity: 0.6;
+  }
+}
+.goodInfo{
+  padding: 30rpx;
+  .good-name{
+    line-height: 48rpx;
+  }
+}
+
+/* 服务规格 */
+.rowBox{
+  padding: 0 30rpx;
+}
+.row-item{
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  padding-top: 30rpx;
+  line-height: 40rpx;
+  border-bottom: 1rpx solid #eeeeee;
+}
+.way{
+  padding: 30rpx 30rpx 0 30rpx;
+  .payWay{
+    margin-left: 30rpx;
+    display: inline-block;
+    line-height: 40rpx;
+    padding: 12rpx 30rpx;
+    border-radius: 32rpx;
+    border-style: solid;
+    border-width: 2rpx;
+    font-size: 28rpx;
+    background: #f5f5f5;
+    border-color: #f5f5f5;
+    color: #333;
+  }  
+}
+
+
+.row-name{
+  width: 132rpx;
+  padding-bottom: 30rpx;
+  font-weight: bold;
+  &:before{
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+  }
+}
+.row-main{
+  flex: 1;
+  padding-bottom: 30rpx;
+  overflow: hidden;
+}
+.b-0{
+  border: 0
+}
+.row-main .serve{
+  margin-right: 40rpx;
+  display: inline-block;
+  vertical-align: top;
+  line-height: 40rpx;
+}
+.serve-icon{
+  display: inline-block;
+  height: 26rpx;
+  width: 26rpx;
+  margin-top: 8rpx;
+  background-size: cover;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADRUlEQVRYR61XS3LaQBB9LdkLqCDICQwVWMc+QWBptDCcwNzA5AS2b0BOEHwC4wV4CT5BYA0puEFAduFUAurUjBCR0WgkKM8ONNP95r3+DWGP5Ux6NYAvAMozc46ITsVxZh4S0RzgGRgdq2Q/JDVLcRtfp4/5v2v3moEagXJx+yUg8JyATsZMf6VCZa47owWwGHdvQLhK6njXkQBikNHKfDq/jQKhBMDTfs5ZLfs+xUlurdsjJLKO0hUVGyEAL9Pu6XqN/qG3jgIi2DBNVD4U7GFwzxsA8ubr5fS9nfsOBQjLTBeCTGwBvDftkUwwD7Ml+8z/vgUgAo6IrvfU+26z/3Kfc8x8my3ZN+KMBCBS7c/a/ZGEegYWIsWOTbpJFc5n/vnVmpsuWKTqSRyYoBQSgDPptQGEb8F4YvBAGjRobrg0zJTOvd+a9Tx+LG91J24obQN3VrHakAAWk54oHNlQHgeoinMa9T1KWsFCtmh/JK+84l5lIKjVewPY2KsLAGr6vRq/DRYVAHE7A8ZAJ4suuAn4Rs64NwDhyyEMLCZd0Xx+BdNq1442uxhP5Iy7QxB9TgpABBgTTgC3DJAIMMFVGzAGhumOdiudDoDsos6kx1H6qiTQSYZNZAftxdWXvQHItFWyxg9W0RYB/WbFA9hTAmHdk4H7QU/EVFEFoz4GeHRQEDqTbgOg76IqQg4fsvrVrWK1sxcDMgg1aQhgYBWrlZDRn70mXM5ZR+mWlGS1bBJhZhVtkdJvljPpdgC6UMWZl4aaQiQORVGbpDCppNo5V9eWYplgwMwyU2dxs90uoLj2LuTLFqs5fTPaWNWNVMr6kWyk+9+MvEnodaZqSL4DOWCyUY/rht5IR/cE5CPrC7CwzFResHrAQMLtY9O49WeBLcBpP/fi/r5iZjlo6FZoIPE368py2CC3ySQv6leoucSNJAMNmEdWyZYPGhnkQcNJpIi7nfbmAeqVAMSfGw0Hung4BISIetPksnYsD+r5vFoOorrk3gCYR5mjdDnRwyRo3HuaUfNQNmSpZm75E7AKeOzjVMTF8/q15T1Ow3Ojsg5sJueMmWrGFbBYAEEHm7JdA4sc59xWIuYRQHMiDNnrH6GmFCXbPz365zAPMWIMAAAAAElFTkSuQmCC);
+}
+.vipServe .dieWidth{
+  display: inline-block;
+  width: 125rpx;
+}
+.goodTop .good-price{
+  padding: 30rpx 0 40rpx 0;
+}
+.footBox{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 60;
+  width: 100%;
+  height: 102rpx;
+  background: #fff;
+  box-shadow: 0 -4px 8px 0 rgba(0,0,0,0.10);
+}
+.footLeftBox{
+  width: 270rpx;
+  box-sizing: border-box;
+  padding: 0 30rpx 0 41rpx;
+
+}
+button{
+  display: block;
+  height: auto;
+  line-height: 102rpx;
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  font-size: 26rpx;
+  text-align: center;
+}
+.indexBtn{
+  margin: 0;
+}
+.toindex{
+  padding: 0 15rpx;
+  position: relative;
+  z-index: 60;
+}
+.indexBtn .iconfont{
+  height: 36rpx;
+  width: 36rpx;
+  line-height: 36rpx;
+  margin: 0 auto 7rpx;
+}
+.indexBtn .btninfo{
+  line-height: 30rpx;
+}
+.buyBtn{
+  line-height: 40rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.productDetail{
+  width: 100%;
+  min-height: 200rpx;
+  padding-bottom: 100rpx;
+}
+.noDetail{
+  line-height: 100rpx;
+}
+.authbtn{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  background: #fff;
+  opacity: 0;
+}
+.user-auth{
+  display: none;
+}
+
+// 积分兑换提示
+.integral-popup{
+  width: 100%;
+  padding-top: 42rpx;
+  border-radius: 15rpx;
+  .exchange-img{
+    height: 181rpx;
+    width: 192rpx;
+    margin-bottom: 57rpx;
+  }
+  .exchange-title{
+    line-height: 45rpx;
+    color: #202020;
+  }
+  .exchange-word{
+    color: #424242;
+    line-height: 45rpx;
+    padding: 20rpx 0 76rpx;
+    border-bottom: 1rpx solid #e8e8e8;
+  }
+  .exchange-foot{
+    height: 103rpx;
+    width: 100%;
+    line-height: 103rpx;
+    .cancel-btn{
+      border-right: 1rpx solid #e8e8e8;
+    }
+  }
+}
+.m-l-20{margin-left: 20rpx;}

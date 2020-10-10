@@ -1,0 +1,10 @@
+{
+    "navigationBarTitleText": "邀请好友",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "backgroundTextStyle": "dark",
+    "navigationStyle": "default",
+    "usingComponents": {
+      "com-modal": "../../../../components/com-modal/com-modal"
+    }
+  }

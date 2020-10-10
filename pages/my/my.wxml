@@ -1,0 +1,162 @@
+<import src="../../template/together-dialog/together-dialog.wxml" />
+<view class="my-wrap">
+  <view class="top-part">
+    <view class="bg"></view>
+    <view class="users" wx:if="{{!_unlogin}}">
+      <view class="photos-box" wx:if="{{userData}}">
+        <image class="photo" mode="widthFix" src="{{userData.headImg}}" />
+      </view>
+      <view class="infos-box" wx:if="{{userData}}">
+        <view class="info">
+          <text class="name">{{userData.nickname}}</text>
+          <view class="member">
+            <view class="icons">
+              <view class="iconfont {{userData.member_grade?iconData[userData.member_grade]:'iconputonghuiyuan'}}"></view>
+            </view>
+            <view class="member-cnt">{{userData.role_name || '普通用户'}}</view>
+          </view>
+        </view>
+        <view class="info invi-info" wx:if="{{userData.member_grade&&userData.member_grade>=1}}">
+          <text class="invi">邀请码：{{userData.invitation_code}}</text>
+          <view class="cope" bindtap="copyCode">
+            <text class="ctx">复制</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="users unlogin-users" wx:else>
+      <view class="leftinfos" bindtap="isLogin">
+        <view class="photos-box">
+          <image class="photo" mode="widthFix" src="https://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/default_photo.png" />
+        </view>
+        <view class="name-tip">尊敬的用户</view>
+      </view>
+      <button class="loginbtn" type="primary" bindtap="isLogin">请登录</button>
+    </view>
+    <navigator class="upgrade-box" wx:if="{{userData.member_grade<2}}" url="/pages/membertab/membertab" open-type="switchTab" hover-class="none">
+      <image class="upbg" mode="widthFix" src="https://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/member_back.png" />
+      <view class="containt">
+        <view class="uptip">
+          <view class="tip iconfont iconshengjihuiyuan">升级VIP会员</view>
+          <view class="tip-info">享受更多额外权利</view>
+        </view>
+        <view class="upbtn">一键升级</view>
+      </view>
+    </navigator>
+    <view class="mymoeny {{_unlogin||(userData.member_grade&&userData.member_grade>=2) ? 'topradius' : ''}}">
+      <view class="amount-part scale-1px-bottom {{isModialog?'baby-show':''}}">
+        <view class='moitem scale-1px-right'>
+          <view class="moval">{{!_unlogin&&userData.total_amount ? userData.total_amount/100 : "--"}}</view>
+          <view class="moname">累计收益</view>
+        </view>
+        <view class='moitem scale-1px-right'>
+          <view class="moval">{{!_unlogin&&userData.today_amount ? userData.today_amount/100 : "--"}}</view>
+          <view class="moname">今日预估收益</view>
+        </view>
+        <view class='moitem'>
+          <view class="moval">{{!_unlogin&&userData.balance ? userData.balance/100 : "--"}}</view>
+          <view class="moname">可提余额</view>
+        </view>
+      </view>
+      <!-- 新手任务： 查看购物佣金得积分  图片/按钮 -->
+      <view class="imgbox baby-show-bg" wx:if="{{isModialog}}">
+        <image class="imgs" mode="widthFix" src="https://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/baby_show.png" />
+        <view class="baby-btn" bindtap="babyOnUserFun">我知道了~</view>
+      </view>
+      <!-- 新手任务：查看购物佣金得积分  背景mask  -->
+      <view class="show-mymoeny-dialog" wx:if="{{isModialog}}">
+        <view class="mo-mask" catchtouchmove="preventTouchMove"></view>
+      </view>
+
+      <view class="detail-part" data-url="/subPages/sub-integral/pages/integral-detail/integral-detail" bindtap="toNavigatePage">
+        <text class="icons iconfont iconshouyimingxi">收益明细</text>
+        <text class="arrow-icon iconfont iconarrowright"></text>
+      </view>
+    </view>
+  </view>
+  <view class="menues" data-url="/subPages/sub-fund/pages/cashout/cashout" bindtap="toNavigatePage">
+    <text class="menue-title iconfont iconshouyitixian">收益提现</text>
+    <view class="menue-btn {{_unlogin?'uncashout':''}}">提现</view>
+  </view>
+  <!-- invite_show:  0-提审时先关闭  1-提审后展示 -->
+  <navigator class="invite-box" wx:if="{{userData.invite_show}}" url="/subPages/sub-gifttab/pages/invite-friend/invite-friend" open-type="navigate" hover-class="none">
+    <image class="invite-img" mode="widthFix" src="https://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/yaoqinghaoyou_banner.png" />
+  </navigator>
+  <view class="cashback-part block-part">
+    <view class="title">返利订单</view>
+    <view class="lsit">
+      <view class="list-item" data-tab="0" bindtap="toCashbackPage">
+        <view class="list-icon iconfont iconxingzhuangjiehe"></view>
+        <view class="list-name">全部订单</view>
+      </view>
+      <view class="list-item" data-tab="1" bindtap="toCashbackPage">
+        <view class="list-icon iconfont icondaifanxian"></view>
+        <view class="list-name">待返现</view>
+        <view class="points" wx:if="{{orderRead&&orderRead.wait_cash}}">{{orderRead.wait_cash || 0}}</view>
+      </view>
+      <view class="list-item" data-tab="2" bindtap="toCashbackPage">
+        <view class="list-icon iconfont iconyifanxian"></view>
+        <view class="list-name">已返现</view>
+        <view class="points" wx:if="{{orderRead&&orderRead.finish_cash}}">{{orderRead.finish_cash || 0}}</view>
+      </view>
+      <view class="list-item" data-tab="3" bindtap="toCashbackPage">
+        <view class="list-icon iconfont iconyishixiao"></view>
+        <view class="list-name">已失效</view>
+        <view class="points" wx:if="{{orderRead&&orderRead.fail_cash}}">{{orderRead.fail_cash || 0}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="general-part block-part">
+    <view class="title">优选订单</view>
+    <view class="lsit">
+      <view class="list-item" data-status="all" bindtap="orderListGo">
+        <view class="list-icon iconfont iconquanbudingdan"></view>
+        <view class="list-name">全部订单</view>
+      </view>
+      <view class="list-item" data-status="unpay" bindtap="orderListGo">
+        <view class="list-icon smicon iconfont icondaizhifu"></view>
+        <view class="list-name">待支付</view>
+      </view>
+      <view class="list-item" data-status="unsend" bindtap="orderListGo">
+        <view class="list-icon smicon iconfont icondaifahuo"></view>
+        <view class="list-name">待发货</view>
+      </view>
+      <view class="list-item" data-status="send" bindtap="orderListGo">
+        <view class="list-icon smicon iconfont icondaishouhuo"></view>
+        <view class="list-name">待收货</view>
+      </view>
+      <view class="list-item" data-status="complete" bindtap="orderListGo">
+        <view class="list-icon iconfont iconyiwancheng"></view>
+        <view class="list-name">已完成</view>
+      </view>
+    </view>
+  </view>
+  <view class="tool-part block-part">
+    <view class="title">快捷工具</view>
+    <view class="lsit">
+      <button class="list-item contact-item" open-type="share">
+        <view class="list-icon iconfont iconyaoqinghaoyou"></view>
+        <view class="list-name">邀请好友</view>
+      </button>
+      <view class="list-item" wx:if="{{userData.member_grade < 1}}" data-key="inviteCode" bindtap="toolFun">
+        <view class="list-icon iconfont icontianxieyaoqingma"></view>
+        <view class="list-name">填写邀请码</view>
+      </view>
+      <button class="list-item contact-item" open-type="contact">
+        <view class="list-icon iconfont bgfont iconcps_contact_kefu"></view>
+        <view class="list-name">联系客服</view>
+      </button>
+      <view class="list-item" bindtap="editAddress">
+        <view class="list-icon iconfont bgfont icondizhiguanli"></view>
+        <view class="list-name">地址管理</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 授权手机号码 -->
+  <button class='authbtn' wx:if='{{!_unlogin&&!_has_phone}}' type='primary' bindtap="toGetPhonenumAuth"></button>
+
+  <!-- 首页合作/商品搜索/授权 弹框 -->
+  <template is="togetherDialog" data='{{...commonModalData}}'></template>
+</view>
+<include src="/pages/public/page_footer.wxml"></include>

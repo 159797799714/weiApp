@@ -1,0 +1,82 @@
+<view class="equity-wrap">
+  <!-- VIP及以上会员不展示 -->
+  <navigator class="top-show" url="/subPages/sub-member/pages/gift-store/gift-store" wx:if="{{member < 2}}">
+    <view class="left">
+      <view class="left-bg">成为VIP会员</view>
+      <view class="left-sm">自购省钱，分享赚钱</view>
+    </view>
+    <view class="iconfont iconhuangguan"></view>
+  </navigator>
+  <view class="title">会员权益</view>
+  <view class="datas">
+    <view class="data-item title-item">
+      <view class="rows data-title"></view>
+      <view class="rows data-buy">普通用户</view>
+      <view class="rows data-share">普通会员</view>
+      <view class="rows data-promotion">VIP会员</view>
+    </view>
+    <view class="data-item">
+      <view class="rows data-title">购物奖励</view>
+      <view class="rows rows_{{index}}" wx:for="{{equityDatas.shoppingRewards}}" wx:key="index">{{item ? (item + '%') : 0}}</view>
+    </view>
+    <view class="data-item">
+      <view class="rows data-title">分享赚钱</view>
+      <view class="rows rows_{{index}}" wx:for="{{equityDatas.shareRewards}}" wx:key="index">{{item ? (item + '%') : 0}}</view>
+    </view>
+    <view class="data-item">
+      <view class="rows data-title">爆款推广奖励</view>
+      <view class="rows rows_{{index}}" wx:for="{{equityDatas.giftRewards}}" wx:key="index">{{item ? (item + '积分') : 0}}</view>
+    </view>
+  </view>
+  <view class="owns">
+    <view class="own-title">
+      <view class="title-cnt">会员专属扶持</view>
+    </view>
+    <view class="own-list">
+      <view class="own-item" wx:for="{{ownlist}}" wx:key="index">
+        <image class="own-img" src="{{item.image}}" />
+        <view class="own-info">{{item.info}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="equity-infos">
+    <image class="rectangle" src="https://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/rectangle.png" />
+    <view class="infos-title">当前等级：{{roleName}}</view>
+    <view class="subtitle">会员权益如下</view>
+    <view class="infos-list">
+      <view class="info-item">
+        <view class="order"></view>
+        <view class="cnt">普通会员权益：
+           <view class="text-list">
+            <view class="text">① 自购返利：最高获得{{equityDatas.shoppingRewards[1] ? (equityDatas.shoppingRewards[1] + '%') : 0}}积分返利；</view>
+            <view class="text">② 分享返利：分享商品给好友，最高赚{{equityDatas.shareRewards[1] ? (equityDatas.shareRewards[1] + '%') : 0}}积分返利；</view>
+            <view class="text">③ 免费推广素材；</view>
+            <view class="text">④ 直播间推广收益；</view>
+          </view>
+        </view>
+      </view>
+      <view class="info-item">
+        <view class="order"></view>
+        <view class="cnt">VIP会员权益
+          <view class="text-list">
+            <view class="text">① 会员邀请返利：邀请好友加入会员享{{equityDatas.giftRewards[2] ? equityDatas.giftRewards[2] : 0}}积分返还；</view>
+            <view class="text">② 购物返利：最高获得{{equityDatas.shoppingRewards[2] ? (equityDatas.shoppingRewards[2] + '%') : 0}}积分返利；</view>
+            <view class="text">③ 分享返利：分享商品给好友，最高赚{{equityDatas.shareRewards[2] ? (equityDatas.shareRewards[2] + '%') : 0}}积分返利；</view>
+            <view class="text">④ 免费推广素材；</view>
+            <view class="text">⑤ 直播间推广收益；</view>
+            <view class="text">⑥ 会员级别晋升通道，晋升后享更多会员独家权益；</view>
+          </view>
+        </view>
+      </view>
+      <view class="info-item">
+        <view class="order"></view>
+        <view class="cnt">会员返利以积分形式返还，当月完成收货的订单返利积分次月底之前完成结算。</view>
+      </view>
+      <view class="info-item">
+        <view class="order"></view>
+        <view class="cnt">本商城在法律规定的范围内拥有会员权益的解释权。</view>
+      </view>
+    </view>
+  </view>
+
+</view>

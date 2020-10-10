@@ -1,0 +1,815 @@
+// out: gifttab.wxss, compress: true
+@import "../../template/tabs/tabs.less";
+@import "../../template/exc-list/exc-list.less";
+@import "../../template/together-dialog/together-dialog.less";
+
+page {
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  background: #f2f3f5;
+}
+
+.gifttab-wrap {
+  position: relative;
+  height: 100%;
+
+  .bg {
+    width: 100%;
+    height: 765rpx;
+    background: linear-gradient(180deg, #FF5171 2%, #FE7250 55%, rgba(253, 142, 53, 0.00) 100%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    overflow: hidden;
+  }
+
+  .balance-wrap {
+    padding: 20rpx 0 0;
+    position: relative;
+    height: 479rpx;
+    box-sizing: border-box;
+
+    .jifen-bg {
+      width: 436rpx;
+      height: 436rpx;
+      position: absolute;
+      left: 157rpx;
+      top: 20rpx;
+    }
+
+    .integral-con {
+      width: 436rpx;
+      color: #fff;
+      font-size: 80rpx;
+      position: absolute;
+      left: 157rpx;
+      top: 170rpx;
+    }
+
+    .sign-modal-btn {
+      width: 280rpx;
+      height: 72rpx;
+      box-shadow: 0 1rpx 5rpx 0 rgba(142, 64, 10, 0.30);
+      border-radius: 36rpx;
+      background: linear-gradient(90deg, #FFEFA4 12%, #FDEA92 67%);
+      font-size: 32rpx;
+      color: #FF4444;
+      text-align: center;
+      line-height: 72rpx;
+      position: absolute;
+      left: 235rpx;
+      // top: 296rpx;
+      top: 316rpx;
+    }
+
+    .sign-no-use {
+      color: #999;
+      background: #f5f5f5;
+    }
+
+    .sign-word {
+      font-size: 28rpx;
+      color: #FFFFFF;
+      text-align: center;
+      position: absolute;
+      left: 124rpx;
+      bottom: 30rpx;
+    }
+
+    .exchange-record {
+      position: absolute;
+      right: 0;
+      top: 20rpx;
+      width: 172rpx;
+      height: 62rpx;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 100rpx 0 0 100rpx;
+      font-size: 28rpx;
+      line-height: 62rpx;
+      text-align: center;
+      color: #fff
+    }
+  }
+
+  // 兑换btn
+  .exchange-wrap {
+    padding: 0 30rpx;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20rpx;
+
+    .exchange-box {
+      width: 335rpx;
+      height: 140rpx;
+      background: #FFFFFF;
+      border-radius: 8rpx;
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+      overflow: hidden;
+
+      .icon-con {
+        width: 171rpx;
+        height: 140rpx;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // margin-right: 12rpx;
+      }
+
+      .integral-icon,
+      .charge-icon {
+        width: 140rpx;
+        height: 128rpx;
+
+      }
+
+      // .charge-icon {
+      //   width: 140rpx;
+      //   height: 128rpx;
+      // }
+
+      .integral-word {
+        width: 112rpx;
+        font-size: 28rpx;
+        color: #333333;
+        font-weight: bold;
+        line-height: 40rpx;
+        margin-bottom: 5rpx;
+      }
+
+      .integral-subword {
+        font-size: 26rpx;
+        color: #999999;
+        line-height: 37rpx;
+
+        .my-icon-more {
+          color: #D6D6D6;
+          display: inline;
+          font-size: 24rpx;
+        }
+      }
+    }
+
+  }
+
+
+  .integral-wrap {
+    padding: 0 30rpx 20rpx;
+  }
+
+  // 邀请好友
+
+  .invite-wrap {
+    width: 690rpx;
+    height: 190rpx;
+    border-radius: 8rpx;
+    overflow: hidden;
+    margin-bottom: 20rpx;
+
+    .invite-img {
+      width: 100%;
+    }
+
+  }
+
+  .seven-wrap {
+    height: 256rpx;
+    box-sizing: border-box;
+    padding: 30rpx;
+    background-color: #fff;
+    border-radius: 8rpx;
+    margin-bottom: 20rpx;
+
+    .seven-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20rpx;
+
+      .seven-sign {
+        font-weight: bold;
+        font-size: 30rpx;
+        color: #333333;
+      }
+
+      .seven-to-sign {
+        font-size: 24rpx;
+        color: #666666;
+      }
+    }
+
+    .handle-wrap {
+      // padding: 20rpx 6rpx;
+
+      margin: 40rpx 0 0 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+
+      .sign-item {
+        // margin-right: 11.9rpx;
+        width: 84rpx;
+        height: 120rpx;
+        // display: inline-block;
+
+        .sign-content {
+          width: 100%;
+          height: 100%;
+          background-color: #F5F6FA;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-around;
+          border-radius: 8rpx;
+          position: relative;
+        }
+
+        .is_double {
+          background: linear-gradient(0deg, #FF5171 0%, #FD8E35 100%);
+          border-radius: 90rpx 90rpx 90rpx 0;
+          font-size: 20rpx;
+          padding: 4rpx 7rpx;
+          color: #fff;
+          position: absolute;
+          top: -30rpx;
+          left: 15rpx;
+        }
+
+        .which-day {
+          font-size: 22rpx;
+          color: #333;
+          margin-top: 2rpx;
+        }
+
+        .sign-integral-icon {
+          width: 42rpx;
+          height: 42rpx;
+        }
+
+        .points {
+          font-size: 20rpx;
+          // color: rgba(153, 153, 153, 0.6);
+          color: #999999;
+        }
+
+        .has-sign {
+          background: linear-gradient(0deg, #FF5171 0%, #FD8E35 100%);
+          box-shadow: 0 4rpx 6rpx 0 rgba(255, 81, 113, 0.27);
+
+          .which-day {
+            color: #fff;
+            font-size: 22rpx;
+            margin-top: 2rpx;
+          }
+
+          .points {
+            color: rgb(255, 255, 255, 0.6);
+            // font-weight: bold;
+          }
+        }
+
+        .double-sign {
+          background: linear-gradient(180deg, #FFC800 0%, #F76B1C 100%);
+
+          .which-day {
+            color: #fff;
+            margin-top: 2rpx;
+          }
+
+          .points {
+            color: rgb(255, 255, 255, o.6);
+          }
+        }
+
+      }
+
+      .sign-item:last-child {
+        margin-right: 0;
+      }
+
+
+    }
+  }
+
+  .fresh-wrap,
+  .every-task {
+    padding: 30rpx;
+    background-color: #fff;
+    border-radius: 8rpx;
+    margin-bottom: 20rpx;
+  }
+
+  .every-task {
+    margin-bottom: 0;
+  }
+
+  .task-title {
+    font-size: 32rpx;
+    color: #333333;
+    font-weight: bold;
+    // margin-bottom: 40rpx;
+    margin-bottom: 30rpx;
+  }
+
+  .fresh-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 33rpx;
+
+    .circle {
+      width: 68rpx;
+      height: 68rpx;
+      border-radius: 50%;
+      margin-right: 20rpx;
+    }
+
+    .task-text {
+      margin-right: 96rpx;
+      flex: 1;
+
+      view:first-child {
+        font-weight: bold;
+        font-size: 28rpx;
+        color: #333333;
+        line-height: 40rpx;
+        margin-bottom: 5rpx;
+      }
+
+      view:last-child {
+        font-size: 24rpx;
+        color: #999999;
+        line-height: 33rpx;
+      }
+
+      .omit-content {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+  }
+
+  .btn {
+    width: 118rpx;
+    height: 56rpx;
+    background: linear-gradient(270deg, #FF5171 0%, #FD8E35 99%);
+    // box-shadow: 0 2rpx 6rpx 0 rgba(255, 152, 30, 0.30);
+    border-radius: 56rpx;
+    color: #fff;
+    font-size: 26rpx;
+    text-align: center;
+    line-height: 56rpx;
+    position: relative;
+  }
+
+  .done-btn {
+    color: #999999;
+    // border: 2rpx solid #DDDDDD;
+    background: #fff;
+  }
+
+  .go-btn {
+    // background: linear-gradient(90deg, #FFAF31 0%, #FF7E08 94%);
+    height: 52rpx;
+    width: 114rpx;
+    line-height: 52rpx;
+    color: #FF4444;
+    border: 2rpx solid #FF4444;
+    background: #fff;
+  }
+
+
+  .fresh-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .gift-wrap {
+    padding: 20rpx 30rpx 0;
+    background-color: #fff;
+
+    .banner-bgc {
+      // width: 689rpx;
+      // height: 216rpx;
+      // background-color: red;
+      // margin: 30rpx 0;
+      // border-radius: 8rpx;
+      position: relative;
+
+      .banners-box {
+        width: 690rpx;
+        height: 216rpx;
+        border-radius: 12rpx;
+        position: relative;
+        overflow: hidden;
+
+        .swiperitem {
+          display: flex;
+          align-items: center;
+          border-radius: 12rpx;
+        }
+      }
+
+      .dots {
+        display: flex;
+        position: absolute;
+        bottom: 20rpx;
+        left: 50%;
+        z-index: 40;
+        transform: translateX(-50%);
+
+        .dots-item {
+          width: 14rpx;
+          height: 14rpx;
+          opacity: 0.6;
+          background: #fff;
+          border-radius: 50%;
+          margin: 0 5rpx;
+        }
+
+        .dots-active {
+          opacity: 1;
+          background: #fff;
+        }
+      }
+    }
+
+
+
+
+  }
+
+
+
+  .sign-modal {
+    .mo-content {
+      background: #fff;
+      padding: 80rpx 0 30rpx;
+      margin-bottom: 25rpx;
+      border-radius: 15rpx;
+      position: relative;
+    }
+
+    .bg-modal {
+      display: block;
+      width: 100%;
+      position: absolute;
+      top: -15rpx;
+      left: 0;
+      z-index: 0;
+    }
+
+    .sign-title {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 290rpx;
+
+      &>text {
+        font-size: 32rpx;
+        color: #FFFFFF;
+        line-height: 45rpx;
+        margin-bottom: 8rpx;
+      }
+
+      .sign-modal-content {
+        font-size: 28rpx;
+        color: #FFFFFF;
+        letter-spacing: 0.02rpx;
+        text-align: center;
+      }
+    }
+
+    .sign-btn {
+      .sign-modal-integral {
+        color: #FF4444;
+
+        .big-num {
+          font-size: 68rpx;
+          vertical-align: middle;
+        }
+      }
+
+      .old-view {
+        width: 476rpx;
+        height: 82rpx;
+        border-radius: 100rpx;
+        font-size: 32rpx;
+        line-height: 82rpx;
+        color: #fff;
+        background: linear-gradient(270deg, #FF5171 0%, #FD8E35 99%);
+        margin: 0 auto;
+        position: relative;
+      }
+
+      .getbtn {
+        margin-bottom: 20rpx;
+      }
+
+      .giveup {
+        width: 220rpx;
+        font-size: 30rpx;
+        color: #999;
+        line-height: 42rpx;
+        padding: 20rpx 20rpx 0 20rpx;
+        margin: 0 auto;
+      }
+
+      .double-icon {
+        position: absolute;
+        width: 68rpx;
+        height: 36rpx;
+        font-size: 30rpx;
+        line-height: 36rpx;
+        border-radius: 100rpx 100rpx 100rpx 0;
+        background: linear-gradient(90deg, #FFAF31 0%, #FF7E08 94%);
+        color: #fff;
+        top: -20%;
+        right: 15%;
+      }
+
+    }
+
+    .closeicons {
+      width: 60rpx;
+      font-size: 60rpx;
+      color: #fff;
+      line-height: 50rpx;
+      padding: 15rpx;
+      margin: 0 auto;
+      opacity: .7;
+
+    }
+
+    // 签到积分弹窗
+    .eve-wrap {
+      position: relative;
+    }
+
+    .eve-title {
+      color: #fff;
+    }
+
+    .eve-sign {
+      text-align: center;
+      color: #FF4444;
+      margin-top: 320rpx;
+      margin: 320rpx 0 40rpx;
+    }
+
+    .eve-text {
+      padding: 0 30rpx;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30rpx;
+
+      .eve-has-sign {
+        font-size: 26rpx;
+        color: #333333;
+      }
+
+      .eve-has-seven {
+        font-size: 26rpx;
+        color: #999999;
+      }
+    }
+
+    .eve-panel {
+      padding: 0 30rpx;
+      display: flex;
+      justify-content: space-between;
+
+      .eve-panel-item {
+        .eve-item-top {
+          width: 54.4rpx;
+          height: 54.4rpx;
+          border-radius: 50%;
+          margin-bottom: 12.8rpx;
+        }
+
+        .eve-has-sign {
+          background: linear-gradient(180deg, #FEEF6F 0%, #F7C02B 100%);
+          box-shadow: 0 3rpx 7rpx 0 rgba(246, 191, 37, 0.30), inset 0 0 7rpx 0 #F9BF22;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          .eve-item-inner {
+            width: 40.8rpx;
+            height: 40.8rpx;
+            border-radius: 50%;
+            background: linear-gradient(180deg, #FFD135 0%, #FF9902 100%);
+            box-shadow: 0 0 6rpx 0 rgba(255, 255, 255, 0.05), inset 0 0 7rpx 0 rgba(255, 143, 0, 0.64);
+            font-size: 22rpx;
+            color: #FFFFFF;
+            text-align: center;
+            line-height: 40.8rpx;
+          }
+        }
+
+        // 不可签到
+        .eve-no-sign {
+          background: #F5F6FA;
+          font-size: 22rpx;
+          color: #9B9B9B;
+          text-align: center;
+          line-height: 54.4rpx;
+        }
+
+        // 第七天的签到
+        .eve-gift-sign {
+          background: #F5F6FA;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          .eve-gift-img {
+            width: 32rpx;
+            height: 32rpx;
+          }
+        }
+
+        .eve-item-bot {
+          font-size: 20rpx;
+          color: #999999;
+          text-align: center;
+        }
+      }
+    }
+
+    .old-view1 {
+      width: 476rpx;
+      height: 82rpx;
+      border-radius: 100rpx;
+      font-size: 32rpx;
+      line-height: 82rpx;
+      color: #fff;
+      background: linear-gradient(270deg, #FF5171 0%, #FD8E35 99%);
+      margin: 0 auto;
+      position: relative;
+      margin-bottom: 20rpx;
+      margin-top: 40rpx;
+    }
+  }
+
+  .authbtn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+    background: #fff;
+    opacity: 0;
+  }
+
+  .share-btn {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    z-index: 1000;
+  }
+
+  .nodata_cps {
+    width: 100%;
+    // height: calc(~"100% - 85rpx");
+    height: 100%;
+  }
+
+  .tologin {
+    width: 520rpx;
+    height: 88rpx;
+    font-size: 32rpx;
+    color: #FF4444;
+    line-height: 88rpx;
+    background: none;
+    margin: 100rpx auto 0;
+
+    &::after {
+      border-color: #FF4444;
+      border-radius: 100rpx;
+    }
+  }
+
+  .change-color {
+    background: #FF5171;
+    position: relative;
+    z-index: 60;
+  }
+
+  .exc-list {
+    padding: 0;
+  }
+
+  #animat {
+    position: relative;
+    animation: mymove 5s infinite;
+    -webkit-animation: mymove 2000ms infinite;
+    /*Safari and Chrome*/
+    animation-direction: alternate;
+    /*轮流反向播放动画。*/
+    animation-timing-function: linear;
+    /*动画的速度曲线*/
+    /* Safari 和 Chrome */
+    -webkit-animation: mymove 2000ms infinite;
+    -webkit-animation-direction: alternate;
+    /*轮流反向播放动画。*/
+    -webkit-animation-timing-function: linear;
+    /*动画的速度曲线*/
+  }
+
+  @keyframes mymove {
+    0% {
+      transform: scale(1);
+      /*开始为原始大小*/
+    }
+
+    25% {
+      transform: scale(1.2);
+      /*放大1.1倍*/
+    }
+
+    50% {
+      transform: scale(1);
+    }
+
+    75% {
+      transform: scale(1.2);
+    }
+
+  }
+
+  @-webkit-keyframes mymove
+
+  /*Safari and Chrome*/
+    {
+    0% {
+      transform: scale(1);
+      /*开始为原始大小*/
+    }
+
+    25% {
+      transform: scale(1.2);
+      /*放大1.1倍*/
+    }
+
+    50% {
+      transform: scale(1);
+    }
+
+    75% {
+      transform: scale(1.2);
+    }
+  }
+
+  // 组件样式的更改
+  .odometer {
+    width: 100%;
+    height: 100%;
+
+    .odometer-value {
+      font-size: 108rpx;
+      // font-weight: bold;
+      color: #fff;
+    }
+  }
+
+  .safeArea {
+    width: 100%;
+    height: constant(safe-area-inset-bottom);
+    height: env(safe-area-inset-bottom);
+    background-color: #f2f3f5;
+  }
+
+  .gift-title {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20rpx;
+    align-items: center;
+
+    .left-bag {
+      font-size: 36rpx;
+      color: #333333;
+      font-weight: bold;
+    }
+
+    .right-all {
+      font-size: 26rpx;
+      color: #666666;
+      display: flex;
+      align-items: center;
+
+      .arrow-right-icon {
+        display: inline-block;
+        color: #999;
+        font-size: 22rpx;
+        margin-left: 6rpx;
+        transform: translateY(3rpx);
+      }
+    }
+  }
+}

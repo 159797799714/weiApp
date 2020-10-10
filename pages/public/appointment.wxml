@@ -1,0 +1,8 @@
+<!-- 预约核销二维码 -->
+<template name="appointment">
+    <view class="layer" bindtap="appointment">
+    </view>
+    <view class="shearLayer" bindtap="appointment">
+        <image src="{{verify_image_code}}" style='height:340px; width:100%' mode="aspectFit"></image>
+     </view>
+</template>

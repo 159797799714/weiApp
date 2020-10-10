@@ -1,0 +1,39 @@
+<!--图片广告-->
+<wxs src="../../utils/filter.wxs" module="filter"></wxs>
+<template name="image_ad">
+<view>
+    <swiper class="indexSwiper bgF test_type1" autoplay="true" interval="5000" circular="true" indicator-dots="true" data-page="page.public.swiper" style="height:{{ content.content.swiperHeight || (content.content.max_height * content.content.dpr) }}rpx;" wx:if="{{content.content.image_type==0 && content.content.nav_list.length > 1}}">
+        <swiper-item wx:for-items="{{content.content.nav_list}}" wx:for-index="_index"  wx:key="menuId" bindtap="{{item.url=='ad_scan'?'ad_scan':''}}">
+            <navigator class="flex flex-center" url="{{filter.urlTransform(item.url)}}" hover-class="none" open-type="{{item.type=='switchTab'?'reLaunch':'navigate'}}">
+                <image src="{{item.image}}"  bindload="imageLoad" data-t_index="{{t_index}}" data-index="{{_index}}"
+                       style="" class="view">
+                    <text wx:if="{{item.title!=''}}">{{item.title}}</text>
+                </image>
+                
+            </navigator>
+        </swiper-item>
+    </swiper>
+
+        <view class="indexSwiper imageSwiper bgF image_size_0 test_type2" data-page="page.public.swiper" wx:if="{{content.content.image_size*1 == 0 && content.content.nav_list.length == 1}}" style="position:relative;height:{{ content.content.swiperHeight || content.content.max_height }}rpx;">
+        <view wx:for-items="{{content.content.nav_list}}" wx:for-index="_index" wx:key="_index" class="view" style="position:absolute;width:100%;height: 100%;flex:1;margin-bottom:0;" bindtap="{{item.url=='ad_scan'?'ad_scan':''}}">
+            <navigator url="{{filter.urlTransform(item.url)}}" class="navigator" hover-class="none" open-type="{{item.type=='switchTab'?'reLaunch':'navigate'}}">
+                <image src="{{item.image}}"  bindload="imageLoad" data-t_index="{{t_index}}" data-index="{{_index}}"
+                       style=""></image>
+                <text wx:if="{{item.title!=''}}">{{item.title}}</text>
+            </navigator>
+            
+        </view>
+    </view>
+
+    <view class="indexSwiper imageSwiper bgF image_size_{{content.content.image_size}} test_type3" data-page="page.public.swiper" wx:if="{{content.content.image_type==1 && (content.content.nav_list.length > 1 || content.content.image_size*1 == 1)}}" >
+        <view wx:for-items="{{content.content.nav_list}}" wx:for-index="_index"  wx:key="_index" style="width:{{content.content.image_size == 0 ? '100%' : '50%'}};height:{{content.content.image_size == 0 ? content.content.swiperHeight : item.height}}rpx;" class="view" bindtap="{{item.url=='ad_scan'?'ad_scan':''}}">
+            <navigator url="{{filter.urlTransform(item.url)}}" class="navigator" hover-class="none" open-type="{{item.type=='switchTab'?'reLaunch':'navigate'}}">
+                <image src="{{item.image}}"  bindload="imageLoad" data-t_index="{{t_index}}" data-index="{{_index}}"
+                       style="" ></image>
+                
+            <text wx:if="{{item.title!=''}}">{{item.title}}</text>
+            </navigator>
+        </view>
+    </view>
+  </view>
+</template>

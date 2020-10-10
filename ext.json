@@ -1,0 +1,9 @@
+{
+  "extEnable": true,
+  "extAppid": "wxc9bcc24b15816e4d",
+  "ext": {
+    "apiUrl": "https://shop-shangou.mambike.com/",
+    "token": 209,
+    "type": 1
+  }
+}

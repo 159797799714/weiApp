@@ -1,0 +1,126 @@
+@import "../theme_colors";
+.cash-pay {
+  .layer {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    opacity: 0.62;
+    background-color: #000000;
+    z-index: 1;
+  }
+  .box {
+    position: fixed;
+    left: 85rpx;
+    top: 100rpx;
+    width: 580rpx;
+    height: 450rpx;
+    background-color: #fafafa;
+    border-radius: 24rpx;
+    z-index: 2;
+    animation-duration: 0.5s;
+    animation-name: zoomInFade;
+    .box-header{
+      height: 99rpx;
+      line-height: 99rpx;
+      width: 100%;
+      text-align: center;
+      border-bottom: solid 1px #dfdfdf;
+    }
+    .header-title{
+      font-weight: bold;
+      color: #333333;
+      font-size: 32rpx;
+    }
+    .header-close{
+      position: absolute;
+      top: 0;
+      right:28rpx;
+      font-size: 36rpx;
+      color: #777777;
+    }
+    .box-content{
+      padding: 25rpx;
+    }
+    .order-count-title{
+      text-align: center;
+      font-size: 30rpx;
+      color: #333333;
+    }
+    .order-count{
+      margin-top: 10rpx;
+      text-align: center;
+      font-size: 64rpx;
+      font-weight: bold;
+      color: #333333;
+    }
+    .order-info{
+      margin-top: 10rpx;
+      height: 44rpx;
+      .password-title{
+        float: left;
+        font-family: PingFang-SC-Regular;
+        font-size: 30rpx;
+        font-weight: normal;
+        font-stretch: normal;
+        letter-spacing: 0px;
+        color: #6e6e6e;
+      }
+      .remain-money{
+        float: right;
+        font-family: PingFang-SC-Regular;
+        font-size: 26rpx;
+        font-weight: normal;
+        font-stretch: normal;
+        letter-spacing: 0px;
+      }
+    }
+    .password-field{
+      margin-top: 10rpx;
+      position: relative;
+      .password-hidden{
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 0rpx;
+        width: 88*6rpx;
+        z-index: -1;
+      }
+      .password-field-container{
+        display: flex;
+        width: 88*6rpx;
+        border: 1px solid #b5b5b5;
+        border-right: none;
+        z-index: 3;
+        .password-field-item{
+          flex: 1;
+          width: 88rpx;
+          height: 88rpx;
+          line-height: 83rpx;
+          border-right: 1px solid #b5b5b5;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
+
+@each $theme,$t_color in $theme_colors {
+  .#{$theme}.cash-pay{
+     .box .remain-money{
+      color: $t_color;
+    }
+  }
+}
+
+@keyframes zoomInFade {
+  from{
+    transform: scale(1.2);
+    opacity: .5;
+  }
+  to{
+    transform: scale(1);
+    opacity: 1;
+  }
+}

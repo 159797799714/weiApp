@@ -1,0 +1,106 @@
+<import src="../../../../template/tabs/tabs.wxml" />
+<wxs module="filter">
+  function timeChange(time){
+    if (!time) return "--";
+    var _sp = time.split("-");
+    return _sp[0] + "." + _sp[1] + "." + _sp[2].slice(0, 2) + _sp[2].slice(2);
+  }
+  module.exports = { timeChange: timeChange }
+</wxs>
+<view class="integral-detail-wrap">
+  <view class="top-part">
+    <view class="toptip">
+      <text class="iconfont icontishi"></text>
+      <text class="tipcnt">每月{{pointsDetail.settleDay || "--"}}日可提现上月【确认收货】的收益</text>
+    </view>
+
+    <view class="detail-part">
+      <view class="convert-box" data-points="{{pointsDetail.withdrawablePoints}}" bindtap="toConvertFun">
+        <view class="convert">
+          <view class="cotname">可提现</view>
+          <view class="cotval">{{pointsDetail.withdrawablePoints  || 0}}</view>
+        </view>
+        <view class="cotbtn right-arrow">去提现</view>
+      </view>
+      <view class="statistics">
+        <view class="statistics-item">
+          <view class="val">{{pointsDetail.allPoints || 0}}</view>
+          <view class="name">累计结算</view>
+        </view>
+        <view class="lines"></view>
+        <view class="statistics-item">
+          <view class="val">{{pointsDetail.withdrawalsPoints || 0}}</view>
+          <view class="name">已提现</view>
+        </view>
+        <view class="lines"></view>
+        <!-- <view class="statistics-item applying" bindtap="toApplyingFun">
+          <view class="val">{{pointsDetail.applyPoints}}</view>
+          <view class="name">
+            <text class="name-cnt">申请中</text>
+            <text class="question">!</text>
+          </view>
+        </view> -->
+        <view class="statistics-item">
+          <view class="val">{{pointsDetail.settlementPoints || 0}}</view>
+          <view class="name">待结算</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="time-part">
+    <view class="time-title">历史明细</view>
+    <picker mode="date" value="{{curdate}}" end="{{temp}}" fields="month" bindchange="bindDateChange">
+      <view class="times-select">{{curdate}}</view>
+    </picker>
+  </view>
+  <view class="tabs-part scale-1px-bottom">
+    <template is="tabs" data="{{...tabsData}}"></template>
+  </view>
+
+  <swiper class="list-swiper {{!detailData[tabsData.activeTab].listData.length?'nolistdata':''}}" current="{{tabsData.activeTab}}" style="height: {{listHeight?listHeight:'250'}}px;" data-type="activeTab" bindchange="swiperChange">
+    <block wx:for="{{detailData}}" wx:for-item="e" wx:for-index="i" wx:key="i">
+      <swiper-item>
+        <view class="datas" id="datas_{{i}}">
+          <block wx:if="{{e.listData.length}}" wx:for="{{e.listData}}" wx:key="index">
+            <view class="data-item">
+              <view class="imgbox">
+                <image class="photoimg" mode="widthFix" src="{{item.headImg}}" />
+              </view>
+              <view class="info-part">
+                <view class="top-name-box scale-1px-bottom">
+                  <view class="name-part" wx:if="{{item.isme}}">
+                    <view class="namecnt">您【{{item.memberName}}】</view>
+                    <view class="namecnt">在{{filter.timeChange(item.orderDate)}}购买成功</view>
+                  </view>
+                  <view class="name-part" wx:else>
+                    <view class="namecnt">您的粉丝【{{item.memberName}}】</view>
+                    <view class="namecnt">在{{filter.timeChange(item.orderDate)}}推广成功</view>
+                  </view>
+                  <view class="status {{item.pointStatus==2?'balance':''}}">{{item.pointStatus == 1 ? '待结算' : (item.pointStatus == 2 ? '已结算' : '--')}}</view>
+                </view>
+                <view class="cnt order">
+                  <text class="cntname">订单号：</text>
+                  <text class="cntval">{{item.orderId || '--'}}</text>
+                </view>
+                <view class="cnt consume">
+                  <text class="cntname">消费：¥</text>
+                  <text class="cntval">{{item.orderPrice || '--'}}</text>
+                </view>
+                <view class="cnt points">
+                  <text class="cntname">获取佣金：</text>
+                  <text class="cntval">{{item.points || '--'}}</text>
+                </view>
+                <view class="cnt times">
+                  <text class="cntname">预计计算日期：</text>
+                  <text class="cntval">确认收货后次月{{(pointsDetail.settleDay - 0) || "--"}}日</text>
+                </view>
+              </view>
+            </view>
+          </block>
+          <!-- <view class="nodata" wx:if="{{!e.listData.length}}">暂无数据</view> -->
+          <view class="nodata_cps" wx:if="{{!e.listData.length}}">暂无数据</view>
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>

@@ -1,0 +1,17 @@
+<!-- 优惠券 -->
+<wxs src="../../utils/filter.wxs" module="filter"></wxs>
+<template name="coupons">
+    <view class="shopCouponList clearfix shopCouponList-index" style='flex-wrap:wrap;' data-page="page.public.shopCouponList">
+            <view class="shopCouponList_item c{{index+1}}" wx:for="{{contentItem}}" wx:key="{{index}}" >
+                <navigator url="{{_unlogin==false ? '/pages/giftMember/giftuser/coupons':''}}" bindtap="userLogin" hover-class="none" open-type="{{filter.getOpenType('/pages/giftMember/giftuser/coupons',store_nav_list)}}">
+                    <i class="cricle left"></i>
+                    <i class="cricle right"></i>
+                    <text class="face_money">￥{{item.face_money}}</text>
+                    <text>{{item.title}}</text>
+                </navigator>
+            </view>
+         <!-- <navigator url="/pages/giftMember/giftuser/coupons" hover-class="none" open-type="{{filter.getOpenType('/pages/giftMember/giftuser/coupons',store_nav_list)}}">
+        <text class='getquan'>领券>></text>
+        </navigator> -->
+    </view>
+</template>

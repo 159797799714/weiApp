@@ -1,0 +1,752 @@
+function parseFrequency(frequency) {
+  switch (parseInt(frequency)) {
+    case 1:
+      return "每天"
+    case 2:
+      return "每周"
+    case 3:
+      return "每月"
+  }
+}
+
+function parseDeliverDate(index, frequency) {
+  switch (parseInt(frequency)) {
+    case 1:
+      return "每天"
+    case 2:
+      var seconds = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];
+      return seconds[parseInt(index) - 1]
+    case 3:
+      return index + "号"
+  }
+}
+
+function parseProLong(num) {
+  switch (parseInt(num)) {
+    case -1:
+      return "不限制次数"
+    case 0:
+      return "不允许顺延"
+    default:
+      return "最多顺延" + num + "次"
+  }
+}
+
+//获取周期购时间线中的日期
+function parseOrderPaidTime(str) {
+  var time = getDate('20' + str.replace('/', '-'))
+  var day = time.getDay()
+  if (day === 0) day = 7;
+  var weekDay = parseDeliverDate(day, 2)
+  return str + ' ' + weekDay
+}
+
+//获取周期购的状态
+
+function parseOrderPaidStatus(str, filed) {
+  filed = filed || 'statusClass'
+  var statusData = {};
+  switch (parseInt(str)) {
+    case -1:
+      statusData = {
+        statusName: "已延期",
+        statusClass: "delay"
+      }
+      break;
+    case 0:
+      statusData = {
+        statusName: "待配送",
+        statusClass: "unsended"
+      }
+      break;
+    case 1:
+      statusData = {
+        statusName: '已配送',
+        statusClass: 'sended'
+      }
+      break;
+  }
+  return statusData[filed]
+}
+//周期购中判断是否提前配送
+
+function judgePreSend(item) {
+  if (item.status != 1) {
+    return ""
+  }
+  var paid_time = getDate('20' + item.paid_time);
+  var send_time = getDate(item.real_time);
+  return paid_time > send_time ? "（提前配送）" : ""
+}
+
+function parseDeliverOrderInfo(item) {
+  var frequency = parseFrequency(item.type)
+  switch (parseInt(item.type)) {
+    case 1:
+      return frequency;
+    case 2:
+      var time = getDate('20' + item.paid_time.replace('/', '-'))
+      var day = time.getDay()
+      if (day === 0) day = 7;
+      var weekDay = parseDeliverDate(day, 2)
+      return frequency + weekDay
+    case 3:
+      var monthDay = item.paid_time.split('/')[2]
+      return frequency + monthDay + "号";
+  }
+}
+
+function chunk(array, size) {
+  size = Math.max(size, 0)
+  var length = array == null ? 0 : array.length
+  if (!length || size < 1) {
+    return []
+  }
+  var index = 0
+  var resIndex = 0
+  var result = []
+
+  while (index < length) {
+    result[resIndex++] = array.slice(index, (index += size))
+  }
+  return result
+}
+
+
+var getPageUrl = function (pageType, pigcms_id) {
+  var pageTypes = {
+    '1': '/pages/presale/index?id=',
+    '2': '/pages/details/index?tuan_id=',
+    '4': '/pages/bargain/details?id=',
+    '5': '/pages/seckill/index?id='
+  }
+  return pageTypes[('' + pageType)] + ('' + pigcms_id);
+};
+
+var getFixedPrice = function (price) {
+  if (typeof price == 'number') {
+    return price.toFixed(2)
+  } else if (typeof price == 'string') {
+    return parseFloat(price, 2)
+  }
+}
+//转换较大的单位为w
+var transBigNumber = function (number, nodecimal) {
+  if (nodecimal == 2) { //转换成百分比
+    return (number.toFixed(2)) - 0;
+  }
+
+  number = parseFloat(number)
+  if (number > 10000) {
+    if (nodecimal == 1 || number % 10000 === 0) {
+      var num = parseFloat(number / 10000).toString()
+      if (num.indexOf('.') > 0) {
+        var splitNum = num.split('.')
+        num = splitNum[0] + '.' + (splitNum[1] + '00').slice(0, 2)
+      }
+      return num + "万"
+    }
+    return Math.floor(parseFloat(number / 10000)).toFixed(2) + "万"
+  }
+  return number
+}
+var transBigNumber2 = function (number, nodecimal) {
+  if (number == null) {
+    number = 0
+    return number;
+  }
+  number = parseFloat(number)
+  if (number > 10000) {
+    if (nodecimal == 1 || number % 10000 === 0) {
+      var num = parseFloat(number / 10000).toString()
+      if (num.indexOf('.') > 0) {
+        var splitNum = num.split('.')
+        num = splitNum[0] + '.' + (splitNum[1] + '00').slice(0, 1)
+      }
+      return num + "W+"
+    }
+    return Math.floor(parseFloat(number / 10000)).toFixed(1) + "W+"
+  }
+  return number
+}
+
+function formatNumber(n) {
+  n = n.toString()
+  return n[1] ? n : '0' + n
+}
+
+function formatTime(date, num) {
+  var year = date.getFullYear()
+  var month = date.getMonth() + 1
+  var day = date.getDate()
+  var arr = []
+  switch (num) {
+    case 1:
+      arr = [year]
+      break;
+    case 2:
+      arr = [year, month]
+      break;
+    case 3:
+      arr = [year, month, day]
+      break;
+  }
+  return arr.map(formatNumber).join('-')
+}
+
+function parseEarliestDeliverDate(product, deliver_date) {
+  var deliver_config = product.deliver_config
+  var earlyDay = (deliver_date || product.deliver_date[0]) * 1
+  var deliver_frequency = product.deliver_frequency * 1
+  var prevDaysNum = deliver_config[0] * 1
+  var prevHour = deliver_config[1] * 1
+  var nowTime = getDate();
+  var nowTimestamp = nowTime.getTime();
+  var nowHour = nowTime.getHours();
+  var perDayMs = 24 * 60 * 60 * 1000
+  var deliverTimestamp = nowTimestamp
+  var expectDeliverDatetime = getDate(nowTimestamp + prevDaysNum * perDayMs)
+  if (nowHour >= prevHour) {
+    expectDeliverDatetime = getDate(expectDeliverDatetime.getTime() + perDayMs)
+  }
+  switch (deliver_frequency) {
+    case 1:
+      if (nowHour < prevHour) {
+        deliverTimestamp = nowTimestamp + prevDaysNum * perDayMs
+      } else {
+        deliverTimestamp = nowTimestamp + (prevDaysNum + 1) * perDayMs
+      }
+      break;
+    case 2: //每周配送
+      var expectWeekDay = expectDeliverDatetime.getDay()
+      if (expectWeekDay == 0) expectWeekDay = 7;
+      if (earlyDay < expectWeekDay) {
+        deliverTimestamp = getDate(expectDeliverDatetime.getTime() + (earlyDay + 7 - expectWeekDay) * perDayMs).getTime()
+      } else {
+        deliverTimestamp = getDate(expectDeliverDatetime.getTime() + (earlyDay - expectWeekDay) * perDayMs).getTime()
+      }
+      break;
+    case 3: //test 每月20日配送，需要提前50天，10点之前预定，今天是15号，今天9点预定，最早几号送货
+      if (expectDeliverDatetime.getDate() > earlyDay) {
+        var formatedTime = formatTime(getDate(expectDeliverDatetime.getTime() + 30 * perDayMs), 2).split('-')
+        deliverTimestamp = getDate(formatedTime[0], formatedTime[1] - 1, earlyDay).getTime()
+        // return formatedTime[0] + '-' + formatedTime[1]
+      } else {
+        var formatedTime2 = formatTime(expectDeliverDatetime, 2).split('-')
+        deliverTimestamp = getDate(formatedTime2[0], formatedTime2[1] - 1, earlyDay).getTime()
+      }
+      break;
+  }
+  return formatTime(getDate(deliverTimestamp), 3)
+}
+
+function parseProductCouponTypeTitle(coupon) {
+  var type = parseInt(coupon.type)
+  // 1优惠券2团购券3折扣券4'礼品券,5代金券,6特殊券,7景点票,
+  switch (type) {
+    case 1:
+      return {
+        title: "优惠详情",
+          content: coupon.default_detail
+      }
+      case 2:
+        return {
+          title: "团购详情",
+            content: coupon.deal_detail
+        };
+      case 3:
+        return {
+          title: "折扣券",
+            content: coupon.discount + "折"
+        };
+      case 4:
+        return {
+          title: "兑换内容",
+            content: coupon.gift
+        };
+      case 5:
+        return {
+          title: "减免金额",
+            content: coupon.face_money
+        };
+      case 6:
+        return {
+          title: "特殊券",
+            content: "特殊券"
+        }
+        case 7:
+          return {
+            title: "票类型",
+              content: coupon.type_text
+          };
+  }
+}
+
+var getName = function (name, len) {
+  len = len || 10;
+  if (name && len) {
+    if (name.length > len) {
+      return name.slice(0, len) + "...";
+    }
+  } else {
+    name = '';
+  }
+
+  return name;
+}
+
+function changeNum(num) {
+  return num.split(".")[0];
+}
+
+function parseCouponDescription(text) {
+  if (text.indexOf('\r\n') > -1) {
+    return text.split('\r\n')
+  }
+  if (text.indexOf('\n') > -1) {
+    return text.split('\n')
+  }
+  if (text.indexOf('\r') > -1) {
+    return text.split('\r')
+  }
+  return [text]
+}
+
+function getOpenType(url, nav_list) {
+  var openType = "navigate";
+  if (nav_list) {
+    for (var i = 0; i < nav_list.length; i++) {
+      var navListElement = nav_list[i];
+      if (navListElement.pagePath.indexOf(url) > -1 && navListElement.status == 1) {
+        openType = "reLaunch"
+      }
+    }
+  }
+  return openType;
+}
+
+// 判断是否含有某个字符串
+var isExit = function (data, world) {
+  if (data && world) {
+    if (data.indexOf(world) >= 0) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+  return 0;
+}
+//超出部分显示省略
+var overflowNum = function (msg, num) {
+  if (msg) {
+    if (!num) num = 8;
+    if (msg.length > num) {
+      msg = msg.slice(0, num)
+      msg += '...'
+    }
+  }
+  return msg ? (msg) : '';
+}
+//订单状态
+function orderStatus(status) {
+  if (status) {
+    var obj = {}
+    if (status <= 1) {
+      obj.title = '未支付'
+      obj.desc = '请尽快完成支付,超时自动取消'
+    } else if (status == 2) {
+      obj.title = '未发货'
+      obj.desc = '物流信息:等待发货'
+    } else if (status == 3) {
+      obj.title = '已发货'
+      obj.desc = '物流信息:商品已发货'
+    } else if (status == 4) {
+      obj.title = '交易完成'
+      obj.desc = '物流信息:快递已被服务站代签收'
+    } else if (status == 5) {
+      obj.title = '已取消'
+      obj.desc = '物流信息:交易取消'
+    } else if (status == 6) {
+      obj.title = '退款中'
+      obj.desc = '物流信息:退款中'
+    } else if (status == 7) {
+      obj.title = '确认收货'
+      obj.desc = '物流信息:确认收货'
+    }
+    return obj;
+  }
+
+}
+
+function parseDeliverRule(shop) {
+  if (shop.local_type * 1 == 1) { //限定配送距离
+    var text = '消费'
+    if (shop.amount_type === 'order_money') {
+      text = "订单"
+    }
+    if (shop.amount_type === 'pay_amount') {
+      text = "实付金额"
+    }
+    return text + "满" + shop.delivery_min_amount + "元起送"
+  } else { //不限配送距离
+    return "0元起送"
+  }
+}
+//保留两位小数
+function saveDouble(num) {
+  if (num) {
+    var f = parseFloat(num);
+    if (isNaN(f)) {
+      return;
+    }
+    f = Math.round(num * 100) / 100;
+    return f;
+  } else {
+    return 0;
+  }
+}
+
+//订单页单击跳转对应商品详情
+function toTruePage(special_product_type, order, product_id, data_id, activity_id) {
+  //  * order 表 type 字段
+  //  * 订单类型 0 => '普通', 1 => '代付', 2 => '送礼', 3 => 分销, 4 => '活动',
+  //  * 5 => '批发', 6 => '拼团', 7 => '预售', 10 => '预约', 11 => '选购',
+  //  * 50 => '砍价', 51 => '人气夺宝', 53 => '秒杀', 55 => '降价拍', 56 => '抽奖',
+  //  * 57 => '摇一摇', 58 => '微聚力', 59 => '拆礼盒', 61 => '集字游戏',
+  //  * 62 => '摇钱树游戏', 63 => '竞价', 64 => '扫码', 65=> 限时折扣
+  type = order.type;
+  var _url = '';
+  if (special_product_type == 99) {
+    _url = '/pages/USERS/pages/travel/index?product_id=' + product_id;
+  } else {
+    if (type == 6) { //拼团
+      _url = '/pages/details/index?tuan_id=' + data_id;
+
+    } else if (type == 7) { //预售
+      _url = '/pages/presale/index?id=' + data_id;
+
+    } else if (type == 50) { //砍价
+      _url = '/pages/bargain/details?id=' + activity_id;
+    } else if (type == 53) { //秒杀
+      _url = '/pages/seckill/index?id=' + activity_id;
+    } else { //普通
+      if (order.is_point_exchange != 1) {
+        _url = '/pages/product/details?product_id=' + product_id;
+      } else {
+        _url = '/pages/POINT/pages/product/details?product_id=' + product_id;
+      }
+    }
+  }
+  return _url;
+
+
+}
+
+// 弹幕最多显示8条
+function liveChat(Arr, len, limitLen) {
+  if (len > limitLen) {
+    return Arr.slice(len - limitLen, len);
+  }
+  return Arr;
+}
+// 弹幕内容显示换行
+function wrapChat(content, namelen, contetnlen) {
+  if (content && contetnlen) {
+    if (contetnlen > 17) {
+      return content.slice(17 - namelen, contetnlen - namelen);
+    } else {
+      return content.slice(0, contetnlen - namelen);
+    }
+  } else {
+    content = '';
+  }
+  return content;
+}
+// 去除小数点(5.123-->5/5.86-->5)
+function clearDot(num) {
+  if (num > 0) {
+    return parseInt(num);
+  } else {
+    return num;
+  }
+}
+// 向上取整(5.123-->6)
+function ceilFun(data) {
+  if (data > 0) {
+    return Math.ceil(data)
+  } else {
+    return data
+  }
+}
+// 向下取整(5.68-->5)
+function floorFun(data) {
+  if (data > 0) {
+    return Math.floor(data)
+  } else {
+    return data
+  }
+}
+// 四舍五入(5.12-->5/5.68-->6)
+function roundFun(data) {
+  if (data > 0) {
+    return Math.round(data)
+  } else {
+    return data
+  }
+}
+
+//转直播url
+function urlTransform(url) {
+  if (url.indexOf('c=tencent_live&a=live_room') > 0) {
+    var start = url.indexOf("live_id=");
+    var live_id = url.substring(start, url.length);
+    url = '/pages/LIVEVIDEO/pages/liveVideo/liveVideoDetail?isShare=1&' + live_id;
+    return url;
+  } else {
+    return url;
+  }
+}
+
+/*
+ * 时间处理函数
+ * time时间: '2020-04-21 16:30:30' 或者 1587460090323
+ * format格式: "YYYY-MM-DD HH:mm:ss" 或者不传
+ */
+function timestampFormat(time, format) {
+  function zeroize(num) {
+    return (num.toString().length == 1 ? '0' : '') + num;
+  }
+
+  var newTime = "";
+  var timestamp = time && isNaN(Date.parse(time)) ? +time : Date.parse(time); //将参数时间转换为时间戳
+  var curTimestamp = Date.now(); //当前时间戳
+  var timestampDiff = curTimestamp - timestamp; // 参数时间戳与当前时间戳相差秒数
+
+  var curDate = getDate(curTimestamp); // 当前时间日期对象
+  var tmDate = getDate(timestamp); // 参数时间戳转换成的日期对象
+
+  var Y = tmDate.getFullYear(),
+    M = tmDate.getMonth() + 1,
+    D = tmDate.getDate();
+  var H = tmDate.getHours(),
+    m = tmDate.getMinutes(),
+    s = tmDate.getSeconds();
+
+  if (timestampDiff < 0) { //时间差为负数，表示时间为今天之后
+    if (Math.abs(timestampDiff) < 3600000) { // 一小时后之内
+      newTime = Math.floor(Math.abs(timestampDiff) / 60000) + "分钟后";
+    } else if (curDate.getFullYear() == Y && curDate.getMonth() + 1 == M && curDate.getDate() == D) {
+      newTime = "今天" + zeroize(H) + "点" + zeroize(m) + "分";
+    } else {
+      var tomorrow = getDate(curTimestamp + 86400000); // 参数中的时间戳加一天转换成的日期对象  也就是明天
+      var afterTomorrow = getDate(curTimestamp + 86400000 * 2); // 参数中的时间戳加一天转换成的日期对象  也就是后天
+
+      if (tomorrow.getFullYear() == Y && tomorrow.getMonth() + 1 == M && tomorrow.getDate() == D) {
+        newTime = "明天" + zeroize(H) + "点" + zeroize(m) + "分";
+      } else if (afterTomorrow.getFullYear() == Y && afterTomorrow.getMonth() + 1 == M && afterTomorrow.getDate() == D) {
+        newTime = "后天" + zeroize(H) + "点" + zeroize(m) + "分";
+      } else {
+        newTime = Y + "-" + zeroize(M) + "-" + zeroize(D) + " " + zeroize(H) + ":" + zeroize(m) + ":" + zeroize(s);
+      }
+    }
+
+  } else {
+    if (timestampDiff < 60000) { // 一分钟以内
+      newTime = "刚刚";
+    } else if (timestampDiff < 3600000) { // 一小时前之内
+      newTime = Math.floor(timestampDiff / 60000) + "分钟前";
+    }
+    if (curDate.getFullYear() == Y && curDate.getMonth() + 1 == M && curDate.getDate() == D) {
+      newTime = "今天" + zeroize(H) + "点" + zeroize(m) + "分";
+    } else {
+      var yesterday = getDate(curTimestamp - 86400000); // 参数中的时间戳减一天转换成的日期对象  也就是昨天
+      var beforeYesterday = getDate(curTimestamp - 86400000 * 2); // 参数中的时间戳减一天转换成的日期对象  也就是前天
+
+      if (yesterday.getFullYear() == Y && yesterday.getMonth() + 1 == M && yesterday.getDate() == D) {
+        newTime = "昨天" + zeroize(H) + "点" + zeroize(m) + "分";
+      } else if (beforeYesterday.getFullYear() == Y && beforeYesterday.getMonth() + 1 == M && beforeYesterday.getDate() == D) {
+        newTime = "前天" + zeroize(H) + "点" + zeroize(m) + "分";
+      } else {
+        newTime = Y + "-" + zeroize(M) + "-" + zeroize(D) + " " + zeroize(H) + ":" + zeroize(m) + ":" + zeroize(s);
+      }
+    }
+  }
+
+
+
+  //根据参数时间格式处理时间
+  if (format) {
+    var _fh = format.substring(4, 5); //截取连接符，如YY-MM中的 - 或者 年/月/日
+    if (_fh == '-') {
+      newTime = newTime;
+    } else if (_fh == '年') { //传来的格式是  xx年xx月xx日 xx:xx
+      var _s = newTime.split("-");
+      newTime = _s[0] + '年' + _s[1] + '月' + _s[2].slice(0, 2) + '日' + _s[2].slice(2);
+    } else {
+      newTime = newTime.split("-").join(_fh);
+    }
+
+    if (format.indexOf('HH:mm') == -1) { // "YYYY-MM-DD"
+      newTime = newTime.split(" ")[0];
+    } else {
+      if (format.indexOf('HH:mm:ss') == -1 && format.indexOf('HH:mm') != -1) { // "YYYY-MM-DD HH:mm"
+        newTime = newTime.indexOf(":") != -1 ? newTime.substring(0, newTime.length - 3) : newTime;
+      }
+    }
+  }
+  return newTime;
+}
+
+/**
+ * @param timeStamp 时间戳
+ * @param format 展示的格式  YM(展示YYYY年MM月),YMD(YYYY-MM-DD),YMDHms(YYYY-MM-DD hh:mm:ss)
+ */
+function timeStr(timeStamp, format) {
+  function zeroize(num) {
+    return (num.toString().length == 1 ? '0' : '') + num;
+  }
+  var newTime = ''
+  var tmDate = getDate(timeStamp); // 参数时间戳转换成的日期对象
+
+  var Y = tmDate.getFullYear(),
+    M = tmDate.getMonth() + 1,
+    D = tmDate.getDate();
+  var H = tmDate.getHours(),
+    m = tmDate.getMinutes(),
+    s = tmDate.getSeconds();
+  switch (format) {
+    case 'YM': //(展示YYYY年MM月)
+      newTime = Y + "年" + zeroize(M) + "月";
+      break;
+    case 'YMD': // (YYYY-MM-DD)
+      newTime = Y + "-" + zeroize(M) + "-" + zeroize(D);
+      break;
+    case 'YMDHms': //(YYYY-MM-DD hh:mm:ss)
+      newTime = Y + "-" + zeroize(M) + "-" + zeroize(D) + " " + zeroize(H) + ":" + zeroize(m) + ":" + zeroize(s);
+      break;
+    default:
+      break;
+  }
+  return newTime
+}
+/**
+ * 
+ * @param val 处理数据
+ * @param emptyText 数据为空时展示的内容
+ * @param keepPoint 保留几位小数
+ * @param returnStatus 是否只返回单位 0 默认状态数字+单位 1 格式化后的数字 2 格式化后的单位
+ */
+function handleNumber(val, emptyText, keepPoint, returnStatus) { //处理数据(保留两位小数)： 超过1万展示 xx.xx万,  超过1亿展示  xx.xx亿
+  if (!val || val == "0") return emptyText;
+  switch (returnStatus) {
+    case 0:
+      if (val < 10000 && val > 0) return val;
+      if (val >= 10000 && val < 100000000) {
+        return ((val / 10000).toFixed(keepPoint) - 0) + "万";
+      }
+      if (val >= 100000000) {
+        return ((val / 100000000).toFixed(keepPoint) - 0) + "亿";
+      }
+      break;
+    case 1:
+      if (val < 10000 && val > 0) return val;
+      if (val >= 10000 && val < 100000000) {
+        return ((val / 10000).toFixed(keepPoint) - 0);
+      }
+      if (val >= 100000000) {
+        return ((val / 100000000).toFixed(keepPoint) - 0);
+      }
+      break;
+    case 2:
+      if (val < 10000 && val > 0) return "";
+      if (val >= 10000 && val < 100000000) {
+        return "万";
+      }
+      if (val >= 100000000) {
+        return "亿";
+      }
+      break;
+    default:
+      break;
+  }
+}
+/**
+ * @param val
+ */
+function getStr(val) {
+  if (val < 10000 && val > 0) return "";
+  if (val >= 10000 && val < 100000000) {
+    return "万";
+  }
+  if (val >= 100000000) {
+    return "亿";
+  }
+}
+
+/**
+ * 分割小数点前后的数字
+ * @param val 处理数据
+ * @param keepPoint 处理数据
+ * @param selectVal 截取小数点前0,截取小数点后1
+ * @param isMaxlength 是否返回数字位数 0不需要,1需要
+ * 
+ */
+function divideNum(val, keepPoint = 0, selectVal = 0, isMaxlength = 0) {
+  if (val < 10000 && val >= 0) return isMaxlength ? val.length : +val
+  if (val >= 10000 && val < 100000000) {
+    var decimals = (val / 10000).toFixed(keepPoint)
+  }
+  if (val >= 100000000) {
+    var decimals = (val / 100000000).toFixed(keepPoint)
+  }
+  var arr = decimals.split('.')
+  return isMaxlength ? arr[selectVal].length : +arr[selectVal]
+}
+/**
+ * @param str 第1天
+ */
+function nameStr(str){
+      return str.substring(1,3)
+}
+module.exports = {
+  parseFrequency: parseFrequency,
+  parseDeliverDate: parseDeliverDate,
+  parseProLong: parseProLong,
+  chunk: chunk,
+  getPageUrl: getPageUrl,
+  getFixedPrice: getFixedPrice,
+  parseOrderPaidTime: parseOrderPaidTime,
+  parseOrderPaidStatus: parseOrderPaidStatus,
+  judgePreSend: judgePreSend,
+  parseProductCouponTypeTitle: parseProductCouponTypeTitle,
+  JSON: JSON,
+  parseCouponDescription: parseCouponDescription,
+  getOpenType: getOpenType,
+  parseDeliverOrderInfo: parseDeliverOrderInfo,
+  parseInt: parseInt,
+  parseFloat: parseFloat,
+  transBigNumber: transBigNumber,
+  transBigNumber2: transBigNumber2,
+  parseEarliestDeliverDate: parseEarliestDeliverDate,
+  getName: getName,
+  changeNum: changeNum,
+  isExit: isExit,
+  overflowNum: overflowNum,
+  orderStatus: orderStatus,
+  parseDeliverRule: parseDeliverRule,
+  saveDouble: saveDouble,
+  toTruePage: toTruePage,
+  liveChat: liveChat,
+  wrapChat: wrapChat,
+  clearDot: clearDot,
+  urlTransform: urlTransform,
+  ceilFun: ceilFun,
+  floorFun: floorFun,
+  roundFun: roundFun,
+  timestampFormat: timestampFormat,
+  handleNumber: handleNumber,
+  divideNum: divideNum,
+  getStr: getStr,
+  timeStr: timeStr,
+  nameStr:nameStr
+}

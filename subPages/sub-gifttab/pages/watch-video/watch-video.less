@@ -1,0 +1,39 @@
+// out: watch-video.wxss, compress: true
+page {
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  background: #f2f3f5;
+}
+
+.fake-arrow {
+  width: 30rpx;
+  height: 30rpx;
+  border-top: 2rpx solid #fff;
+  border-right: 2rpx solid #fff;
+  transform: rotate(225deg);
+  position: absolute;
+  z-index: 1000;
+  left: 45rpx;
+  top: 80rpx;
+}
+.fake-title{
+  position: absolute;
+  z-index: 1000;
+  left: 265rpx;
+  top: 70rpx;
+  color: #fff;
+  font-size: 32rpx;
+}
+.video-wrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+
+  // justify-content: center;
+  #myVideo {
+    width: 100%;
+    height: 100%;
+  }
+}

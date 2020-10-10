@@ -1,0 +1,122 @@
+<!-- 我的订单-退货申请页面 -->
+<import src="../../public/payment.wxml" />
+<import src="../../public/warning.wxml" />
+<view class="container payment {{pageTheme}}" data-page="page.order.returnGoods">
+  <view class="containerLayer" wx:if="{{!containerLayer}}"></view>
+  <!-- 门店信息 -->
+  <view class="store bg-ff f-28 b-top1">
+    <view class="dis-inline-block v-top iconfont icondianpu1 store-icon"></view>
+    <view class="dis-inline-block v-top">{{returnData.store.name}}</view>
+  </view>
+  <!-- 商品 -->
+  <!-- <template is="payment" data="{{paymentData:returnData,postage:postage, showMessage: showMessage,store_nav_list}}" /> -->
+  <view class="p-b30 bg-ff">
+    <view class="p-30 bg-f5">
+      <navigator wx:for="{{returnData.product_list}}" wx:for-index="num" wx:for-item="obj" wx:key="num" class="orderGood-item dis-flex flex-x-between" url="{{filter.toTruePage(obj.special_product_type,order,obj.product_id,order.data_id,order.activity_id)}}" hover-class="none" open-type="navigate">
+        <image src="{{obj.image}}" class="orderGood-img" />
+        <view class="order-centerBox flex-1">
+          <view class="orderGood-name f-28 twoline-hidden">{{obj.name}}</view>
+          <view class="col-99 f-24 guige">
+            <view class="dis-inline-block" wx:for="{{obj.sku_data_arr}}" wx:for-item="sku_data_arr" wx:for-index="_dx" wx:key="_dx">
+              {{sku_data_arr.name}}：{{sku_data_arr.value}}
+            </view>
+          </view>
+        </view>
+        <view class="rightBox f-26 t-right">
+          <!-- <view class="orderGood-price">￥{{obj.pro_price}}</view> -->
+          <view>x{{obj.pro_num}}</view>
+        </view>
+      </navigator>
+    </view>
+    <view class="orderTotal bg-ff f-26 col-f44 t-right">
+      <text>合计: </text>
+      <text wx:if="{{returnData.order.need_point > 0 || returnData.order.cost_point > 0}}">{{returnData.order.use_point > 0? returnData.order.cost_point: returnData.order.need_point}}积分</text>
+      <text wx:if="{{(returnData.order.need_point > 0 || returnData.order.cost_point > 0) && returnData.product_list[0].pro_price > 0 && returnData.order.use_point < 1}}"> + </text>
+      <text wx:if="{{returnData.order.use_point < 1 && returnData.product_list[0].pro_price > 0}}">¥ {{returnData.product_list[0].pro_price}}</text>
+    </view>
+  </view>
+  
+  <view class="returnList">
+    <view class="paymentTitle f-32 f-bold">填写订单信息</view>
+    <view class="returnArticle" wx:if="{{returnData.order.status != 2}}">
+      <view>退货方式</view>
+      <view class="open">
+        <picker bindchange="bindPickerReturnType" range-key="name" value="0" range="{{methodList}}" mode="selector">
+          <view class="picker">{{methodList[0]["name"]}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="returnArticle">
+      <view>退货数量</view>
+      <view wx:if="{{numList==''}}">1</view>
+      <view class="open" wx:if="{{numList!=''}}">
+        <picker bindchange="bindPickerNum" value="{{numIndex}}" range="{{numList}}" mode="selector">
+          <view class="picker">{{numList[numIndex]}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="returnArticle p-r30">
+      <view>退货原因</view>
+      <view class="open">
+        <picker bindchange="bindPickerReason" value="{{index}}" range="{{type_arr}}" mode="selector">
+          <view class="picker" style="padding-right: 15rpx;">{{type_arr[index]}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="returnArticle">
+      <view>手机号码</view>
+      <view>
+        <input type="number" bindblur="phoneNumber" placeholder="输入手机号码" maxlength="11" class="col-33" placeholder-class="col-99"/>
+      </view>
+    </view>
+    <view class="returnArticle">
+      <view>退货说明</view>
+      <view>
+        <input type="text" placeholder="输入退货说明" bindblur="returnExplain"  class="col-33" placeholder-class="col-99"/>
+      </view>
+    </view>
+    <!-- <view class="returnArticle addImgCentent" style="height: auto;">
+      <view>
+        图片举证
+        <text>（最多5张）</text>
+      </view>
+      <view class="addImgList">
+        <view class="imgList" wx:for="{{imgList}}" wx:key="index">
+          <view class="iconbox">
+            <view class="iconmask"></view>
+            <text class="iconfont icondelete" data-index="{{index}}" bindtap="deleteImgs"></text>
+          </view>
+          <image src="{{item}}"></image>
+        </view>
+        <view class="addImg" bindtap="addImg">+</view>
+      </view> 
+    </view> -->
+
+    <view class="returnArticle">
+      <view style="overflow: visible;white-space: nowrap;">
+        图片举证
+        <text>（最多5张）</text>
+      </view>
+      <view></view>
+    </view>
+    <view class="imgList">
+      <view class="img-item" wx:for="{{imgList}}" wx:key="index">
+        <view class="iconbox">
+          <view class="iconmask"></view>
+          <text class="iconfont icondelete" data-index="{{index}}" bindtap="deleteImgs"></text>
+        </view>
+        <image src="{{item}}" imgLi></image>
+      </view>
+      <view wx:if="{{imgList.length < 5}}" class="img-item addImg" bindtap="addImg">
+        <text class="addIcon">十</text>
+      </view>
+    </view> 
+
+  </view>
+  <view class="white-box"></view>
+  <view class="paymentButton bg-ff">
+    <view class="bg-f4" bindtap="applyRefund">提交申请</view>
+  </view>
+  <template is="warning" wx:if="{{warning.warningShow}}" data="{{warningTxt:warning.warningTxt}}" />
+</view>
+<include src="/pages/public/page_footer.wxml"></include>

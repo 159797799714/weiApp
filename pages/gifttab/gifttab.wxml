@@ -1,0 +1,206 @@
+<import src="../../template/exc-list/exc-list.wxml" />
+<import src="../../template/together-dialog/together-dialog.wxml" />
+<wxs src="../../utils/filter.wxs" module="filter"></wxs>
+<view class="gifttab-wrap">
+  <view wx:if="{{signInfo.open&&!_unlogin}}" class="bg"></view>
+  <!-- 余额积分展示 -->
+  <view wx:if="{{signInfo.open&&!_unlogin}}" class="balance-wrap">
+    <image class="jifen-bg" src="../../images/cps/cps_integral/jifen-bg.png" />
+    <view class="integral-con">
+      <view style="font-weight:bold;display:flex;justify-content:center;align-items: flex-end;">
+        <text wx:if="{{!points}}" style="font-size: 108rpx;line-height: 1;">0</text>
+        <odometer show="{{points<10000}}" id="odometer" odometer-class="odometer" value-class="odometer-value" />
+        <odometer show="{{points>=10000}}" id="firstPo" odometer-class="odometer" value-class="odometer-value" />
+        <text>{{points>=10000?'.':''}}</text>
+        <text wx:if="{{secondPo}}" style="font-size: 108rpx;line-height: 1;">0</text>
+        <odometer show="{{points>=10000&&!secondPo}}" id="secondPo" odometer-class="odometer" value-class="odometer-value" />
+        <view style="font-size:32rpx;line-height: 66rpx">{{filter.getStr(points)}}</view>
+      </view>
+    </view>
+    <view class="sign-modal-btn {{canSign?'':'sign-no-use'}}" bindtap="autoSignCon">
+      {{canSign?'签到领积分':'已签到'}}
+    </view>
+    <view class="sign-word">积分可购买秒杀商品，兑换免费充电福利</view>
+    <view class="exchange-record" bindtap="toRecord">兑换记录</view>
+  </view>
+  <view class="exchange-wrap" wx:if="{{signInfo.open&&!_unlogin}}">
+    <view class="exchange-box" bindtap="goExcList" data-type="1">
+      <view class="icon-con">
+        <image class="integral-icon" src="../../images/cps/cps_integral/icon_jifenduihuan.png" />
+      </view>
+      <view class="integral-word-con">
+        <view class="integral-word">充电红包</view>
+        <view class="integral-subword">
+          积分兑换
+          <view class="iconfont icon-cps-more my-icon-more"></view>
+        </view>
+      </view>
+    </view>
+    <view class="exchange-box " bindtap="goChaList">
+      <view class="icon-con">
+        <image class="charge-icon" src="../../images/cps/cps_integral/icon_chongdianjifen.png" />
+      </view>
+      <view class="integral-word-con">
+        <view class="integral-word">充电积分</view>
+        <view class="integral-subword">
+          获取记录
+          <view class="iconfont icon-cps-more my-icon-more"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 攒积分模块 -->
+  <view class="integral-wrap" wx:if="{{!_unlogin}}">
+    <!-- 邀请好友  invite_show:  0-提审时先关闭  1-提审后展示 -->
+    <view class="invite-wrap" wx:if="{{signInfo.open&&!_unlogin&&userData.invite_show}}" bindtap="gotoInv">
+      <image class="invite-img" src="https://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/yaoqinghaoyou_banner.png" />
+      <!-- <image class="invite-img" src="../../images/cps/cps_integral/yaoqinghaoyou_banner.png" /> -->
+    </view>
+    <!-- 新手任务 -->
+    <view class="fresh-wrap" wx:if="{{newTaskInfo.open&&!_unlogin}}">
+      <view class="task-title">新手任务</view>
+      <view wx:for="{{newTaskInfo.rules}}" wx:key="index" class="fresh-item">
+        <image class="circle" src="{{item.icon}}"></image>
+        <view class="task-text">
+          <view>
+            {{item.name}}
+            <text style="color: #FF4444;font-weight:bold">+{{item.reward_points}}</text>
+          </view>
+          <view class="omit-content">{{item.summary}}</view>
+        </view>
+        <view wx:if="{{item.status==1}}" class="btn" bindtap="showSign" data-curtype='NEW' data-item="{{item}}">
+          可领取
+        </view>
+        <view wx:else class="btn  {{item.status==2||item.status==3?'done-btn':''}} {{!item.status?'go-btn':''}}" bindtap="showSign" data-curtype='NEW' data-item="{{item}}">
+          {{item.status==2||item.status==3?'已完成':'去完成'}}
+        </view>
+      </view>
+    </view>
+    <!-- 每日任务 -->
+    <view class="every-task" wx:if="{{dayTaskInfo.open&&!_unlogin}}">
+      <view class="task-title">每日任务</view>
+      <block wx:for="{{dayTaskInfo.rules}}" wx:key="index">
+        <view wx:if="{{item.option!=7}}" class="fresh-item">
+          <image class="circle" src="{{item.icon}}"></image>
+          <view class="task-text">
+            <view>
+              {{item.name}}
+              <text style="color: #FF4444;font-weight:bold">+{{item.reward_points}}</text>
+            </view>
+            <view>{{item.summary?item.summary:"海量视频 领现金奖励 上不封顶"}}</view>
+          </view>
+          <view wx:if="{{item.status==1}}" class="btn" bindtap="showSign" data-curtype='DAY' data-item="{{item}}">
+            可领取
+          </view>
+          <view wx:else class="btn {{item.status==2||item.status==3?'done-btn':''}} {{!item.status?'go-btn':''}}" bindtap="showSign" data-curtype='DAY' data-item="{{item}}">
+            {{item.status==2||item.status==3?'已完成':'去完成'}}
+            <button wx:if="{{item.option==7&&!item.status}}" open-type="share" class="share-btn"></button>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+  <!-- 任务签到成功弹窗 -->
+  <com-modal className="sure-modal" show="{{isShowModal}}" width="580" background="none" padding="15rpx 0 0 0" radius="15">
+    <view class="sign-modal" slot="body">
+      <view class="mo-content">
+        <image class="bg-modal" mode="widthFix" src="https://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/sign_success_bg.png" />
+        <view class="sign-title">
+          <text wx:if="{{type==1}}">签到成功</text>
+          <text wx:else>任务完成</text>
+          <view class="sign-modal-content" wx:if="{{type==1}}">已签{{signNum}}天 连续签7天领大礼</view>
+          <view class="sign-modal-content" wx:else>记得每天都来领积分、兑好礼哦</view>
+        </view>
+        <view class="sign-btn">
+          <view class="sign-modal-integral" style="margin-bottom: {{rewardDouble>1? '40rpx':'80rpx'}}">
+            <text style="vertical-align: middle;font-size: 32rpx;">积分</text>
+            <text class="big-num">+{{rewardPoints}}</text>
+          </view>
+          <block wx:if="{{rewardDouble>1}}">
+            <view class="old-view video-btn" bindtap="gotoDouble">
+              看视频奖励翻倍
+              <view class="double-icon">X{{rewardDouble}}</view>
+            </view>
+            <view class="giveup" bindtap="hideSign">放弃翻倍领取</view>
+          </block>
+          <view bindtap="hideSign" wx:else class="old-view getbtn">收下积分</view>
+        </view>
+      </view>
+      <view class="closeicons iconfont iconsousuoguanbi" bindtap="hideSign"></view>
+    </view>
+  </com-modal>
+  <!-- 邀请好友成功弹窗 -->
+  <com-modal className="sure-modal" show="{{isShowEvery}}" width="580" background="none" padding="15rpx 0 0 0" radius="15">
+    <view class="sign-modal" slot="body">
+      <view class="mo-content">
+        <image class="bg-modal" mode="widthFix" src="https://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/sign_success_bg.png" />
+        <view class="eve-wrap">
+          <view class="eve-title">签到成功</view>
+          <view class="eve-sign">
+            <text style="vertical-align: middle;font-size: 32rpx;">积分</text>
+            <text style="font-size: 68rpx;vertical-align: middle;">+{{rewardPoints}}</text>
+          </view>
+          <view class="eve-text">
+            <view class="eve-has-sign">
+              已经签到
+              <text style="font-size: 28rpx;color: #FF4444;">{{signInfo.sign_num}}</text>
+              天
+            </view>
+            <view class="eve-has-seven">签满7天可获大礼包</view>
+          </view>
+          <view class="eve-panel">
+            <view class="eve-panel-item" wx:for="{{signInfo.rules}}" wx:key="index">
+              <view wx:if="{{item.status==2||item.status==3||item.status==1}}" class="eve-item-top eve-has-sign">
+                <view class="eve-item-inner">{{item.reward_points}}</view>
+              </view>
+              <view wx:if="{{!item.status&&index!=6}}" class="eve-item-top eve-no-sign">
+                {{item.reward_points}}
+              </view>
+              <view wx:if="{{!item.status&&index==6}}" class="eve-item-top eve-gift-sign">
+                <image class="eve-gift-img" src="../../images/cps/cps_integral/mystery_big_icon.png" />
+              </view>
+              <view wx:if="{{item.status==2||item.status==3||item.status==1}}" class="eve-item-bot">
+                已签到
+              </view>
+              <view wx:if="{{!item.status}}" class="eve-item-bot">
+                {{filter.nameStr(item.name)}}
+              </view>
+            </view>
+          </view>
+          <view bindtap="hideSign1" class="old-view1">收下积分</view>
+        </view>
+      </view>
+    </view>
+  </com-modal>
+  <com-modal className="sure-modal" show="{{isShowInv}}" width="580" background="none" padding="15rpx 0 0 0" radius="15">
+    <view class="sign-modal" slot="body">
+      <view class="mo-content">
+        <image class="bg-modal" mode="widthFix" src="https://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/sign_success_bg.png" />
+        <view class="sign-title">
+          <text>邀请好友奖励</text>
+          <view class="sign-modal-content" style="font-size: 30rpx;font-weight: bold;">恭喜您邀请{{inc_num}}名好友，奖励积分{{inc_points}}分</view>
+        </view>
+        <view class="sign-btn">
+          <view class="sign-modal-integral" style="margin-bottom: 80rpx">
+            <text style="vertical-align: middle;font-size: 32rpx;">积分</text>
+            <text class="big-num">+{{inc_points}}</text>
+          </view>
+          <view bindtap="hideSign2" class="old-view getbtn">收下积分</view>
+        </view>
+      </view>
+      <view class="closeicons iconfont iconsousuoguanbi" bindtap="hideSign2"></view>
+    </view>
+  </com-modal>
+  <!-- 用户没登录 -->
+  <!-- <button class='authbtn' wx:if='{{_unlogin}}' type='primary' bindtap="isLogin"></button> -->
+  <!-- 授权手机号码 -->
+  <button class='authbtn' wx:if='{{!_unlogin&&!_has_phone}}' type='primary' bindtap="toGetPhonenumAuth"></button>
+  <!-- 首页合作/商品搜索/授权 弹框 -->
+  <template is="togetherDialog" data='{{...commonModalData}}'></template>
+  <!-- 用户未登录 -->
+  <view class="nodata_cps" wx:if="{{(!_unlogin&&!signInfo) || _unlogin}}">
+    {{_unlogin? '您还未登录哦~' : '暂无数据~'}}
+    <button class='tologin' wx:if='{{_unlogin}}' type='primary' bindtap="isLogin">请登录</button>
+  </view>
+</view>
+<include src="/pages/public/page_footer.wxml"></include>

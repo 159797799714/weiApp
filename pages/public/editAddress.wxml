@@ -1,0 +1,66 @@
+<!-- 选择默认地址通用模板 -->
+<import src="../public/warning.wxml" />
+<template name="editAddress">
+  <form bindsubmit="addressSave" bindreset="formReset">
+    <view class="addressEdit">
+      <view class="addressEditList">
+        <view class="addressEditCentent">
+          <text>收货人</text>
+          <input type="text" placeholder-style="color: #999;" name="name" placeholder="请输入收货人姓名" bindblur='savaValue' data-name='name' value="{{user_address.name}}" />
+        </view>
+        <view class="addressEditCentent">
+          <text>联系方式</text>
+          <input type="number" placeholder-style="color: #999;" name="tel" placeholder="请输入收货人手机号码" maxlength="11" bindblur='savaValue' data-name='tel' value="{{user_address.tel}}" />
+        </view>
+      </view>
+      <view class="addressEditList">
+        <view class="addressEditCentent">
+          <text>所在地区</text>
+          <view wx:if="{{!isLoad}}" class="regionSelection"bindtap="loadPicker">
+            <picker name="province" value="{{province_index}}" range="{{province_name_arr}}">
+              <view class="picker" style='color:#999'>请选择</view>
+            </picker>
+          </view>
+          <view wx:else class="regionSelection">
+            <picker name="province" bindchange="pickerProvince" value="{{province_index}}" range="{{province_name_arr}}">
+              <view class="picker" style='color:#333'>
+                {{province_name_arr[province_index]}}
+              </view>
+            </picker>
+            <picker name="city" bindchange="pickerCity" value="{{city_index}}" range="{{city_name_arr}}">
+              <view class="picker" style='color:#333'>
+                {{city_name_arr[city_index]}}
+              </view>
+            </picker>
+            <picker name="area" bindchange="pickerCountry" value="{{country_index}}" range="{{country_name_arr}}">
+              <view class="picker" style='color:#333'>
+                {{country_name_arr[country_index]}}
+              </view>
+            </picker>
+          </view>
+        </view>
+        <view class="addressEditCentent" style="display:flex;" bindtap="{{paymentPostage=='local' ? 'chooseLocation':''}}">
+          <text class='{{positionError?"position-error":""}}'>详细地址</text>
+          <input type="text" placeholder-style="color: #999;" name="address" disabled='{{paymentPostage=="local" ? true:false}}' placeholder="请输入街道，门牌号等" bindblur='savaValue' data-name='address' value="{{user_address.address}}"/>
+          <!-- <view style="position:relative;width:80rpx;text-align: center;" bindtap="chooseLocation">
+            <text class="iconfont icon-dizhi" style="display-inline;width: 45rpx;height: 45rpx;font-size:44rpx;color:#888;"></text>
+            <text class="iconfont icon-tap flag-hide" style="font-size:44rpx;"></text>
+          </view> -->
+        </view>
+        <!-- <view class="addressEditCentent">
+          <text>街道门牌号</text>
+          <input type="text" placeholder-style="color: #999;" name="address_detail" placeholder="街道门牌号" bindblur='savaValue' data-name='address_detail' value="{{user_address.address_detail}}" />
+        </view> -->
+        <view class="addressEditCentent">
+          <text>邮政编码</text>
+          <input type="number" placeholder-style="color: #999;" name="zipcode" placeholder="请输入邮政编码" bindblur='savaValue' data-name='zipcode' value="{{user_address.zipcode}}" />
+        </view>
+      </view>
+      <view class="bottom-btn">
+        <button class="submit bg-f4" formType="submit">提交</button>
+      </view>
+      <!-- <button class="cancel">取消</button> -->
+    </view>
+  </form>
+  <template is="warning" wx:if="{{warning.warningShow}}" data="{{warningTxt:warning.warningTxt}}" />
+</template>

@@ -1,0 +1,39 @@
+<view class="cashRecord-wrap">
+  <view class="headers">
+    <view class="hd thd times">时间</view>
+    <view class="hd mhd money">金额</view>
+    <view class="hd shd status">状态</view>
+  </view>
+  <view class="lists">
+    <block wx:if="{{listData&&listData.length}}">
+      <view class="list-item" wx:for="{{listData}}" wx:for-item="e" wx:for-index="i" wx:key="i">
+        <view class="months">{{e.month_str}}</view>
+        <view class="months-list">
+          <view class="mitem {{index != 0 ? 'scale-1px-top' : ''}}" wx:for="{{e.list}}" wx:key="index">
+            <view class="rows times">{{item.createtime}}</view>
+            <view class="rows money rmy">{{item.cash}}元</view>
+            <view class="rows status {{item.status==1?'doing':(item.status==0||item.status==3?'fail':'')}}" bindtap="{{item.status==0||item.status==3?'failTipFun':''}}">
+              {{statusObj[item.status]}}
+              <text class="iconfont iconyiwen" wx:if="{{item.status == 0 || item.status == 3}}"></text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+    <view class="nodata_cps" wx:if="{{listData&&!listData.length}}">暂无数据~</view>
+  </view>
+
+  <!-- pupup底部弹框 查看发放失败提示 -->
+  <com-popup show="{{isshowPopup}}" bindonClose="onClosePopup">
+    <view class="fail-popup">
+      <view class="title">为什么会提现发放失败？</view>
+      <view class="closeicon iconfont iconclose_live" bindtap="onClosePopup"></view>
+      <view class="gy">提现发放失败有以下两种情况</view>
+      <view class="rz">1. 您的微信未绑定银行卡</view>
+      <view class="rz">2. 您的微信未通过过实名认证</view>
+      <view class="gy last-gy">请检查您的微信是否存在上述问题，或咨询客服解决</view>
+      <button class="okbtn" type="primary" bindtap="onClosePopup">我知道了</button>
+    </view>
+  </com-popup>
+
+</view>

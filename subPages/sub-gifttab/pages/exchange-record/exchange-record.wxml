@@ -1,0 +1,34 @@
+<import src="../../../../template/tabs/tabs.wxml" />
+<view class="record-wrap scale-1px-top">
+    <view class="tabs-part scale-1px-bottom {{!showInstruction?'topline':''}}">
+        <template is="tabs" data="{{...tabsData}}" />
+    </view>
+    <view class="lists">
+        <!-- 兑换记录列表 -->
+        <view class="recordList" wx:if="{{recList&&recList.length}}">
+            <view class="record-item" wx:for="{{recList}}" wx:key="index" bindtap="toProDetail" data-item="{{item}}">
+                <view class="record-content scale-1px-bottom">
+                    <view class="imgbox">
+                        <image class="imgs" mode="widthFix" src="{{item.goods_image}}" />
+                    </view>
+                    <!-- <image src="{{item.goods_image}}" /> -->
+                    <view class="record-middle">
+                        <view class="goods-name">{{item.goods_name}}</view>
+                        <view class="consume">
+                            {{item.consume_points? '消耗'+item.consume_points+'积分':''}}
+                            {{item.consume_amount? '消耗'+item.consume_amount+'元余额':''}}
+                        </view>
+                    </view>
+                </view>
+                <view class="record-footer">
+                    <view class="exc-time">{{item.createtime}}兑换</view>
+                    <view class="status {{item.status==2?'green':(item.status==3?'gray':'')}}">{{item.status==1?'待发货':(item.status==2?'已发货':'已完成')}}</view>
+                    <!-- <view wx:if="{{item.status==1}}" style="color: #FB6B13;">待发货</view>
+                    <view wx:if="{{item.status==2}}" style="color: #2CA344;">已发货</view>
+                    <view wx:if="{{item.status==3}}">已完成</view> -->
+                </view>
+            </view>
+        </view>
+        <view class="nodata_cps" wx:if="{{recList&&!recList.length}}">暂无数据~</view>
+    </view>
+</view>

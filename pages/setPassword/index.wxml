@@ -1,0 +1,21 @@
+<view class="password-setting pinkDarkTheme">
+    <view class="password-box" bindtap="focusInput">
+        <view class="password-set-name">支付密码：</view>
+        <view class="password-item"
+              wx:for="{{[1,2,3,4,5,6]}}"
+              wx:key="{{index}}">
+            {{currentPw.length >= item ? (pwShow ? currentPw[index] : "●") : ""}}
+        </view>
+    </view>
+    <view class="password-desc">
+        <text class="password-desc-left">为了您的资金安全，支付密码将仅用于支付</text>
+        <text class="password-desc-right" bindtap="toggleShowPassword">{{pwShowName}}</text>
+    </view>
+    <view class="password-save-btn" bindtap="savePassword">保存密码</view>
+    <input class="password-hidden"
+           type="number"
+           focus="{{focus}}"
+           bindinput="inputPassword"
+    />
+</view>
+<include src="/pages/public/page_footer.wxml"></include>

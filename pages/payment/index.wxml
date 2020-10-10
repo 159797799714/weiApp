@@ -1,0 +1,128 @@
+<!--支付页面-->
+<import src="../public/payment.wxml" />
+<import src="../public/choiceAddress.wxml" />
+<import src="../public/editAddress.wxml" />
+<import src="../public/warning.wxml" />
+<wxs module="filter" src="../../utils/filter.wxs"></wxs>
+<view class="container payment {{pageTheme}}" data-page="page.payment.index">
+  <view class="containerLayer" wx:if="{{!containerLayer}}"></view>
+
+
+  <!--商品信息列表-->
+  <template is="payment" data="{{no_postage_text,paymentData:paymentData, postage:postage, paymentPostage:paymentPostage, showMessage:showMessage, pay_page: pay_page,api_url,oppenShopList,addressList,addressEdit,open_local_physical_list,nowPhysical,forbidChangeAddress,themeColorValue,NUM,slide_txt,slide,multiIndex,multiArray,serviceShow,msubDate,disabledTime,open_community_group,customMessage,no_right: true}}"
+  />
+
+  <!-- 不预约，直接购买 -->
+  <view class='order-info bg-ff' wx:if="{{paymentData.order.type!='10'}}">
+    <!-- 数量 -->
+    <view class='info-item'>
+      <view class='name'>数量</view>
+      <view class='value'>
+        <text class='mini-y'>1</text>
+      </view>
+    </view>
+    <!-- 商品总价 -->
+    <view class='info-item'>
+      <view class='name'>商品总价</view>
+      <view class='value f-bold f-32 col-f44'>
+        <!-- 会员商品使用纯积分 -->
+        <block wx:if="{{paymentData.order.use_point > 0}}">
+          <text>{{paymentData.order.cost_point}}积分</text>
+        </block>
+        <block wx:else>
+          <text>{{paymentData.order.sub_total*1 > (paymentData.order.float_amount > 0?paymentData.order.float_amount*1:0)? 
+            filter.saveDouble(paymentData.order.sub_total*1-(paymentData.order.float_amount > 0?paymentData.order.float_amount*1:0)) + '元': ''}}</text>
+          <text wx:if="{{(paymentData.order.need_point > 0 || paymentData.order.cost_point > 0) && paymentData.order.sub_total*1 > (paymentData.order.float_amount > 0?paymentData.order.float_amount*1:0)}}"> + </text>
+          <text wx:if="{{paymentData.order.need_point > 0 || paymentData.order.cost_point > 0}}">{{paymentData.order.cost_point > 0? paymentData.order.cost_point: paymentData.order.need_point}}积分</text>
+          
+        </block>
+      </view>
+    </view>
+    <!-- 支付方式 -->
+    <view class='info-item'>
+      <view class='name'>支付方式</view>
+      <view class='value dis-flex flex-y-center col-33'>
+      <block wx:if="{{paymentData.order.use_point > 0}}">
+        积分兑换
+      </block>
+      <block wx:else>
+        <text wx:if="{{paymentData.order.need_point > 0 || paymentData.order.cost_point > 0}}">{{paymentData.order.cost_point > 0? paymentData.order.cost_point: paymentData.order.need_point}}积分 + </text>
+        <image src="../../images/wechat.png"  class="icon dis-inline-block m-l-10" mode="widthFix"/>微信支付
+      </block>
+      </view>
+    </view>
+  </view>
+
+ 
+</view>
+
+<!-- 合计价格 -->
+<view class='ready-submit' wx:if='{{!show_pay_list}}' style="padding-bottom: {{bottomHeight}}">
+  <view class='pay-price col-99 f-26'>
+    <view>实付款</view>
+    <view class='price col-f44 f-32'>
+      <block wx:if="{{paymentData.order.use_point > 0}}">
+        <text>{{paymentData.order.cost_point}}积分</text>
+      </block>
+      <block wx:else>
+        <text>{{paymentData.order.sub_total*1 > (paymentData.order.float_amount > 0?paymentData.order.float_amount*1:0)? 
+          filter.saveDouble(paymentData.order.sub_total*1-(paymentData.order.float_amount > 0?paymentData.order.float_amount*1:0)) + '元': ''}}</text>
+        <text wx:if="{{(paymentData.order.need_point > 0 || paymentData.order.cost_point > 0) && paymentData.order.sub_total*1 > (paymentData.order.float_amount > 0?paymentData.order.float_amount*1:0)}}">+</text>
+        <text wx:if="{{paymentData.order.need_point > 0 || paymentData.order.cost_point > 0}}">{{paymentData.order.cost_point > 0? paymentData.order.cost_point: paymentData.order.need_point}}积分</text>
+      </block>
+      <!-- <block wx:if="{{paymentData.order.is_point_exchange!=1}}">
+        ￥{{paymentData.order.type==10?(paymentData.order.total>0?paymentData.order.total:0):(paymentMoney>0 ? paymentMoney:0)}}
+      </block>
+      <block wx:else>
+         积分价格加上会员折扣 不改变原来订单逻辑
+        {{paymentData.order.type==10?(paymentData.order.total>0?filter.transBigNumber(paymentData.order.total)+filter.transBigNumber(discountPrice):0):(paymentMoney>0 ? filter.transBigNumber(paymentMoney)+filter.transBigNumber(discountPrice):0)}}
+      </block> -->
+    </view>
+    <view class="fare">({{paymentData.order.postage*1?'运费￥'+ paymentData.order.postage: '免运费'}})</view>
+  </view>
+  <view class='btn-submit' data-type="weixin" data-grade="{{memberGrade}}" catchtap='readySubmit' style='background:{{(freight_stauts=="post" || is_door_servce==false)?"#ccc":"#ff4444"}}'>立即支付</view>
+</view>
+
+<!--收货地址选择-->
+<block wx:if="{{addressList}}">
+  <view class="layer" bindtap="closeAddress"></view>
+  <view class="logisticsLayer {{pageTheme}}">
+    <view class="logisticsLayerTitle">选择收货地址</view>
+    <template is="choiceAddress" data="{{addressData:addressData,currentTab:currentTab}}" />
+  </view>
+</block>
+<block wx:if="{{addressEdit}}">
+  <view class="layer" bindtap="closeAddress"></view>
+  <view class="logisticsLayer {{pageTheme}}">
+    <view class="logisticsLayerTitle">收货地址</view>
+    <view wx-if="{{positionError}}" class='position-error position-error-style'>请选择详细定位</view>
+    <view class="addressPages">
+      <template is="editAddress" data="{{user_address:user_address,province_index:province_index,province_name_arr:province_name_arr,city_index:city_index,city_name_arr:city_name_arr,country_index:country_index,country_name_arr:country_name_arr,country_index:country_index,warning:warning,positionError:positionError}}"
+      />
+    </view>
+  </view>
+</block>
+
+<template is="warning" wx:if="{{warning.warningShow}}" data="{{warningTxt:warning.warningTxt}}" />
+
+
+<include src="/pages/public/page_footer.wxml"></include>
+
+<!-- 积分提示/购买弹窗提示 -->
+<!-- <com-modal show="{{integralShow}}" width="520" padding="0rpx" radius="15">
+  <view slot="body" class="integral-popup bg-ff t-center f-32">
+    <image src="{{integral(integralType).iconUrl}}" class="exchange-img"/>
+    <view class="exchange-title f-bold">{{integral(integralType).title}}</view>
+
+    <view wx:if="{{integralType === 1}}" class="exchange-word">确认消耗<text class="col-f44">{{productData.product.cost_point}}</text>积分兑换</view>
+    <view wx:else class="exchange-word">{{integral(integralType).word}}</view>
+
+    <view class="exchange-foot">
+      <view wx:if="{{integralType === 1}}" class="foot-box dis-flex">
+        <view class="flex-1 cancel-btn btn col-99" bindtap="hideIntegralPopup">取消兑换</view>
+        <view class="flex-1 btn col-f44" bindtap="sureExchange" data-way="{{payDef}}" data-grade="{{memberGrade}}" data-type="self_buy" data-product="{{productData.product.product_id}}">确认兑换</view>
+      </view>
+      <view wx:else class="t-center {{integralType === 4?'col-f44': ''}}" bindtap="hideIntegralPopup">我知道了</view>
+    </view>
+  </view>
+</com-modal> -->

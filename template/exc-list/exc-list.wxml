@@ -1,0 +1,26 @@
+<wxs src="../../utils/filter.wxs" module="filter"></wxs>
+<template name="excList">
+    <view class="exc-list" wx:if="{{excDataList &&excDataList.length}}">
+        <view class="exc-item" wx:for="{{excDataList}}" wx:key="index">
+            <!-- <navigator url="/pages/product/details?product_id={{item.id}}" hover-class="none" open-type="navigate"> -->
+            <navigator url="/subPages/sub-gifttab/pages/exc-goods-detail/exc-goods-detail?exc_id={{item.id}}"
+                hover-class="none" open-type="navigate">
+                <view class="exc-img">
+                    <image class="imgs" mode="aspectFit" src="{{item.image}}" />
+                </view>
+                <view class="exc-name">{{item.name}}</view>
+                <view class="exc-info">{{filter.handleNumber(item.exchange_points,'0',1,0) }}积分
+                    <!-- <text style="color:#999999">或</text>
+                    {{filter.handleNumber(item.exchange_amount/100,'0',2,0)}}元余额 -->
+                </view>
+            </navigator>
+            <view class="exc-footer">
+                <view class="exc-num">已兑换:{{item.exchange_count}}</view>
+                <!-- <view class="exc-btn">兑换</view> -->
+                <navigator url="/subPages/sub-gifttab/pages/exc-goods-detail/exc-goods-detail?exc_id={{item.id}}"
+                    hover-class="none" open-type="navigate" class="exc-btn">兑换</navigator>
+            </view>
+        </view>
+    </view>
+    <view class="nodata_cps" wx:if="{{excDataList &&!excDataList.length}}">暂无数据</view>
+</template>

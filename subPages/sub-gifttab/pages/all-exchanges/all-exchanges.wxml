@@ -1,0 +1,26 @@
+<import src="../../../../template/exc-list/exc-list.wxml" />
+<!-- banner图 -->
+<view class="banner-bgc" wx:if="{{banners.length}}">
+    <swiper circular="{{true}}" autoplay="{{true}}" interval="3000" class="banners-box" data-type="bannerIndex"
+        bindchange="swiperChange">
+        <block wx:for="{{banners}}" wx:key="index">
+            <swiper-item class="swiperitem" data-ids="{{item.points_goods_ids}}" data-title="{{item.title}}"
+                bindtap="goExcList">
+                <image class="swiper-item imgs" mode="widthFix" src="{{item.image}}" />
+            </swiper-item>
+        </block>
+    </swiper>
+    <view class="dots" wx:if="{{banners.length >1}}">
+        <view class="dots-item {{bannerIndex == index ? 'dots-active' : ''}}" wx:for="{{banners}}" wx:key="index">
+        </view>
+    </view>
+</view>
+<!-- 充电红包标题 -->
+<view class="gift-title">
+    <view class="left-bag">充电红包</view>
+    <!-- <view class="right-all" bindtap="goExcList" data-type="1">
+      <view style="display:inline-block">全部</view>
+      <view class="arrow-right-icon iconfont iconarrowright"></view>
+    </view> -->
+</view>
+<template is="excList" data="{{excDataList}}"></template>

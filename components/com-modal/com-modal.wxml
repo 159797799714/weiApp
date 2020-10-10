@@ -1,0 +1,17 @@
+<view class="com-modal am-modal-{{show ? 'show' : 'hide'}}" catchtouchmove="preventTouchMove">
+	<view class="am-modal-mask" />
+	<view class="am-modal-document {{show?'fadeInAni':'fadeOutAni'}}" data-close="{{isMaskClose}}" bindtap="onModalClose">
+		<view class="am-modal {{className}}" style="width:{{width}}rpx;background:{{background}};border-radius:{{radius}}rpx" catchtap="ammodeFun">
+			<!-- <view class="am-modal-header">
+				<slot name="header" />
+			</view> -->
+			<view class="am-modal-body" style="max-width:{{width}}rpx;padding:{{padding}}">
+				<slot name="body" />
+			</view>
+			<view class="am-modal-footer" hover-class="am-modal-footer-active">
+				<slot name="footer" />
+			</view>
+			<view class="am-modal-close {{closeType === '1' ? 'am-modal-close-white' : ''}}" wx:if="{{showClosebtn}}" data-close="{{true}}" hover-class="am-modal-close-active" catchtap="onModalClose" />
+		</view>
+	</view>
+</view>

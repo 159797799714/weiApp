@@ -1,0 +1,140 @@
+// out: livetab.wxss, compress: true
+@import '../../template/compere-list/compere-list.less';
+@import '../../template/tabs//tabs.less';
+page{
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  background: #fff;
+}
+
+.livetab-wrap{
+  background: #fff;
+  padding: 30rpx 0;
+  box-sizing: border-box;
+  .hasnew{
+    width: 353rpx;
+    height: 50rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 26rpx;
+    color: #F67D3A;
+    line-height: 37rpx;
+    margin: 0 auto;
+    border: 1px solid #eee;
+    border-radius: 50rpx;
+    .iconfont{
+      width: 24rpx;
+      height: 22rpx;
+      font-size: 26rpx;
+      color: #F67D3A;
+      line-height: 22rpx;
+      margin-right: 15rpx;
+    }
+  }
+  .banner-box{
+    padding: 30rpx 30rpx 0;
+    position: relative;
+  }
+  .banner-title{
+    font-size: 36rpx;
+    color: #333;
+    line-height: 36rpx;
+    font-weight: 700;
+  }
+  .page-swiper{
+    margin: 30rpx 0 20rpx;
+    position: relative;
+    .com-swiper{
+      height: 280rpx;
+      margin: 30rpx 0;
+      border-radius: 16rpx;
+      position: relative;
+      z-index: 30;
+    }
+    .info{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .info-title{
+        max-width: 360rpx;
+        font-size: 28rpx;
+        color: #333;
+        line-height: 28rpx;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .info-time{
+        display: flex;
+        align-items: center;
+      }
+      .times{
+        font-size: 24rpx;
+        color: #666;
+        line-height: 24rpx;
+        margin-right: 20rpx;
+      }
+      .apply-btn{
+        width: 112rpx;
+        height: 36rpx;
+        font-size: 22rpx;
+        color: #fff;
+        line-height: 36rpx;
+        text-align: center;
+        background: #666;
+        border-radius: 6rpx;
+      }
+    }
+    .dots{
+      display: flex;
+      position: absolute;
+      bottom: 76rpx;
+      left: 50%;
+      z-index: 40;
+      transform: translateX(-50%);
+      .dots-item{
+        width: 6rpx;
+        height: 6rpx;
+        opacity: 0.6;
+        background: #969696;
+        border-radius: 50%;
+        margin: 0 5rpx;
+      }
+      .dots-active{
+        width: 24rpx;
+        opacity: 1;
+        background: #fff;
+        border-radius: 10rpx;
+      }
+    }
+  }
+  .tabs-wrap{
+    margin-bottom: 16rpx;
+    .tabs-item{
+      flex: none;
+      width: 120rpx;
+      font-size: 30rpx;
+    }
+  }
+  .list-swiper{
+    width: 100%;
+    padding-left: 30rpx;
+    box-sizing: border-box;
+  }
+  .datas{
+    overflow: hidden;
+    position: relative;
+  }
+  .authbtn{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    background: #fff;
+    opacity: 0;
+  }
+}

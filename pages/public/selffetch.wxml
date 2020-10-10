@@ -1,0 +1,8 @@
+<!-- 自提二维码 -->
+<template name="selffetch">
+    <view class="layer" bindtap="selffetch">
+    </view>
+    <view class="shearLayer" bindtap="selffetch">
+        <image src="{{selffetch_img_url}}" style='height:340px; width:100%' mode="aspectFit"></image>
+     </view>
+</template>

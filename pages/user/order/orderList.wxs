@@ -1,0 +1,60 @@
+
+ module.exports.status = function(status) {
+    switch(status) {
+      case '0':
+        return {
+          text: '待支付',
+          class: 'col-f44'
+        }
+        break;
+      case '1':
+        return {
+          text: '待支付',
+          class: 'col-f44'
+        }
+        break;
+      case '2':
+        return {
+          text: '待发货',
+          class: 'col-FB'
+        }
+        break;
+      case '3':
+        return {
+          text: '待收货',
+          class: 'col-2C'
+        }
+        break;
+      case '4':
+        return {
+          text: '交易完成',
+          class: 'col-33'
+        }
+        break;
+      case '5':
+        return {
+          text: '已取消',
+          class: 'col-33'
+        }
+        break;
+      case '6':
+        return {
+          text: '退货中',
+          class: 'col-33'
+        }
+        break;
+      case '7':
+        return {
+          text: '已收货',
+          class: 'col-f44'
+        }
+        break;
+      default:
+        var type= status.constructor
+        return {
+          text: '',
+          class: ''
+        }
+        break;
+    }
+ }

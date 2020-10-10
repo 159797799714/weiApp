@@ -1,0 +1,169 @@
+//周期购买 商品详情页 时间线
+@import "theme_colors";
+.circle-buy-order{
+  background-color: #ffffff;
+  font-size: 24rpx;
+  margin-top: 20rpx;
+  .send-title{
+    height: 70rpx;
+    line-height: 70rpx;
+    padding: 0 20rpx;
+    .send-name{
+      display: inline-block;
+      font-size: 30rpx;
+    }
+    .send-progress{
+      display: inline-block;
+      margin-left: 537rpx;
+    }
+    .send-progress-delivered{
+      font-size: 30rpx;
+    }
+  }
+  .send-list{
+    .send-list-item{
+      height: 100rpx;
+      widows: 100%;
+      padding: 0 20rpx;
+      &>view{
+        display: inline-block;
+        float: left;
+      }
+      &.delay{
+        .item-btn{
+          background-color: #cccccc;
+        }
+        .item-desc{
+          color: #cccccc;
+        }
+        .item-indicate{
+          border-color: #CCCCCC;
+          background-color: #ffffff;
+          color: #CCCCCC;
+          border-style: dashed;
+          &:before{
+            border-style: dotted;
+            border-color: #CCCCCC;
+          }
+          &:after{
+            border-style: dotted;
+            border-color: #CCCCCC;
+          }
+        }
+      }
+      &.unsended{
+        .item-indicate{
+          border-color: #CCCCCC;
+          background-color: #ffffff;
+          color: #CCCCCC;
+          &:before{
+            border-color: #CCCCCC;
+          }
+          &:after{
+            border-color: #CCCCCC;
+          }
+        }
+      }
+      &:first-child{
+        .item-indicate:before{
+          border: none;
+        }
+      }
+      &:last-child{
+        .item-indicate:after{
+          border: none;
+        }
+      }
+    }
+    .item-indicate{
+      position: relative;
+      width: 56rpx;
+      height: 56rpx;
+      line-height: 56rpx;
+      text-align: center;
+      border-radius: 50%;
+      margin-top: 20rpx;
+      color: #ffffff;
+      font-size: 26rpx;
+      font-weight: bold;
+      &:after{
+        position: absolute;
+        content: '';
+        width: 0;
+        height: 17rpx;
+        top: 56rpx;
+        left: 25rpx;
+      }
+      &:before{
+        position: absolute;
+        content: '';
+        width: 0;
+        height: 17rpx;
+        top: -23rpx;
+        left: 25rpx;
+      }
+    }
+    .item-desc{
+      margin-top: 20rpx;
+      margin-left: 20rpx;
+    }
+    .send-time{
+      margin-left: 170rpx;
+      margin-top: 20rpx;
+    }
+    .item-btn{
+      margin-left: 30rpx;
+      width: 110rpx;
+      height: 44rpx;
+      line-height: 44rpx;
+      margin-top: 25rpx;
+      color: #ffffff;
+      text-align: center;
+      border-radius: 8rpx;
+      font-size: 22rpx;
+    }
+  }
+}
+.circle-buy-deliver-info{
+  border-radius: 5rpx;
+  color: #ffffff;
+  float:left;
+  font-size:24rpx;
+  height:44rpx;
+  line-height: 44rpx;
+  text-align: center;
+  width:100%;
+}
+@each $theme,$t_color in $theme_colors {
+  .#{$theme}{
+    .circle-buy-order {
+      .send-list-item{
+        &.sended{
+          .item-desc{
+            color: $t_color;
+          }
+        }
+      }
+      .item-indicate {
+        background-color: $t_color;
+        border: 4rpx solid $t_color;
+        &:after{
+          border: 4rpx solid $t_color;
+        }
+        &:before{
+          border: 4rpx solid $t_color;
+        }
+      }
+      .item-btn{
+        background-color: $t_color;
+      }
+      .view-send-detail,.send-progress-delivered,.send-name{
+        color: $t_color;
+      }
+    }
+    .circle-buy-deliver-info{
+      background-color: rgba($t_color,0.4);
+    }
+  }
+}
+

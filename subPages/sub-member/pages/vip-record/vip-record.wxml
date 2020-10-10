@@ -1,0 +1,27 @@
+<import src="../../../../template/tabs/tabs.wxml" />
+<view class="VIP-record-wrap">
+  <template is="tabs" data="{{...tabsData}}"></template>
+  <swiper class="list-swiper" current="{{tabsData.activeTab}}" style="height: {{listHeight?listHeight:'250'}}px;" data-type="activeTab" bindchange="swiperChange">
+    <block wx:for="{{recordData}}" wx:for-item="e" wx:for-index="i" wx:key="i">
+      <swiper-item>
+        <view class="record-lists" id="datas_{{i}}">
+          <block wx:if="{{e.listData.length}}" wx:for="{{e.listData}}" wx:key="index">
+            <view class="record-item">
+              <view class="img-box">
+                <image class="photos" mode="widthFix" src="{{item.headImg}}" />
+              </view>
+              <view class="info-box">
+                <view class="infos">
+                  <view class="name">{{item.nickName}}</view>
+                  <view class="times">有效期：{{item.expirationTime || "--"}}</view>
+                </view>
+                <view class="status {{tabsData.activeTab == 1 ? 'ended' : ''}}">{{tabsData.activeTab == 0 ? '有效' : '已过期'}}</view>
+              </view>
+            </view>
+          </block>
+          <view class="nodata" wx:if="{{!e.listData.length}}">暂无数据</view>
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>

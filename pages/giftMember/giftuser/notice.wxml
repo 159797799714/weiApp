@@ -1,0 +1,3 @@
+<view class='page-wrap'>
+  <rich-text nodes="{{noticeContent}}"></rich-text>
+</view>

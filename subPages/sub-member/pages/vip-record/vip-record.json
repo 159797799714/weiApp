@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "专属VIP记录",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 10,
+  "backgroundTextStyle": "dark",
+  "usingComponents": {}
+}

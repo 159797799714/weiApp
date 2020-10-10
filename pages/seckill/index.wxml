@@ -1,0 +1,315 @@
+<import src="../../wxParse/wxParse.wxml" />
+<import src="../public/shoppingCat.wxml" />
+<import src="../../template/together-dialog/together-dialog.wxml" />
+<wxs src="./index.wxs" module="integral"></wxs>
+<!-- pages/seckill/index.wxml -->
+<view class="seckill {{pageTheme}}">
+  <view style="padding: 5px 5px;" wx:if="{{applet_guide_subscribe}}">
+    <official-account binderror="officialAccountError"></official-account>
+  </view>
+  <view class="banner p-re">
+    <block wx:if="{{imgUrls.length>1}}">
+      <swiper autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperChange" class="b_banner">
+        <block wx:for="{{imgUrls}}" wx:key="index">
+          <swiper-item>
+            <image src="{{item}}" data-src="{{item}}" bindtap="previewImage" class="slide-image" mode="aspectFit" />
+          </swiper-item>
+        </block>
+      </swiper>
+    </block>
+    <block wx:else>
+      <view class="b_banner">
+        <image wx:for="{{imgUrls}}" wx:key="index" src="{{item}}" mode="aspectFit"></image>
+      </view>
+    </block>
+    <view class="swiper-num col-ff f-26">{{swiperCurrent}}/{{imgUrls.length}}</view>
+  </view>
+  <view class="seckillStatus col-ff dis-flex flex-x-center flex-y-center">
+    <view class="seckillInfo flex-1 t-left">
+      <view class="f-24 seckillText">闪购秒杀进行中</view>
+      <view class="price dis-flex flex-y-end">
+
+        <!-- <block  wx:if="{{shoppingCatButton == '原价购买'}}">
+          <text class="f-32 dis-inline-block">￥</text>
+          <image mode="heightFix" wx:for="{{integral.num(show_origin_price)}}" wx:key="index" class="col-ff specialNum icon-num-{{item > -1?'': 'dot'}}" src="http://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/num/{{item}}.png"/>
+        </block>
+        <view wx:if="{{show_seckill_price > 0 && shoppingCatButton !== '原价购买'}}" class="dis-flex flex-y-end">
+          <text class="f-32 dis-inline-block">￥</text>
+          <image mode="heightFix" wx:for="{{integral.num(show_seckill_price)}}" wx:key="index" class="col-ff specialNum icon-num-{{item > -1?'': 'dot'}}" src="http://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/num/{{item}}.png"/>
+        </view>
+        <text wx:if="{{show_seckill_price > 0 && seckillInfo.need_point > 0 && shoppingCatButton !== '原价购买'}}" class="m-l-10 f-32"> + </text>
+        <view wx:if="{{seckillInfo.need_point && seckillInfo.need_point > 0 && shoppingCatButton !== '原价购买'}}" class="dis-flex m-l-10 flex-y-end">
+          <image mode="heightFix" wx:for="{{integral.num(seckillInfo.need_point)}}" wx:key="index" class="col-ff specialNum icon-num-{{item > -1?'': 'dot'}}" src="http://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/num/{{item}}.png"/>
+          <text class="f-32"> 积分</text>
+        </view> -->
+
+        <!-- <block  wx:if="{{shoppingCatButton == '原价购买'}}">
+          <text class="f-32 dis-inline-block">￥</text>
+            <text wx:for="{{integral.num(show_origin_price)}}" wx:key="index" class="iconfont col-ff specialNum icon-num-{{item > -1?item: 'dot'}}" style="font-size:{{item > -1?'40rpx': '8rpx'}}"></text>
+        </block>
+        <view wx:if="{{show_seckill_price > 0 && shoppingCatButton !== '原价购买'}}" class="dis-inline-block">
+          <text class="f-32 dis-inline-block">￥</text>
+          <text wx:for="{{integral.num(show_seckill_price)}}" wx:key="index" class="iconfont col-ff specialNum icon-num-{{item > -1?item: 'dot'}}" style="font-size:{{item > -1?'40rpx': '8rpx'}}"></text>
+        </view>
+        <text wx:if="{{show_seckill_price > 0 && seckillInfo.need_point > 0 && shoppingCatButton !== '原价购买'}}" class="m-l-10 f-32"> + </text>
+        <view wx:if="{{seckillInfo.need_point && seckillInfo.need_point > 0 && shoppingCatButton !== '原价购买'}}" class="dis-inline-block m-l-10">
+          <text wx:for="{{integral.num(seckillInfo.need_point)}}" wx:key="index" class="iconfont col-ff specialNum icon-num-{{item > -1?item: 'dot'}}" style="font-size:{{item > -1?'40rpx': '8rpx'}}"></text>
+          <text class="f-32"> 积分</text>
+        </view> -->
+
+        <block  wx:if="{{shoppingCatButton == '原价购买'}}">
+          <text class="f-32 dis-inline-block">￥</text>
+          <!-- <com-money-font class-str="amount" num="{{show_origin_price}}" sym="" fontSize="40" color="#fff"></com-money-font> -->
+          <text  class="f-48 f-bold col-ff">{{show_origin_price * 1 /1}}</text>
+        </block>
+        <block wx:else>
+          <view wx:if="{{show_seckill_price > 0}}" class="dis-inline-block">
+            <text class="f-32 dis-inline-block">￥</text>
+            <!-- <com-money-font class-str="amount" num="{{show_seckill_price}}" sym="" fontSize="40" color="#fff"></com-money-font> -->
+            <text  class="f-48 f-bold col-ff">{{show_seckill_price*1/1}}</text>
+
+          </view>
+          <text wx:if="{{show_seckill_price > 0 && seckillInfo.need_point > 0}}" class="m-l-10 f-32 add"> + </text>
+          <view wx:if="{{seckillInfo.need_point && seckillInfo.need_point > 0}}" class="dis-inline-block m-l-10">
+            <!-- <com-money-font class-str="amount" num="{{seckillInfo.need_point}}" sym="" fontSize="40" color="#fff"></com-money-font> -->
+            <text  class="f-48 f-bold col-ff">{{seckillInfo.need_point}}</text>
+
+            <text class="f-32"> 积分</text>
+          </view>
+        </block>
+        <text class="line-price f-24 line-text">￥{{show_origin_price * 1/1}}</text>
+      </view>
+    </view>
+    <view class="statusRow t-center f-24">
+      <!-- <view class="row" wx:if="{{allInfo.is_start==1}}">
+        <view class="h2">尚未开始</view>
+        <view class="h3">{{total_show}}天后开始</view>
+      </view> -->
+      <view class="row" wx:if="{{allInfo.is_start==2}}">
+        <view class="line-33">活动已结束</view>
+        <view class="h3 f-26 noWrap">抱歉您来晚一步！</view>
+      </view>
+      <view class="row" wx:elif="{{allInfo.is_start==3}}">
+        <view class="line-33 f-26">活动已关闭</view>
+      </view>
+      <view class="row" wx:else>
+        <!-- -秒杀中 -->
+        <block wx:if="{{isSecKill && seckillInfo.buy_mod < 1}}">
+          <view class="line-33">距结束</view>
+          <view class="countDown f-26">
+            {{total_show > 0? total_show+'天': ''}}{{hours_show}}:{{minutes_show}}:{{seconds_show}}
+          </view>
+        </block>
+        <block wx:if="{{isSecKill &&  seckillInfo.buy_mod > 0}}">
+          <view class="line-33">限量{{seckillInfo.total_quantity}}件</view>
+          <view class="countDown f-26">抢完即止!</view>
+        </block>
+        <!-- -倒计时 -->
+        <block wx:if="{{!isSecKill}}">
+          <view class="line-33">开抢倒计时</view>
+          <view class="countDown f-26">
+            {{total_show > 0? total_show+'天': ''}}{{hours_show}}:{{minutes_show}}:{{seconds_show}}
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+  <view class="goodInfo bg-ff">
+    <view class="good-name f-bold col-33 f-32 threeline-hidden">
+      {{proInfo.name}}
+    </view>
+    <view class="good sale-num line-33 f-24">已抢{{seckillInfo.sales_volume}}件</view>
+  </view>
+  <view class="sikllInfo col-f44 f-24">
+    <text class="iconfont icon-miaosha-icon col-f44 f-24 icon"></text>
+    秒杀商品为每人限购1件，超出后按原价购买
+  </view>
+
+  <view class="rowBox bg-ff m-t-20 col-33">
+    <!-- 服务 -->
+    <view class="row-item f-26">
+      <view class="row-name is-inline-block v-top">服务</view>
+      <view class="row-main dis-inline-block v-top">
+        <!-- 七天无理由退换货 -->
+        <view wx:for="{{proInfo.credit_arr}}" wx:key="index" class="serve">
+          <view class="serve-icon dis-inline-block v-top"></view>
+          <view class="m-l-10 dis-inline-block v-top">{{item.name}}</view>
+        </view>
+      </view>
+    </view>
+    <!-- 选择 -->
+    <view  class="row-item f-28" data-bindtap="openCat" bindtap="oppenCat">
+      <view class="row-name is-inline-block v-top">选择</view>
+      <view class="row-main dis-inline-block v-top b-0">
+        {{attrText}}
+      </view>
+      <view class="iconfont iconarrowright col-33 f-20 f-right"></view>
+    </view>
+  </view>
+  <view class="d_desc m-t-20">
+    <view class="bg-ff desc-item">
+      <view class="secTit t-center" wx:if="{{seckillInfo.description != ''}}">
+        <view class="h3">
+          <text class="f-bold">活动说明</text>
+        </view>
+      </view>
+      <view class="pureText col-99 f-28" wx:if="{{seckillInfo.description != ''}}">
+        <text>{{seckillInfo.description}}</text>
+      </view>
+    </view>
+    <view class="bg-ff desc-item">
+      <view class="secTit t-center">
+        <view class="h3">
+          <text class="f-bold">图文详情</text>
+        </view>
+      </view>
+      <view class="thisDesc" wx:if="{{proInfo.info != ''}}">
+        <template is="wxParse" data="{{wxParseData:infoHtml.nodes}}" />
+      </view>
+      <view class="showTxt" wx:else>
+        <image src="{{BASE_IMG_URL}}images/imgTxtCommon.png"></image>
+        <view class="f-26">暂无商品图文详情哦！</view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 分享/秒杀购买 -->
+  <view class="footBox dis-flex" style="padding-bottom:{{bottomHeight}}">
+    <view class="footLeftBox dis-flex flex-y-center flex-x-between col-66">
+      <view class="indexBtn t-center toindex" catchtap="goIndex">
+        <view class="iconfont iconshouye f-36"></view>
+        <view class="btninfo f-22">首页</view>
+      </view>
+      <button class="indexBtn t-center col-66 bg-ff" bindtap="shareTap">
+        <view class="iconfont iconfenxianghaoyou f-36"></view>
+        <view class="btninfo f-22">分享好友</view>
+      </button>
+    </view>
+    <button form-type="submit" wx:if="{{showFriendCircle!=0}}" class="buyBtn flex-1 bg-33 col-ff" bindtap="shareTap">
+      <view class="btncnt f-32">分享海报
+        <view class="f-28" wx:if="{{goodType == 20 && shareRewards}}">
+          赚{{shareRewards || '--'}}积分
+        </view>  
+      </view>
+    </button>
+    <button form-type="submit" class="buyBtn flex-1 bg-99 col-ff {{buttonColor?'':'bg-f4 col-ff'}}" data-bindtap="openCat" bindtap="oppenCat">
+      <view class="btncnt f-32">{{shoppingCatButton}}
+        <view class="f-28" wx:if="{{goodType == 20 && purchaseRewards}}">
+          赚{{purchaseRewards || '--'}}积分
+        </view>
+      </view>
+    </button>
+
+    <!-- 用户没登录 -->
+    <button class='authbtn' wx:if='{{_unlogin}}' type='primary' open-type="getUserInfo" bindtap="clickUserButtonFun" bindgetuserinfo="userCall" binderror="errCall"></button>
+
+    <!-- 授权手机号码 -->
+    <button class='authbtn' wx:if='{{!_unlogin&&!_has_phone}}' type='primary' bindtap="toGetPhonenumAuth"></button>
+  </view>
+
+  <!-- 授权弹框 -->
+  <template is="togetherDialog" data='{{...commonModalData}}'></template>
+
+</view>
+<!-- 海报画布 -->
+<canvas canvas-id='seckillPost' style="width: {{canvasPosition.w}}px; height: {{canvasPosition.h}}px;position:absolute;left: -1000rpx;"></canvas>
+
+<bottom-modal id='shareModal' cancelText='取消' bind:_cancelEvent="_cancelEvent" bind:_shareGroup="_shareGroup" bind:_shareFriendsCircle="_shareFriendsCircle"></bottom-modal>
+<include src="/pages/public/page_footer.wxml"></include>
+
+<!-- 选择规格弹窗 -->
+<view class="thisItemWindow {{pageTheme}}" style="bottom:{{store_nav_list_show?'88rpx':'0'}};" wx:if="{{itemWindowShow}}">
+  <view class="itemDetails">
+    <view class="layer" bindtap="maskClick" catchtouchmove="ture"></view>
+    <view class="shoppingLayer dis-flex flex-column {{isIpx}}__footer__btn-group" style="bottom:{{store_nav_list_show?'88rpx':'0'}};z-index:999;padding-bottom: {{bottomHeight== '0px'?'30rpx': bottomHeight}};" animation="{{animation}}" data-page="page.public.shoppingCat">
+      <view class="goodTop dis-flex">
+        <image src="{{allInfo.product_imgs[0].image}}" mode="aspectFill" class="shopGoodImg" />
+        <view class="flex-1 p-re">
+          <view class="good-price f-32 col-f44 dis-flex flex-y-end oneline-hidden">
+            <block wx:if="{{shoppingCatButton == '原价购买'}}">
+              <text class="f-32 f-bold line-42">￥</text>
+              <!-- <com-money-font class-str="amount" num="{{show_origin_price}}" sym="" fontSize="40" color="#ff4444"></com-money-font> -->
+              <text  class="f-48 f-bold col-f44">{{show_origin_price * 1/1}}</text>
+            </block>
+            <block wx:else>
+              <view wx:if="{{originTotal > 0}}" class="dis-flex flex-y-end oneline-hidden">
+                <text class="f-32 f-bold line-1">￥</text>
+                <!-- <com-money-font class-str="amount" num="{{originTotal}}" sym="" fontSize="40" color="#ff4444"></com-money-font> -->
+                <text  class="f-48 f-bold col-f44 oneline-hidden line-42">{{originTotal*1/1}}</text>
+
+              </view>
+              <text wx:if="{{originTotal > 0 && seckillInfo.need_point > 0}}" class="f-38 line-1 add-icon f-bold m-l-10"> + </text>
+              <!-- <com-money-font class-str="amount" num="{{seckillInfo.need_point}}" sym="" fontSize="40" color="#ff4444"></com-money-font>
+                {{ seckillInfo.need_point && seckillInfo.need_point > 0 ?' 积分': ''}} -->
+              <text wx:if="{{seckillInfo.need_point && seckillInfo.need_point > 0}}" class="f-48 f-bold col-f44 m-l-10">{{seckillInfo.need_point}} </text>
+              <text class="m-l-10 line-42">{{ seckillInfo.need_point && seckillInfo.need_point > 0 ?'积分': ''}}</text>
+
+           </block>
+            
+          </view>
+          <view class="col-33 f-28">已选：{{attrText? attrText: '默认'}}</view>
+          <view class="closeIcon iconfont iconclose_live col-99 f-40" bindtap="maskClick"></view>
+        </view>
+      </view>
+      <view class="specBox flex-1 over-auto">
+        <view class="shoppingSpec">
+          <view class="shoppingCentent" wx:for="{{propertyList}}" wx:for-index="id" wx:key="index">
+            <view class="shoppingSpecName">{{item.name}}</view>
+            <view class="shoppingSpecList">
+              <view wx:for="{{item.values}}" wx:for-item="itemName" wx:key="index" data-name="{{itemName.value}}" data-id="{{id}}" data-pid="{{item.pid}}" data-vid="{{itemName.vid}}" class="specItem {{(shoppingData.specList[id].vid==itemName.vid) ? 'active' : ''}}" bindtap="setMyAttr">
+                {{itemName.value}}
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="shoppingSpec">
+          <view class="shoppingCentent">
+            <view class="shoppingSpecName">数量</view>
+            <view class="shoppingSpecList">
+              <view class="specItem active">一件</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="shoppingButton" style="padding-bottom:{{bottomHeight}}">
+        <form report-submit="true" bindsubmit="formSubmit">
+          <button class="{{buttonColor?'bg-99 col-ff':''}}" form-type="submit" data-bindtap="{{payType}}" data-isOriginalPrice="{{is_original_price}}">{{shoppingCatButton}}</button>
+        </form>
+      </view>
+    </view>
+  </view>
+
+</view>
+
+<!-- 展示生成的海报 -->
+  <view class="playbill-box" wx:if="{{showPlaybill}}" catchtouchmove="preventTouchMove">
+    <view class="mask" bindtap="closePlaybillFun"></view>
+    <view class="playbill">
+      <image class="plimgs" mode="widthFix" src="{{canvasImg}}" />
+      <view class="plbtns">
+        <button class="topreview pbtn" type="primary" bindtap="toPreviewFun">预览海报长按分享</button>
+        <button class="tosave pbtn" type="primary" bindtap="saveImg">保存到手机相册</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 积分提示/购买弹窗提示 -->
+<com-modal show="{{integralShow}}" width="520" padding="0rpx" radius="15">
+  <view slot="body" class="integral-popup bg-ff t-center f-32">
+    <image src="{{integral.integral(integralType).iconUrl}}" class="exchange-img"/>
+    <view class="exchange-title f-bold">{{integral.integral(integralType).title}}</view>
+
+    <view wx:if="{{integralType === 1}}" class="exchange-word">确认消耗<text class="col-f44">{{seckillInfo.need_point}}</text>积分兑换</view>
+    <view wx:else class="exchange-word">{{integral.integral(integralType).word}}</view>
+
+    <view class="exchange-foot">
+      <view wx:if="{{integralType === 1}}" class="foot-box dis-flex">
+        <view class="flex-1 cancel-btn btn col-99" bindtap="hideIntegralPopup">取消兑换</view>
+        <view class="flex-1 btn col-f44" bindtap="sureExchange" data-bindtap="{{payType}}">确认兑换</view>
+      </view>
+      <view wx:else class="t-center {{integralType === 4?'col-f44': ''}}" bindtap="hideIntegralPopup">{{integralType === 4?'去赚积分': '我知道了'}}</view>
+    </view>
+  </view>
+</com-modal>
+
+<view bindtap="maskClick" class="mask" wx:if="{{itemWindowShow}}"></view>

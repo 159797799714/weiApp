@@ -1,0 +1,56 @@
+<!-- 直播列表 -->
+<template name="liveList">
+  <!-- <view class="live-shade" wx:if="{{isShade}}"></view> -->
+  <view class="live-video" wx:if="{{videoListData.list.length > 0}}"> 
+    <view class="video-list" wx:for="{{videoListData.list}}" wx:key="index" bindtap="goLiveDetail" data-liveid="{{item.id}}" data-imgsrc="{{item.cover_img}}" data-status="{{item.status}}" data-liveindex="{{index}}">
+        <view class="video-top">
+          <view wx:if="{{item.status==0}}" class="video-status">
+          <text class="iconfont icon-weixin" wx:if="{{tabIndex==2 && !onlyAppletLive.unable_applet_live}}"></text>预告</view>
+          <view wx:if="{{item.status==1&&(tabIndex != 2)}}" class="video-status my-playing">
+          <text class="iconfont icon-zhuzhuangtu"></text>
+          <text>{{filter.transBigNumber2(item.view_num,1)}}</text>观看
+          </view>
+          <view wx:if="{{item.status==1&&tabIndex==2 && !onlyAppletLive.unable_applet_live}}" class="video-status playing">
+          <text class="iconfont icon-weixin"></text>直播中</view>
+          <view wx:if="{{item.status==2}}" class="video-status played">
+          <text class="iconfont icon-weixin" wx:if="{{tabIndex==2 && !onlyAppletLive.unable_applet_live}}"></text>已结束</view>
+          <view wx:if="{{item.status==3}}" class="video-status played">
+          <text class="iconfont icon-weixin" wx:if="{{tabIndex==2 && !onlyAppletLive.unable_applet_live}}"></text>禁播</view>
+          <view wx:if="{{item.status==4}}" class="video-status played">
+          <text class="iconfont icon-weixin" wx:if="{{tabIndex==2 && !onlyAppletLive.unable_applet_live}}"></text>暂停中</view>
+          <view wx:if="{{item.status==5}}" class="video-status played">
+          <text class="iconfont icon-weixin" wx:if="{{tabIndex==2 && !onlyAppletLive.unable_applet_live}}"></text>异常</view>
+          <image class="video_label" mode="aspectFill" src="{{item.cover_img}}"></image>
+          <view class="video-mes">
+            <view class="user-mes">
+              <image src="{{(tabIndex==2 && !onlyAppletLive.unable_applet_live)?item.anchor_img:item.avatar}}"></image>
+              <text>{{(tabIndex==2 && !onlyAppletLive.unable_applet_live)?item.anchor_name:item.nickname}}</text>
+            </view>
+            <view class="user-like" wx:if="{{tabIndex != 2}}">
+              <text class="iconfont icon-hert"></text>
+              <text>{{filter.transBigNumber2(item.like_num,1)}}</text>
+            </view>
+          </view>
+        </view>
+        <view class="video-title">{{(tabIndex==2 && !onlyAppletLive.unable_applet_live)?item.live_name:item.title}}</view>
+        <view class="about" wx:if="{{videoListData.subscribe_template_id && videoListData.subscribe_template_id.length>0}}">
+          <view class="about-num"><text>{{filter.transBigNumber2(item.advance_total,1)}}</text>人已预约</view>
+          <block wx:if="{{item.status == 2}}">
+            <view class="about-btn" catchtap="appointed"  wx:if="{{item.is_advance == 0}}">预约</view>
+            <view class="about-btn" catchtap="appointed" wx:else>已预约</view>
+          </block>
+          <block wx:else>
+            <view class="about-btn" catchtap="appointClick" wx:if="{{item.is_advance == 0}}" style="background-color: {{themeColorValue}};" data-roomid="{{item.roomid}}" data-liveindex="{{index}}" data-liveid="{{item.id}}" data-advancetotal="{{item.advance_total}}">预约</view>
+            <view class="about-btn" catchtap="appointClick" data-roomid="{{item.roomid}}" data-liveindex="{{index}}" wx:else>已预约</view>
+          </block>            
+        </view>
+    </view>
+  </view>
+  <!-- 页面内容为空 -->
+  <view wx:if='{{videoListFail != 0 || videoListData.list.length == 0}}'>
+    <view class="data_null_block">
+      <image src="https://s.404.cn/applet/images/wxcopy/empty-tip.png" style="width:520rpx;" mode="widthFix"></image>
+      <text class="tips">暂无直播，请耐心等待呦～</text>
+    </view>
+  </view>
+</template>

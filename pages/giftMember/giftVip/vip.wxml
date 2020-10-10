@@ -1,0 +1,124 @@
+<import src="../../public/warning.wxml" />
+<view class='vip-page' id='gift-vip'>
+  <view class='navbar'>
+    <view class='back-box' style='top:{{nav_top?nav_top:61}}rpx;'>
+      <text class='iconfont icon-shangyibu' style='color:#fff;width:70rpx;height:60rpx;line-height:60rpx;' bindtap='goback'></text>
+      <text style='color:#fff;font-size:32rpx;box-size:border-box;padding-right:60rpx;' class='title;'>
+        会员开通
+      </text>
+    </view>
+    <image src='{{base_img_url}}images/hy_head_bg2.jpg' class='img_bg'></image>
+  </view>
+  <!-- 头部 -->
+  <view class='vip-head'>
+    <navigator open-type='navigate' hover-class='none' url='/pages/giftMember/giftuser/notice?rules={{applyVipData.info.rule_show}}'>
+      <view class='rule' style='{{nav_top>61?"top:60rpx;":""}}'>规则说明</view>
+    </navigator>
+    <view class='vip-head-con'>
+      <view class='vip-title'>
+        会员
+        <text class='title-desc'>招募令</text>
+      </view>
+      <view>
+        <text>////////</text>
+        开通会员 立享超值权益
+        <text>////////</text>
+      </view>
+    </view>
+  </view>
+  <!-- main -->
+  <view class='vip-main'>
+    <!-- 会员卡展示 -->
+    <view class='gift-card'>
+      <image src='{{base_img_url}}images/vip-bj.png'></image>
+      <text>{{applyVipData.info.zdy_name?applyVipData.info.zdy_name:''}}</text>
+      <text>{{applyVipData.info.sub_title?applyVipData.info.sub_title:''}}</text>
+      <button bindtap='gotobottom'>立即获取</button>
+    </view>
+    <view class='giftmember-list-top'>
+      <image src='{{base_img_url}}images/usecenter-bj2.png'></image>
+    </view>
+    <view class='giftmember-list-warp'>
+      <view class='qunayi-img'>
+        <image src='{{applyVipData.info.quanyi_img}}' mode='widthFix'></image>
+      </view>
+      <view class='show-calc-box' bindtap='showCalc'>
+        <icon class='iconfont icon-calculator'></icon>
+        会员权益计算器
+        <icon class='iconfont icon-iconmore'></icon>
+      </view>
+      <view class='giftmember-list-title'>
+        <image src='{{base_img_url}}images/giftmember-text.png'></image>
+        <text>如何开通会员</text>
+      </view>
+      <!-- 商品列表 -->
+      <view class='gift-product-warp' >
+        <navigator class='gift-product-list {{index == activeIndex?"gift-product-list-active":""}}' wx:for="{{applyVipData.products}}" wx:for-index="index" wx:for-item="product"   wx:key="{{index}}"  open-type='navigate' url='/pages/product/details?product_id={{product.product_id}}' >
+         <view class='product-img-box'>
+          <image mode='widthFix' src='{{product.image}}'></image>
+        </view>
+        <view class='gift-product-text'>
+          <text class='product-text-detail'>{{product.name}}</text>
+          <view class='product-price'>
+            共计:
+            <text>￥</text>
+            <text>{{product.price}}</text>
+          </view>
+        </view>
+        <button data-product='{{product}}' data-index='{{index}}' catchtap='chooseProduct'>
+          {{applyVipData.is_member == 1?'分享':'选择'}}
+        </button>
+        <view class='list-choose-status'>
+          <image src='{{base_img_url}}images/gift-choose.png'></image>
+        </view>
+        </navigator>
+      </view>
+    </view>
+  </view>
+  <view class='gift-mennber-bottom' style='position:relative;'>
+    <button class='btn-invite' bindtap='openMember'>
+      立即{{applyVipData.is_member  == 1?'邀请':'开通'}}
+    </button>
+    <!-- 获取用户手机号 -->
+    <button class='getNumer' wx:if='{{(!has_phone) && (!no_user_phone)}}' open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">
+      使用微信手机号
+    </button>
+  </view>
+</view>
+<view class='gift-calc-modal' wx:if="{{calcStatus}}">
+  <view class='windowmask' catchtouchmove='false' catchtap='closecalc'></view>
+  <view class='gift-calc-box'>
+    <image src='{{calcImg}}'></image>
+    <!-- <view class='gift-calc-header'>会员权益计算器</view>
+      <view class='gift-calc-content'>
+        <view class='gift-calc-list'>
+          <view class='gift-calc-price'>
+            <text>邮费补贴券</text>
+            <view class='price-box'>￥<text>50</text> <text>(10/张*5)</text> </view>
+          </view>
+          <text class='gift-calc-desc'>开通会员成功后，立即发放</text>
+        </view>
+        <view class='gift-calc-tip'>*以上数据来源于平台截止2019年2月22日前60天内的会员消费平均数据</view>
+        <button catchtap='closecalc'>确定</button>
+      </view> -->
+  </view>
+</view>
+<!-- canvas -->
+<view wx:if="{{showOpertaion}}">
+  <view class='windowmask' catchtouchmove='false' catchtap='closeCanvas'></view>
+  <image class='haibaoimg' src='{{lafenImgurl}}' catchtouchmove='false' wx:if="{{haibaoCanvas}}"></image>
+  <view class='sharebutton' catchtouchmove='false'>
+    <button class='item' open-type='share'>
+      <image src='{{base_img_url}}images/haoyou.png'></image>
+      分享好友
+    </button>
+    <!-- <button class='item' catchtap='downLoadHb' > -->
+    <button class='item' catchtap='showCanvasWind'>
+      <image src='{{base_img_url}}images/pengyouquan.png'></image>
+      分享海报图
+    </button>
+  </view>
+</view>
+ <template is="warning" wx:if="{{warning.warningShow}}" data="{{warningTxt:warning.warningTxt}}" /><canvas style="width: {{canvasWidth}}px; height: {{canvasHeight}}px;" canvas-id="lafenCanvas"></canvas>
+
+<include src="/pages/public/page_footer.wxml"></include>

@@ -1,0 +1,81 @@
+// out: all-exchanges.wxss, compress: true
+@import "../../../../template/exc-list/exc-list.less";
+
+page {
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  background: #fff;
+}
+
+.banner-bgc {
+  position: relative;
+
+  .banners-box {
+    width: 690rpx;
+    height: 216rpx;
+    border-radius: 12rpx;
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
+
+    .swiperitem {
+      display: flex;
+      align-items: center;
+      border-radius: 12rpx;
+    }
+  }
+
+  .dots {
+    display: flex;
+    position: absolute;
+    bottom: 20rpx;
+    left: 50%;
+    z-index: 40;
+    transform: translateX(-50%);
+
+    .dots-item {
+      width: 14rpx;
+      height: 14rpx;
+      opacity: 0.6;
+      background: #fff;
+      border-radius: 50%;
+      margin: 0 5rpx;
+    }
+
+    .dots-active {
+      opacity: 1;
+      background: #fff;
+    }
+  }
+}
+
+.gift-title {
+  display: flex;
+  justify-content: space-between;
+  // margin-bottom: 20rpx;
+  align-items: center;
+  padding-left: 30rpx;
+  margin-top: 24rpx;
+
+  .left-bag {
+    font-size: 36rpx;
+    color: #333333;
+    font-weight: bold;
+  }
+
+  .right-all {
+    font-size: 26rpx;
+    color: #666666;
+    display: flex;
+    align-items: center;
+
+    .arrow-right-icon {
+      display: inline-block;
+      color: #999;
+      font-size: 22rpx;
+      margin-left: 6rpx;
+      transform: translateY(3rpx);
+    }
+  }
+}

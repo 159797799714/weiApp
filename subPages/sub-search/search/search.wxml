@@ -1,0 +1,45 @@
+<import src="../../../template/cps-prolist/cps-prolist.wxml" />
+<view class="search-wrap {{showProducts&&proListData&&proListData.length?'result-search-wrap':''}}">
+  <view class="input-part">
+    <view class="leftinput">
+      <view class="lefticon iconfont iconsousuo"></view>
+      <input class="search-input" value="{{keywords}}" focus="{{isfocus}}" confirm-type="search" data-key="keywords" bindinput="bindKeyInput" bindfocus="bindfocus" bindblur="bindblur" bindconfirm="bindconfirm" placeholder-class="place" placeholder="搜索海量商品，领券优惠购买" />
+      <view class="righticon iconfont iconsousuoguanbi" wx:if="{{keywords}}" bindtap="clearInput"></view>
+    </view>
+    <navigator class="back" wx:if="{{!isfocus&&!keywords}}" url="/pages/couponProduct/couponProduct" open-type="switchTab" hover-class="none">取消</navigator>
+  </view>
+  <!-- 历史搜索 -->
+  <view class="search-part" wx:if="{{!showProducts}}">
+    <view class="imgbox">
+      <image class="imgs" mode="widthFix" src="https://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/search_step.png" />
+    </view>
+    <view class="history-title">
+      <text class="title">历史搜索</text>
+      <text class="iconfont icondelete" bindtap="deleteHistory"></text>
+    </view>
+    <view class="history-list" wx:if="{{historyData.length}}">
+      <view class="hisitem" wx:for="{{historyData}}" wx:key="index" data-key="{{item}}" bindtap="searchByHistory">{{item}}</view>
+    </view>
+  </view>
+  <!-- 搜索结果 -->
+  <view class="result-part scale-1px-top" wx:if="{{showProducts}}">
+    <view class="tabs scale-1px-bottom">
+      <view class="til">排序条件：</view>
+      <view class="tabitem {{curtab==0?'active':''}}" data-tab="0" bindtap="filterProFun">综合</view>
+      <view class="tabitem {{curtab==1?'active':''}}" data-tab="1" bindtap="filterProFun">销量</view>
+      <view class="tabitem price-item {{curtab==2?'active':''}}" data-tab="2" bindtap="filterProFun">
+        <view class="price">价格</view>
+        <view class="icons">
+          <view class="icon-arrow top-arrow {{isSortUp?'top-active':''}}"></view>
+          <view class="icon-arrow bottom-arrow {{!isSortUp?'bottom-active':''}}"></view>
+        </view>
+      </view>
+    </view>
+    <view class="switch-box">
+      <view class="swtil">仅显示有优惠券的商品</view>
+      <com-switch width="68" height="38" ischecked="{{isCustomSwitch}}" color="#FF4444" bindonChange="changeCustomSwitch"></com-switch>
+    </view>
+    <!-- 商品列表 -->
+    <template is="cpsProlist" data="{{proListData, sourceIcon}}" />
+  </view>
+</view>

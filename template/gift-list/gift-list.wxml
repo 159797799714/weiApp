@@ -1,0 +1,47 @@
+<template name="giftList">
+  <!-- <view class="pro-list" wx:if="{{giftListData && giftListData.length}}">
+    <view class="pro-item" wx:for="{{giftListData}}" wx:key="index">
+      <navigator url="/pages/product/details?product_id={{item.id}}" hover-class="none" open-type="navigate">
+        <image class="proimgs" src="{{item.goodImage}}" />
+        <view class="proname">{{item.goodName}}</view>
+        <view class="name-info">{{item.goodDes}}</view>
+      </navigator>
+      <form report-submit="true" bindsubmit="formSubmit">
+        <button class="price-box" form-type="submit" bindtap="oppenShopping" data-type="add_cart" data-product="{{item.id}}">
+          <text class="price">￥{{item.goodPrice}}</text>
+          <view class="add iconfont icongouwuche"></view>
+        </button>
+      </form>
+    </view>
+  </view> -->
+
+  <view wx:if="{{giftListData && giftListData.length}}" class="goods-list margin-372">
+    <view wx:for="{{giftListData}}" wx:key="index" class="good-item bg-ff" data-id="{{item.id}}" bindtap="goDetail">
+      <view class="good-img">
+        <image src="{{item.goodImage}}" class="img" mode="aspectFill" lazy-load="true"/>
+      </view>
+      <view class="good-info">
+        <view class="good-title twoline-hidden f-24 col-33">
+          <text class="sale-point f-18">热销</text>{{item.goodName}}
+        </view>
+        <view>
+          <view class="dis-inline-block vip-logo f-20">
+            <view class="up-vip">
+              <text class="iconfont iconshengjihuiyuan f-16"></text>
+              <view class="dis-inline-block v-top">{{memberGrade > 1?'会员续期': '直升VIP会员'}}</view>
+            </view>  
+          </view>
+        </view>
+        <view class="dis-flex flex-y-end">
+          <view class="min-price col-f44 f-28">
+            <text wx:if="{{item.goodPrice > 0}}" class="line-1">￥{{item.goodPrice}}</text>
+            <text wx:if="{{item.goodPrice && item.cost_point > 0}}" class="col-99">或</text>
+            <text wx:if="{{item.cost_point > 0}}" class="line-1">{{item.cost_point}}积分</text>
+          </view>
+          <!-- <view class="max-price f-22 col-99">￥299</view> -->
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="nodata" wx:else>暂无数据</view>
+</template>

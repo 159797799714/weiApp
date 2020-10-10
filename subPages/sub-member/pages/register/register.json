@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "会员注册",
+  "usingComponents": {
+    "com-modal": "../../../../components/com-modal/com-modal"
+  }
+}

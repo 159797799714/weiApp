@@ -1,0 +1,169 @@
+{
+  "description": "项目配置文件",
+  "packOptions": {
+    "ignore": []
+  },
+  "setting": {
+    "urlCheck": true,
+    "es6": true,
+    "enhance": false,
+    "postcss": true,
+    "preloadBackgroundData": false,
+    "minified": true,
+    "newFeature": true,
+    "coverView": true,
+    "nodeModules": false,
+    "autoAudits": false,
+    "showShadowRootInWxmlPanel": true,
+    "scopeDataCheck": false,
+    "uglifyFileName": false,
+    "checkInvalidKey": true,
+    "checkSiteMap": true,
+    "uploadWithSourceMap": true,
+    "compileHotReLoad": false,
+    "useMultiFrameRuntime": false,
+    "useApiHook": false,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "useIsolateContext": true,
+    "useCompilerModule": true,
+    "userConfirmedUseCompilerModuleSwitch": false,
+    "packNpmManually": false,
+    "packNpmRelationList": []
+  },
+  "compileType": "miniprogram",
+  "libVersion": "2.9.4",
+  "appid": "wxc9bcc24b15816e4d",
+  "projectname": "%E9%97%AA%E8%B4%ADLive",
+  "cloudfunctionTemplateRoot": "",
+  "watchOptions": {
+    "ignore": []
+  },
+  "debugOptions": {
+    "hidedInDevtools": []
+  },
+  "scripts": {},
+  "simulatorType": "wechat",
+  "simulatorPluginLibVersion": {},
+  "condition": {
+    "search": {
+      "current": -1,
+      "list": []
+    },
+    "conversation": {
+      "current": -1,
+      "list": []
+    },
+    "plugin": {
+      "current": -1,
+      "list": []
+    },
+    "game": {
+      "current": -1,
+      "list": []
+    },
+    "gamePlugin": {
+      "current": -1,
+      "list": []
+    },
+    "miniprogram": {
+      "current": 0,
+      "list": [
+        {
+          "id": 0,
+          "name": "pages/index/index",
+          "pathName": "pages/index/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/my/my",
+          "pathName": "pages/my/my",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "好礼",
+          "pathName": "pages/gifttab/gifttab",
+          "query": "mid=123",
+          "scene": null
+        },
+        {
+          "id": 3,
+          "name": "优惠券",
+          "pathName": "pages/couponProduct/couponProduct",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 4,
+          "name": "商品详情",
+          "pathName": "pages/productCpsDetail/productCpsDetail",
+          "query": "goods_id=5695797733",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "礼包商品",
+          "pathName": "subPages/sub-member/pages/gift-store/gift-store",
+          "query": "goods_id=5695797733",
+          "scene": null
+        },
+        {
+          "id": 6,
+          "name": "小猪商品详情",
+          "pathName": "pages/product/details",
+          "query": "product_id=42961",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "分享授权",
+          "pathName": "pages/shareAuth/shareAuth",
+          "query": "product_id=42961&share_uid=46163",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "秒杀详情页面",
+          "pathName": "pages/seckill/index",
+          "query": "id=20",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/user/vip/vip",
+          "pathName": "pages/user/vip/vip",
+          "query": "id=20",
+          "scene": null
+        },
+        {
+          "id": 12,
+          "name": "手机号码授权",
+          "pathName": "pages/getPhoneNumPage/getPhoneNumPage",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 11,
+          "name": "pages/seckill/index",
+          "pathName": "pages/seckill/index",
+          "query": "id=33&share_uid=46201&store_id=3429&uid=46201",
+          "scene": null
+        },
+        {
+          "id": 12,
+          "name": "添加到小程序",
+          "pathName": "subPages/sub-gifttab/pages/add-mini-guide/add-mini-guide",
+          "query": "option=3&videoUrl=http://frontend-mam.oss-cn-hangzhou.aliyuncs.com/movie/duanshipin/material-A7.mp4",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

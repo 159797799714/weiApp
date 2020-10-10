@@ -1,0 +1,93 @@
+<!--pages/SHOPKEEPER//pages/shop/detail.wxml-->
+<import src="../component/articleTemp.wxml"></import>
+<!--自定义导航模板-->
+<view class="shoper-page" wx:if="{{lists && lists.length>0}}">
+
+  <!-- 页面内容 -->
+  <view class="main">
+    <view class="msg-lists type{{show_type}}">
+      <template is="articleTemp" data="{{_unlogin,lists,show_type,themeColorValue,imgwidth,imgheight,status_type,show_set,moreData,marginBM,richtex}}" />
+    </view>
+  </view>
+
+  <!-- 相关推荐 -->
+  <view class="reconmand-block" wx:if='{{remand_goods && remand_goods.length>0}}'>
+    <!-- 标题 -->
+    <view class="title">相关推荐</view>
+
+    <view class="remand-main">
+
+      <view class="list-block" wx:for='{{remand_goods}}' bindtap="goDetailed" data-pid="{{item.product_id}}" wx:key='index'>
+        <image class="goods-pic" src="{{item.image}}" mode='aspectFill'></image>
+        <view class="block-right">
+          <view class="block-right-text">{{item.name}}</view>
+          <view class="block-right-buy">
+            <text class="price">{{item.price}}元</text>
+            <button class="btn-buy">去购买</button>
+          </view>
+        </view>
+      </view>
+
+    </view>
+
+  </view>
+
+  <!-- 分享组件 -->
+  <bottom-modal id='shareModal' cancelText='取消' bind:_cancelEvent="_cancelEvent" bind:_shareGroup="_shareGroup" bind:_shareFriendsCircle="_shareFriendsCircle"></bottom-modal>
+  <dialog-modal dialogHidden="{{dialog.dialogHidden}}" titleMsg="{{dialog.titleMsg}}" auth-btn="{{true}}" determineBtnTxt="{{dialog.determineBtnTxt}}"></dialog-modal>
+  <!--海报画布-->
+  <canvas canvas-id='productPost' style="width: {{canvasPosition.w}}px; height: {{canvasPosition.h}}px;position:absolute;left: -1000rpx;"></canvas>
+  <!-- 海报预览 -->
+  <view wx:if="{{butshow}}" class="draw-canvas">
+    <text class="iconfont icon-iconfonticonfontclose dc-delete" bindtap="closeCanvas"></text>
+    <image src="{{myimgsrc}}" class="dc-img"></image>
+    <button type='primary' wx:if="{{saveImgBtnHidden}}" style="background-color:{{themeColorValue}}" class="dc-btn" bindtap="saveCanvas">保存到相册</button>
+    <button type='primary' wx:else open-type="openSetting" bindopensetting='handleSetting' style="background-color:{{themeColorValue}}" class="dc-btn">保存到相册</button>
+  </view>
+  <!-- 保存海报图弹窗成功 -->
+  <view class="gray" bindtap="closeModaled" wx:if='{{closeModal}}'>
+    <view class="modal-main">
+      <image class="img-top" src="https://s.404.cn/applet/images/save_complate.png" mode="aspectFill"></image>
+      <view class="modal-title">保存海报成功</view>
+      <view class="modal-text">名片海报已保存到手机相册，你可以分享了</view>
+      <button class="btn-close" bindtap="closeModaled" style="background-color:{{themeColorValue}}">我知道了</button>
+    </view>
+  </view>
+</view>
+<!-- 页面内容为空 -->
+<view class="main" wx:if="{{detailCode == 1001}}">
+  <view class="data_null_block">
+    <image src="https://s.404.cn/applet/images/data_null.png" style="width:520rpx;" mode="widthFix"></image>
+    <text class="tips" style="font-weight:bold;color:#999;">页面内容已下架</text>
+    <text class="tips" style="margin-top:10rpx;">下次记得早点过来哦~</text>
+  </view>
+</view>
+<!-- 下载素材弹框 -->
+<view class="download-modal" wx:if="{{showPercent}}" catch:touchmove="touchmove">
+  <view class="mask"></view>
+  <view class="content">
+    <com-circle 
+    id="percentBar"
+    className="process-bar"
+    width="124"
+    height="124"
+    percent="{{curNum/totalNum*100}}"
+    current="{{curNum}}"
+    total="{{totalNum}}"
+    animTime="{{1000}}"
+    color="#F46C36"
+    cicleWidth="{{6}}"
+    cicleColor="#eee"
+    lineCap="round"
+    fontSize="{{30}}"
+    infoFontSize="{{24}}"
+    fontColor="#fff"
+    bindonPercentSuccess="onPercentSuccess" />
+    <view class="download-info">
+      <text class="icon-cnt">下载中</text>
+      <text class="loading-icon">...</text>
+    </view>
+  </view>
+</view>
+<!-- 底部Tab -->
+<include src="/pages/public/page_footer.wxml"></include>

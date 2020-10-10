@@ -1,0 +1,334 @@
+// out:invite-friend.wxss,compress:true
+page {
+    // width: 100vw;
+    // height: 100vh;
+    padding: 0;
+    // background: #f2f3f5;
+    position: relative;
+    background: linear-gradient(180deg, #FF503D 0%, #FD4E40 100%);
+}
+
+.fri-bg {
+    width: 750rpx;
+    height: 1334rpx;
+    position: absolute;
+    z-index: 0;
+}
+
+.friend-wrap {
+    padding: 927rpx 0 270rpx;
+    // padding: 70rpx 0 270rpx;
+    position: relative;
+
+    .fri-top-title {
+        text-align: center;
+        font-size: 32rpx;
+        color: #FFFFFF;
+        letter-spacing: 0;
+        line-height: 46rpx;
+        margin-bottom: 56rpx;
+    }
+
+    // .fri-left-arrow {
+    //     display: inline-block;
+    //     font-size: 32rpx;
+    //     color: #FFFFFF;
+    //     margin-left: 30rpx;
+    // }
+
+
+    // 朋友积分
+    .fri-integral {
+        border-radius: 0 0 8rpx 8rpx;
+        // margin-top: 885rpx;
+        padding: 0 20rpx;
+
+        .top-line {
+            width: 710rpx;
+            height: 23rpx;
+            background: #D40000;
+            border-radius: 11.5rpx;
+            margin-bottom: -11rpx;
+        }
+
+        .inv-top-wrap {
+            width: 690rpx;
+            height: 150rpx;
+            background: linear-gradient(180deg, #FFE1DE 0%, #FFFFFF 18%);
+            display: flex;
+            margin-left: 10rpx;
+
+            .invited-area {
+                width: 50%;
+                padding-top: 30rpx;
+
+                .invited-word {
+                    font-family: PingFang-SC-Bold;
+                    font-size: 32rpx;
+                    color: #FF4444;
+                    text-align: center;
+                    line-height: 45rpx;
+                }
+
+                .invited-num {
+                    color: #330300;
+                    margin-top: 10rpx;
+                }
+            }
+        }
+
+        .inv-bot-wrap {
+            // padding: 0 10rpx;
+            width: 690rpx;
+            margin-left: 10rpx;
+
+            .inv-bot-item {
+                height: 88rpx;
+                background-color: #FFF7EA;
+                display: flex;
+                align-items: center;
+
+                .inv-bot-img {
+                    width: 60rpx;
+                    height: 60rpx;
+                    border-radius: 50%;
+                    margin: 0 20rpx 0 30rpx;
+                    // background-color: yellow;
+                }
+
+                .inv-bot-name {
+                    flex: 1;
+                    color: #333333;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+
+                .inv-bot-date {
+                    font-size: 28rpx;
+                    color: #999999;
+                    margin-right: 40rpx;
+                }
+            }
+
+            .inv-bot-item:nth-child(even) {
+                background-color: #fff;
+            }
+        }
+
+    }
+}
+
+.invite-way {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 750rpx;
+    height: 270rpx;
+    box-sizing: border-box;
+    padding: 30rpx 56rpx;
+    background: #FFFFFF;
+    box-shadow: 0 -2rpx 8rpx 0 rgba(0, 0, 0, 0.30);
+
+    .way-title {
+        font-size: 28rpx;
+        color: #757C8E;
+        text-align: center;
+        line-height: 40rpx;
+        margin-bottom: 34rpx;
+    }
+
+    .way-item-con {
+        display: flex;
+        justify-content: space-between;
+
+        .way-item {
+
+            .way-item-img {
+                width: 82rpx;
+                height: 82rpx;
+                border-radius: 50%;
+                margin: 0 auto;
+                text-align: center;
+                line-height: 82rpx;
+            }
+
+            .way-item-word {
+                font-size: 28rpx;
+                color: #757C8E;
+                line-height: 40rpx;
+                text-align: center;
+                margin-top: 13rpx;
+            }
+        }
+    }
+}
+
+.warning-box {
+    padding: 20rpx 0;
+
+    .sure-title {
+        font-size: 32rpx;
+        color: #333;
+        line-height: 40rpx;
+        margin-bottom: 25rpx;
+    }
+
+    .sure-cnt {
+        font-size: 28rpx;
+        color: #666;
+        line-height: 40rpx;
+    }
+
+    .success-cnt {
+        font-size: 32rpx;
+        color: #333;
+        padding: 0 30rpx;
+    }
+}
+
+.warning-btn-box {
+    display: flex;
+
+    .surebtn {
+        flex: 1;
+        height: 90rpx;
+        font-size: 32rpx;
+        color: #333;
+        line-height: 90rpx;
+        text-align: center;
+        background: none;
+        padding: 0;
+
+        &::after {
+            display: none;
+        }
+
+        &.save {
+            color: #FF4444;
+        }
+    }
+
+    .btnline {
+        width: 1rpx;
+        height: 90rpx;
+    }
+}
+
+.authbtn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 19;
+    background: #fff;
+    opacity: 0;
+}
+
+
+.fake-btn {
+    padding: 0;
+    background: none;
+    border-radius: 0;
+}
+
+.fake-btn::after {
+    border: none;
+}
+
+.playbill-box {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 200;
+
+    .mask {
+        width: 100%;
+        height: 100%;
+        opacity: 0.6;
+        background: #000;
+    }
+
+    .playbill {
+        width: 520rpx;
+        // width: 500rpx;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        .showimgs {
+            border-radius: 8rpx;
+            overflow: hidden;
+        }
+
+        .qr-showimgs {
+            background: #fff;
+            // padding: 60rpx;
+            box-sizing: border-box;
+            border-radius: 15rpx;
+        }
+
+        .plimgs {
+            display: block;
+            width: 100%;
+            height: 925rpx;
+            // height: 545rpx;
+        }
+
+        .plbtns {
+            display: flex;
+            margin-top: 30rpx;
+
+            .tosave {
+                flex: 1;
+                height: 88rpx;
+                font-size: 32rpx;
+                color: #fff;
+                line-height: 88rpx;
+                text-align: center;
+                background: #FEFFFF;
+                background: linear-gradient(270deg, #FF5171 0%, #FD8E35 99%);
+                padding: 0;
+                border-radius: 100rpx;
+
+                &::after {
+                    display: none;
+                }
+            }
+        }
+
+        // 二维码样式
+        .qrimgs-con {
+            padding: 60rpx 60rpx 34rpx 60rpx;
+        }
+
+        .qr-title,
+        .qr-sub-title {
+            font-size: 28rpx;
+            color: #4B4B4B;
+            letter-spacing: 0.04rpx;
+            text-align: center;
+            line-height: 40rpx;
+        }
+
+        .qr-sub-title {
+            margin-bottom: 26rpx;
+        }
+
+        .qr-bot-title {
+            width: 100%;
+            height: 82rpx;
+            background: rgba(255, 68, 68, 0.1);
+            border-radius: 0 0 15rpx 15rpx;
+            font-size: 28rpx;
+            color: #FF4444;
+            letter-spacing: 0.04rpx;
+            text-align: center;
+            line-height: 82rpx;
+        }
+    }
+}

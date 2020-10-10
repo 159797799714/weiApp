@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "收货地址",
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 10,
+  "backgroundTextStyle": "dark",
+  "usingComponents": {
+    "com-modal": "../../../../components/com-modal/com-modal"
+  }
+}

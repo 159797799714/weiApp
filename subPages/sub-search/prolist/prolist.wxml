@@ -1,0 +1,7 @@
+<import src="../../../template/cps-prolist/cps-prolist.wxml" />
+<view class="prolist-wrap {{proListData&&!proListData.length?'nopro':''}}">
+  <view class="imgbox" wx:if="{{from=='banner'&&bannerImg}}">
+    <image class="imgs" mode="widthFix" src="{{bannerImg}}" />
+  </view>
+  <template is="cpsProlist" data="{{proListData, sourceIcon}}" />
+</view>

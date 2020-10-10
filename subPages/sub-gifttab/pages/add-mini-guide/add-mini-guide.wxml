@@ -1,0 +1,10 @@
+<!-- <import src="../../../../wxParse/wxParse.wxml" />
+<view class="wxParse" wx:if="{{msg}}">
+    <template is="wxParse" data="{{wxParseData:content.nodes}}" />
+</view>
+<view class="nodata" wx:else>暂无数据</view> -->
+<view class="video-wrap">
+    <video id="myVideo" src="{{src}}" binderror="videoErrorCallback" show-center-play-btn show-play-btn="{{true}}"
+        controls bindended="endHandle" enable-progress-gesture="{{false}}" bindtimeupdate="timeUpdate" autoplay></video>
+  
+</view>

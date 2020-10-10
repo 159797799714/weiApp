@@ -1,0 +1,112 @@
+// out: gift-store.wxss, compress: true
+@import '../../../../template/gift-list/gift-list.less';
+page{
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  background: #F4F4F4;
+}
+
+.gift-store-wrap{
+  .title{
+    display: inline-block;
+    position: relative;
+    font-size: 34rpx;
+    color: #333;
+    font-weight: bold;
+    line-height: 42rpx;
+    text-align: center;
+    margin: 30rpx auto;
+    &:after{
+      content: '';
+      display: block;
+      position: absolute;
+      height: 2rpx;
+      width: 60rpx;
+      background-color: #333;
+      text-align: right;
+      right: -90rpx;
+      top: 20rpx;
+    }
+    &::before{
+      content: '';
+      display: block;
+      position: absolute;
+      height: 2rpx;
+      width: 60rpx;
+      background-color: #333;
+      text-align: left;
+      left: -90rpx;
+      top: 20rpx;
+    }
+  }
+}
+.goods-list{
+  padding: 0 30rpx;
+  box-sizing: border-box;
+  overflow: hidden;
+  .good-item{
+    float: left;
+    margin-bottom: 20rpx;
+    width: 335rpx;
+    border-radius: 5rpx;
+    overflow: hidden;
+    .good-img{
+      height: 334rpx;
+      width: 335rpx;
+      margin-bottom: 10rpx;
+      .img{
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .good-info{
+      padding: 0 20rpx 14rpx;
+      .good-title{
+        margin-top: 0;
+        line-height: 34rpx;
+        height: 68rpx;
+        .sale-point{
+          display: inline-block;
+          line-height: 0rpx;
+          vertical-align: top;
+          margin-top: 6rpx;
+          padding: 11rpx 8rpx;
+          background: #DFC897;
+          border-radius: 11rpx;
+          margin-right: 9rpx;
+        }
+      }
+      .vip-logo{
+        margin: 10rpx 0;
+        height: 30rpx;
+        line-height: 30rpx;
+        padding: 0 12rpx;
+        border-radius: 15rpx;
+        background: #372A1C;
+        color: #E5D5AF;
+      }
+      .up-vip{
+        line-height: 32rpx;
+        height: 32rpx;
+      }
+      .up-vip text{
+        display: inline-block;
+        margin-right: 8rpx;
+        height: 18rpx;
+        width: 18rpx;
+      }
+      .min-price{
+        line-height: 45rpx;
+      }
+      .max-price{
+        text-decoration: line-through;
+      }
+
+    }
+    
+    &:nth-of-type(odd) {
+      margin-right: 20rpx;
+    }
+  }
+}

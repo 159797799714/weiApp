@@ -1,0 +1,397 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/gifttab/gifttab",
+    "pages/membertab/membertab",
+    "pages/couponProduct/couponProduct",
+    "pages/my/my",
+    "pages/seckill/index",
+    "pages/webview/index",
+    "pages/productCpsDetail/productCpsDetail",
+    "pages/shareAuth/shareAuth",
+    "pages/getPhoneNumPage/getPhoneNumPage"
+  ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "您的位置信息将用于小程序定位到您当前附近的门店"
+    }
+  },
+  "window": {
+    "navigationBarBackgroundColor": "#ff5c1c",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "",
+    "backgroundColor": "#ffffff",
+    "backgroundTextStyle": "light"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#FF4444",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "./images/footer/seckill.png",
+        "selectedIconPath": "./images/footer/seckill_current.png",
+        "text": "秒杀"
+      },
+      {
+        "pagePath": "pages/gifttab/gifttab",
+        "iconPath": "./images/footer/gift_goods.png",
+        "selectedIconPath": "./images/footer/gift_goods_current.png",
+        "text": "赚积分"
+      },
+      {
+        "pagePath": "pages/membertab/membertab",
+        "iconPath": "./images/footer/member.png",
+        "selectedIconPath": "./images/footer/member_current.png",
+        "text": "会员"
+      },
+      {
+        "pagePath": "pages/couponProduct/couponProduct",
+        "iconPath": "./images/footer/coupon.png",
+        "selectedIconPath": "./images/footer/coupon_current.png",
+        "text": "优惠券"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "iconPath": "./images/footer/user.png",
+        "selectedIconPath": "./images/footer/user_current.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "subPackages": [
+    {
+      "root": "pages/USERS/",
+      "pages": [
+        "pages/myCollage/myCollageList",
+        "pages/coupons/coupons",
+        "pages/travel/index",
+        "pages/travel/order_travel",
+        "pages/travel/route_details",
+        "pages/travel/distribution",
+        "pages/user/appointment/index",
+        "pages/user/myServer/index"
+      ]
+    },
+    {
+      "root": "pages/CLIST/",
+      "pages": [
+        "pages/group/groupList",
+        "pages/group/groupLeft",
+        "pages/group/groupTips"
+      ]
+    },
+    {
+      "root": "pages/SEALS/",
+      "pages": [
+        "pages/website/website",
+        "pages/card/card",
+        "pages/register/register",
+        "pages/register/complated"
+      ]
+    },
+    {
+      "root": "pages/POINT/",
+      "pages": [
+        "pages/product/details",
+        "pages/product/productList",
+        "pages/product/recommend",
+        "pages/details/details",
+        "pages/group/groupList",
+        "pages/paySuccess/index"
+      ]
+    },
+    {
+      "root": "pages/SPELL/",
+      "pages": [
+        "pages/myTeam/myTeam",
+        "pages/newTeam/newTeam",
+        "pages/details/details"
+      ]
+    },
+    {
+      "root": "pages/SHOPGOODS/",
+      "pages": [
+        "pages/product/goodcat",
+        "pages/groupbuying/ordermanagement",
+        "pages/groupbuying/community",
+        "pages/groupbuying/joinperson",
+        "pages/index/shopHomeList",
+        "pages/user/myCollection/index",
+        "pages/user/scancode/scancode",
+        "pages/user/scancode/camera",
+        "pages/user/channel/channel",
+        "pages/user/balance/balance",
+        "pages/shoppingCat/scanBuy"
+      ]
+    },
+    {
+      "root": "pages/groupbuying/",
+      "pages": [
+        "applyform/othertel",
+        "applyform/applystatus",
+        "applyform/applyform",
+        "applyform/groupList",
+        "applytogroup/applytogroup",
+        "editgrouperaddress/editgrouperaddress"
+      ]
+    },
+    {
+      "root": "pages/LIVEVIDEO/",
+      "pages": [
+        "pages/liveVideo/liveVideoList",
+        "pages/liveVideo/liveVideoDetail",
+        "pages/liveVideo/goodsPlayback"
+      ]
+    },
+    {
+      "root": "pages/customized/",
+      "pages": [
+        "showdetailstatus",
+        "realname"
+      ]
+    },
+    {
+      "root": "pages/coupons/",
+      "pages": [
+        "extension",
+        "membership"
+      ]
+    },
+    {
+      "root": "pages/product/",
+      "pages": [
+        "details",
+        "productList",
+        "recommend"
+      ]
+    },
+    {
+      "root": "pages/user/",
+      "pages": [
+        "index",
+        "address/index",
+        "address/addressEdit",
+        "membersDetails/membersDetails",
+        "myFans/myFans",
+        "myMoney/myMoney",
+        "myMoney/bindPhone/bindPhone",
+        "order/index",
+        "order/orderList",
+        "order/publishedEvaluation",
+        "order/evaluation",
+        "order/returnGoods",
+        "order/rightGoods",
+        "order/returnCompletion",
+        "order/rightCompletion",
+        "vip/vip"
+      ]
+    },
+    {
+      "root": "pages/payment/",
+      "pages": [
+        "index"
+      ]
+    },
+    {
+      "root": "pages/distribution/",
+      "pages": [
+        "index",
+        "fans_manage",
+        "detail",
+        "pro_details",
+        "apply_cash",
+        "create_distribution"
+      ]
+    },
+    {
+      "root": "pages/details/",
+      "pages": [
+        "index",
+        "shop",
+        "businesslist"
+      ]
+    },
+    {
+      "root": "pages/order/",
+      "pages": [
+        "index",
+        "orderList",
+        "returnGoods",
+        "returnCompletion"
+      ]
+    },
+    {
+      "root": "pages/bargain/",
+      "pages": [
+        "index",
+        "details"
+      ]
+    },
+    {
+      "root": "pages/giftMember/",
+      "pages": [
+        "giftuser/user",
+        "giftuser/notice",
+        "giftVip/vip",
+        "giftuser/coupons"
+      ]
+    },
+    {
+      "root": "pages/index_xiaozhu/",
+      "pages": [
+        "index",
+        "login",
+        "page"
+      ]
+    },
+    {
+      "root": "pages/SHOPKEEPER/pages/",
+      "pages": [
+        "publish/publish",
+        "publish/publishList",
+        "shop/index",
+        "shop/detail"
+      ]
+    },
+    {
+      "root": "pages/innerShoppingCat/",
+      "pages": [
+        "index"
+      ]
+    },
+    {
+      "root": "pages/join/",
+      "pages": [
+        "index"
+      ]
+    },
+    {
+      "root": "pages/presale/",
+      "pages": [
+        "index"
+      ]
+    },
+    {
+      "root": "pages/activityModule/",
+      "pages": [
+        "index"
+      ]
+    },
+    {
+      "root": "pages/goods_category/",
+      "pages": [
+        "index"
+      ]
+    },
+    {
+      "root": "pages/setPassword/",
+      "pages": [
+        "index"
+      ]
+    },
+    {
+      "root": "pages/encapsulation/",
+      "pages": [
+        "encapsulation"
+      ]
+    },
+    {
+      "root": "pages/livetab/",
+      "pages": [
+        "livetab"
+      ]
+    },
+    {
+      "root": "pages/postMoments/",
+      "pages": [
+        "postMoments"
+      ]
+    },
+    {
+      "root": "pages/shoppingCat/",
+      "pages": [
+        "index"
+      ]
+    },
+    {
+      "root": "pages/userInfo/",
+      "pages": [
+        "index"
+      ]
+    },
+    {
+      "root": "pages/new_user/",
+      "pages": [
+        "index"
+      ]
+    },
+    {
+      "root": "pages/livecode/",
+      "pages": [
+        "index"
+      ]
+    },
+    {
+      "root": "subPages/sub-member",
+      "pages": [
+        "pages/register/register",
+        "pages/gift-store/gift-store",
+        "pages/equity/equity",
+        "pages/vip-record/vip-record"
+      ]
+    },
+    {
+      "root": "subPages/sub-integral",
+      "pages": [
+        "pages/integral-detail/integral-detail",
+        "pages/applying/applying",
+        "pages/convert/convert"
+      ]
+    },
+    {
+      "root": "subPages/sub-fund",
+      "pages": [
+        "pages/cashout/cashout",
+        "pages/cashRecord/cashRecord"
+      ]
+    },
+    {
+      "root": "subPages/sub-order",
+      "pages": [
+        "pages/order-list/order-list",
+        "pages/order-detail/order-detail",
+        "pages/instruction/instruction"
+      ]
+    },
+    {
+      "root": "subPages/sub-search",
+      "pages": [
+        "search/search",
+        "prolist/prolist"
+      ]
+    },
+    {
+      "root": "subPages/sub-gifttab",
+      "pages": [
+        "pages/exchange-record/exchange-record",
+        "pages/all-exchanges/all-exchanges",
+        "pages/exc-goods-detail/exc-goods-detail",
+        "pages/exc-goods-address/exc-goods-address",
+        "pages/watch-video/watch-video",
+        "pages/add-mini-guide/add-mini-guide",
+        "pages/invite-friend/invite-friend",
+        "pages/charge-record/charge-record"
+      ]
+    }
+  ],
+  "plugins": {
+    "live-player-plugin": {
+      "version": "1.1.5",
+      "provider": "wx2b03c6e691cd7370"
+    }
+  },
+  "sitemapLocation": "sitemap.json"
+}

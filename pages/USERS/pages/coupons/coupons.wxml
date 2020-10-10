@@ -1,0 +1,35 @@
+<!--优惠券页面-->
+<wxs src="../../../../utils/filter.wxs" module="filter"></wxs>
+<import src="../../../public/warning.wxml" />
+<scroll-view scroll-top="{{scrollTop}}" class="couponsList container {{pageTheme}}" scroll-y="true" style="height:{{scrollHeight}}px;" bindscrolltolower="bindDownLoad" bindscroll="scroll" bindscrolltoupper="refresh" data-page="pages.coupons.coupons">
+    <view class="productTitle clearfix couponsTitle bgF">
+        <view class="{{currentTab==0 ? 'active' : ''}}" data-current="0" bindtap="swichNav">
+            <text class="{{currentTab==0 ? 'active' : ''}}" data-current="0" data-type="all">全部</text>
+        </view>
+        <view class="{{currentTab==1 ? 'active' : ''}}" data-current="1" bindtap="swichNav">
+            <text class="{{currentTab==1 ? 'active' : ''}}" data-current="1" data-type="unuse">未使用</text>
+        </view>
+        <view class="{{currentTab==2 ? 'active' : ''}}" data-current="2" bindtap="swichNav">
+            <text class="{{currentTab==2 ? 'active' : ''}}" data-current="2" data-type="use">已使用</text>
+        </view>
+    </view>
+    <view class="couponsList">
+        <view class="iconfont icon-youhuiquan_big  {{currentTab==1?'yellow':''}} {{currentTab==2?'gray':''}}" wx:for="{{coupontsData.coupon_list}}" wx:key='{{index}}'>
+            <view>{{item.cname}}</view>
+            <view wx:if="{{item.limit_money>0}}">满 {{item.limit_money}}可以使用</view>
+            <view wx:if="{{item.limit_money==0}}">无条件使用</view>
+            <view>有效期 {{item.start_time}} 至 {{item.end_time_str}}</view>
+            <text wx:if="{{item.is_use==0}}">未使用</text>
+            <text wx:if="{{item.is_use==1}}">已使用</text>
+            <i>{{item.face_money}}</i>
+        </view>
+    </view>
+    <view class="promptMsg" wx:if="{{coupontsData.coupon_list==''}}">
+        <text class="iconfont icon-gouwuquanweikong01"></text>
+        <text>暂无购物券</text>
+        <navigator url="/pages/index/index" hover-class="none" open-type="{{filter.getOpenType('/pages/index/index',store_nav_list)}}">
+            <text>去逛逛</text>
+        </navigator>
+    </view>
+</scroll-view>
+<include src="/pages/public/page_footer.wxml"></include>

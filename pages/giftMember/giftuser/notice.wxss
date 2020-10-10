@@ -1,0 +1,7 @@
+/* pages/giftMember/giftuser/notice.wxss */
+page { background-color: #fff; }
+.page-wrap{
+  height: 100%;
+  padding: 10rpx;
+  background-color: #fff;
+}

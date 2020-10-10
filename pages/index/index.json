@@ -1,0 +1,13 @@
+{
+  "navigationBarTitleText": "闪购秒杀团",
+  "navigationBarBackgroundColor": "#f50752",
+  "backgroundTextStyle": "dark",
+  "enablePullDownRefresh": true,
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "open-screen-coupon":"../../components/openScreenCoupon/index",
+    "time-count-down":"../../components/timeCountDown/index",
+    "com-modal": "../../components/com-modal/com-modal",
+    "com-money-font": "../../components/com-money-font/com-money-font"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "usingComponents": {},
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 0,
+  "navigationBarBackgroundColor": "#fd5744",
+  "navigationStyle": "custom",
+  "navigationBarTitleText": "新人专享"
+  
+}

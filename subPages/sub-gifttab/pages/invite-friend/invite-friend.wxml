@@ -1,0 +1,97 @@
+<wxs src="../../../../utils/filter.wxs" module="filter"></wxs>
+<image class="fri-bg" src="https://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/bg-invite-friend.png" />
+<!-- <image class="fri-bg" src="../../../../images/cps/cps_integral/bg-invite-friend.png" /> -->
+<view class="friend-wrap">
+    <!-- <view class="fri-top-title">每日签到</view> -->
+    <!-- <view class="iconfont iconarrowleft fri-left-arrow" bindtap="goback"></view> -->
+    <view class="fri-integral">
+        <view class="top-line"></view>
+        <view class="inv-top-wrap">
+            <view class="invited-area">
+                <view class="invited-word">已邀请好友</view>
+                <view class="invited-word invited-num">
+                    {{shareInfo.num? shareInfo.num+'人' : '0人'}}
+                </view>
+            </view>
+            <view class="invited-area">
+                <view class="invited-word">获得积分</view>
+                <view class="invited-word invited-num">
+                    {{shareInfo.total_points?shareInfo.total_points:'0'}}
+                </view>
+            </view>
+        </view>
+        <view class="inv-bot-wrap">
+            <view class="inv-bot-item" wx:for="{{shareList}}" wx:key="index">
+                <image class="inv-bot-img" src="{{item.avatar}}" />
+                <view class="inv-bot-name">{{item.nickname}}</view>
+                <view class="inv-bot-date">{{filter.timeStr(item.createtime*1000, 'YMD')}}</view>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="invite-way">
+    <view class="way-title">可通过以下三种方式邀请好友</view>
+    <view class="way-item-con">
+        <view class="way-item" data-type="1">
+            <button open-type="share" class="fake-btn">
+                <view class="iconfont icon-invite-xiaochengxu way-item-img" style="background: #52D371; color:#fff"></view>
+                <view class="way-item-word">分享小程序</view>
+            </button>
+        </view>
+        <view class="way-item" bindtap="goShare" data-type="2">
+            <view class="iconfont icon-invite-fenxianghaibao way-item-img" style="background: #FFC35B; color:#fff"></view>
+            <view class="way-item-word">分享邀请海报</view>
+        </view>
+        <view class="way-item" bindtap="goShare" data-type="3">
+            <view class="iconfont icon-cps-saoma way-item-img" style="background: #56ABE6; color:#fff"></view>
+            <view class="way-item-word">面对面扫码</view>
+        </view>
+    </view>
+</view>
+<!-- 展示生成的海报 / 二维码海报 -->
+<view class="playbill-box" wx:if="{{showPlaybill}}" catchtouchmove="preventTouchMove">
+    <view class="mask" bindtap="closePlaybillFun"></view>
+    <view class="playbill">
+        <view class="showimgs {{isClickQrcode=='qrcode'?'qr-showimgs':''}}" data-url="{{isClickQrcode=='qrcode'?qrcodeCanvasImg:canvasImg}}" bindtap="prewImgFun">
+            <image wx:if="{{!isClickQrcode}}" class="plimgs" mode="widthFix" src="{{canvasImg}}" />
+            <block wx:else>
+                <view class="qrimgs-con">
+                    <image class="qrimgs" mode="widthFix" src="{{qrcodeCanvasImg}}" />
+                </view>
+                <view class="qr-title">打开微信</view>
+                <view class="qr-sub-title">扫描上方的程序</view>
+                <view class="qr-bot-title">加入闪购 享受免费充电 秒杀特权</view>
+            </block>
+        </view>
+        <view class="plbtns">
+            <button wx:if="{{!isClickQrcode}}" class="tosave pbtn" type="primary" bindtap="tosaveFun">
+                保存到手机相册
+            </button>
+            <button wx:else class="tosave pbtn" type="primary" data-close='close' bindtap="tosaveFun">
+                关闭
+            </button>
+        </view>
+    </view>
+</view>
+<!-- 海报 / 二维码 canvas -->
+<canvas canvas-id='myCanvas' style="width:{{canvasPosition.w}}px;height:{{canvasPosition.h}}px;position:absolute;top:50%;left: -1000rpx;"></canvas>
+<!-- 警告弹框 -->
+<com-modal className="warning-modal" show="{{warningData.isShowModal}}" width="560" radius="15">
+    <view class="warning-box" slot="body">
+        <view class="sure-title">{{warningData.title}}</view>
+        <view class="sure-cnt {{warningData.type=='success'?'success-cnt':''}}">
+            {{warningData.content}}
+        </view>
+    </view>
+    <view slot="footer">
+        <view class="warning-btn-box scale-1px-top">
+            <button class="surebtn cancle" wx:if="{{warningData.cancelText}}" type="primary" bindtap="warningCancle">
+                {{warningData.cancelText}}
+            </button>
+            <view class="btnline scale-1px-right" wx:if="{{warningData.confirmText&&warningData.cancelText}}"></view>
+            <button class="surebtn save" wx:if="{{warningData.confirmText}}" type="primary" bindtap="toMakesure">
+                {{warningData.confirmText}}
+            </button>
+        </view>
+    </view>
+</com-modal>

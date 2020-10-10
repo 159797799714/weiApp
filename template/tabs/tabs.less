@@ -1,0 +1,37 @@
+// out: false
+.tabs-wrap{
+  display: flex;
+  background: #fff;
+  padding: 0 30rpx;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  .tabs-item{
+    flex: 1;
+    height: 105rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #666;
+    font-size: 34rpx;
+    position: relative;
+  }
+  .tabactive{
+    &:after{
+      content: "";
+      width: 60rpx;
+      height: 6rpx;
+      background: #F46C36;
+      position: absolute;
+      bottom: 14rpx;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 10rpx;
+    }
+    .tab-cnt{
+      font-size: 34rpx;
+      color: #333;
+      font-weight: 700;
+    }
+  }
+}

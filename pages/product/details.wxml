@@ -1,0 +1,334 @@
+<!-- 产品详情页面 -->
+<import src="../public/soldOutBox.wxml" />
+<!-- 售罄弹窗 -->
+<import src="../../wxParse/wxParse.wxml" />
+<import src="../public/shear.wxml" />
+<import src="../public/shoppingCat.wxml" />
+<import src="../public/orderLayer.wxml" />
+<import src="../public/warning.wxml" />
+<import src="../public/showBigPic.wxml" />
+<import src="../../template/together-dialog/together-dialog.wxml" />
+<wxs src="../../utils/filter.wxs" module="filter"></wxs>
+<wxs src="./detail.wxs" module="integral"></wxs>
+<wxs module="indexModule">
+  module.exports.getName = function(name, starlen, endlen) {
+    return name.slice(starlen, endlen);
+  }
+</wxs>
+<view style="padding: 5px 5px;" wx:if="{{applet_guide_subscribe}}">
+  <official-account binderror="officialAccountError"></official-account>
+</view>
+<!-- background:{{shopHomeData.bgcolor}} -->
+<scroll-view class="container {{pageTheme}}" style="height: {{scrollHeight}}px; background:#f7f3f3 " scroll-y="true" scroll-into-view="{{scrollTopView}}" scroll-top="" data-page="pages.product.details">
+  <view class="inner-wrap">
+    <include src="/pages/public/order_notice.wxml"></include>
+    <view id="scrollTopView"></view>
+    <!-- 空的view用来做回到顶部 -->
+    <view class="containerLayer" wx:if="{{!containerLayer}}"></view>
+    <block>
+      <template is="shear" wx:if="{{shear}}" />
+    </block>
+    <!-- <view class="asideDetails" style="bottom:{{store_nav_list_show?'14%':'8%'}}">
+      <text class="goTop iconfont icon-dingbu" bindtap="goTopFun" style="display:{{scrollTop.goTopShow ? 'block' : 'none'}};"></text>
+      <navigator url="/pages/index/index" hover-class="none" open-type="{{filter.getOpenType('/pages/index/index',store_nav_list)}}">
+        <text class="iconfont icon-store "></text>
+      </navigator>
+      <button open-type='contact' class="iconfont icon-weixin_icon"></button>
+      <navigator url="/pages/shoppingCat/index" hover-class="none">
+        <text class="iconfont icon-gouwuche1 shoppingCatIcon" wx:if="{{shoppingCatNum}}"></text>
+      </navigator>
+    </view> -->
+    <block>
+      <template is="orderLayer" wx:if="{{businessShow}}" data="{{business:business}}" />
+    </block>
+    <!-- 商品详情的滑动框 -->
+    <!--  -->
+    <view id='navTop1'>
+      <view wx:if='{{ productData.product.video==null || productData.product.video=="" }}'>
+        <!-- 轮播图 -->
+        <swiper class="detailsSwiper bgF" autoplay="true" interval="5000" indicator-dots="true" indicator-active-color="#000" indicator-color="rgba(0,0,0,0.3)" style="height:{{imageHeight}}px;">
+          <swiper-item wx:for-items="{{productData.product.images}}" wx:key="menuId">
+            <image src="{{item.image}}" mode="scaleToFill"></image>
+          </swiper-item>
+        </swiper>
+        <!-- <view class="detailsSwiper bgF" wx:if="{{productData.product.images.length == 1}}" style="height:{{imageHeight}}px;">
+          <image src="{{productData.product.images[0].image}}" mode="scaleToFill"></image>
+        </view> -->
+        <!-- 轮播图 end -->
+      </view>
+      <view wx:else>
+        <!-- 轮播 视频切换 -->
+        <view class='scroll_slide'>
+          <view class="nav bc_white z-index-detail">
+            <view class="{{selected?'red':'default'}}" bindtap="selected">
+              <image src="../../images/icon_video.png" class='default_icon' style='width:13rpx; height:15rpx'></image>
+              <image src="../../images/icon_videoCur.png" class='cur_red' style='width:13rpx; height:15rpx'></image>
+              视频
+            </view>
+            <view class="{{selected1?'red':'default'}}" bindtap="selected1">图片</view>
+          </view>
+          <view class="{{selected?'show':'hidden'}}">
+            <!-- 视频 -->
+            <view>
+              <video src="{{ productData.product.video }}" controls autoplay class='slide_video' poster='{{ productData.product.video_cover }}'></video>
+            </view>
+            <!-- 视频 end -->
+          </view>
+          <view class="{{selected1?'show':'hidden'}}">
+            <!-- 轮播图 -->
+            <swiper class="detailsSwiper bgF" wx:if="{{productData.product.images.length > 1}}" autoplay="true" interval="5000" indicator-dots="true" indicator-active-color="{{themeColorValue}}" style="height:{{imageHeight}}px;">
+              <swiper-item wx:for-items="{{productData.product.images}}" wx:key="menuId">
+                <image src="{{item.image}}" mode="scaleToFill"></image>
+              </swiper-item>
+            </swiper>
+            <view class="detailsSwiper bgF" wx:if="{{productData.product.images.length == 1}}" style="height:{{imageHeight}}px;">
+              <image src="{{productData.product.images[0].image}}" mode="scaleToFill"></image>
+            </view>
+            <!-- 轮播图 end -->
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- <view class="goodInfo bg-ff">
+      <view class="goodName f-32">
+        <text class="sale-point f-20">热销</text>{{item.goodName}}
+        {{productData.product.name}}
+      </view>
+      <view class="priceBox dis-flex flex-x-between flex-y-center">
+        <view class="Lbox dis-flex col-f44 f-28">
+          <view class="v-b f-bold">
+            ￥<text class="f-62">{{product_price}}</text>
+          </view>
+          <view wx:if="{{productData.product.original_price && productData.product.original_price * 1 != 0}}" class="f-22 m-l-10 dis-flex flex-column flex-x-center">
+            <view class="text-line col-99">￥{{productData.product.original_price}}</view>
+            <view class="col-f44">原价</view>
+          </view>
+        </view>
+        <view class="Rbox col-99 f-24">已抢{{productData.product.sales}}件</view>
+      </view>
+    </view> -->
+    <view class="product-head dis-flex flex-x-between flex-y-center col-ff">
+      <view class="flex-1">
+        <view class="price f-32 v-b">
+          <block wx:if="{{product_price}}"  class="dis-inline-block"> 
+            <text>￥</text>
+            <!-- <com-money-font class-str="amount" num="{{product_price}}" sym="" fontSize="38" color="#fff"></com-money-font> -->
+            <text class="f-48 f-bold col-ff">{{product_price*1/1}}</text>
+          </block>
+          <!-- <text class="f-48">{{product_price}}</text> -->
+          <text wx:if="{{product_price && productData.product.cost_point > 0}}" class="f-32 m-l-10">或</text>
+          <view wx:if="{{productData.product.cost_point > 0}}" class="dis-inline-block m-l-20">
+            <!-- <com-money-font class-str="amount" num="{{productData.product.cost_point}}" sym="" fontSize="38" color="#fff"></com-money-font> -->
+            <text class="f-48 f-bold col-ff">{{productData.product.cost_point}}</text>
+            <!-- <text class="f-48">{{productData.product.cost_point}}</text> -->
+            <text class="f-32"> 积分</text>  
+          </view>
+        </view>
+        <view wx:if="{{productData.product.max_price && productData.product.max_price * 1 != 0}}" class="origin-price line-33 line-text">￥{{productData.product.max_price*1/1}}</view> 
+      </view>
+      <view class="sales f-24 line-33">已售{{productData.product.sales}}件</view>
+    </view>
+    <!-- 新头部 -->
+    <view class="goodInfo bg-ff">
+      <view class="good-name f-bold col-33 f-32 threeline-hidden">
+        {{productData.product.name}}
+      </view>
+    </view>
+    <!-- 支付方式 -->
+    <view class="row-item bg-ff f-28 way m-t-20">
+      <view class="row-name">支付方式</view>
+      <view class="row-main dis-inline-block t-right v-top">
+        <view class="payWay {{payDef == 0? 'active': '' }}" bindtap="selectPay" data-index="0">￥{{product_price*1/1}}</view>
+        <view wx:if="{{productData.product.cost_point > 0}}" class="payWay {{payDef == 1? 'active': '' }}" bindtap="selectPay" data-index="1">{{productData.product.cost_point}}积分</view>
+      </view>
+    </view>
+    <view class="rowBox bg-ff m-t-20">
+      <!-- 服务 -->
+      <view wx:if="{{productData.credit_arr.length > 0}}" class="row-item f-28">
+        <view class="row-name is-inline-block v-top">服务</view>
+        <view class="row-main dis-inline-block v-top" wx:if="{{productData.credit_arr && productData.credit_arr.length > 0}}">
+          <view wx:for="{{productData.credit_arr}}" wx:key="index" class="serve">
+            <view class="serve-icon f-26 dis-inline-block v-top"></view>
+            <view class="m-l-10 f-26 dis-inline-block v-top">{{item.name}}</view>
+          </view>
+        </view>
+      </view>
+
+      <!-- vip服务 -->
+      <view wx:if="{{memberGrade < 3}}" class="row-item f-28" data-url="giftstore" bindtap="toRegister">
+        <view class="row-name is-inline-block v-top">VIP服务</view>
+        <view class="row-main dis-inline-block v-top">
+          <view wx:if="{{memberGrade < 2}}" class="vipServe m-b-10 col-f44"> 
+            <text class="dieWidth col-33">普通会员</text>直升VIP
+          </view>
+          <view wx:if="{{memberGrade < 3}}" class="vipServe col-f44"> 
+            <text class="dieWidth col-33">VIP会员</text>VIP有效期续期一年
+          </view>
+        </view>
+      </view>
+
+      <!-- 选择 -->
+      <view  wx:if="{{productData.store.specification_show >0}}" class="row-item f-28"  bindtap="oppenShopping" data-baby="baby" data-type="self_buy" data-product="{{productData.product.product_id}}">
+        <view class="row-name is-inline-block v-top">选择</view>
+        <view class="row-main dis-inline-block v-top b-0">
+          {{shoppingData.shoppingCatData.product.value || shoppingData.shoppingCatData.property_list[0].values[0].value || '规格'}}
+        </view>
+        <view class="iconfont iconarrowright col-33 f-20 f-right"></view>
+      </view>
+    </view>
+    <include src="/pages/public/live_code_leading.wxml"></include>
+
+    <!-- <view class="productInfoList section newProductInfoList">
+      
+      <view class="productInfo">
+        <view class="showTxt" wx:if="{{productData.product.info==''}}">
+          <image src="{{BASE_IMG_URL}}images/imgTxtCommon.png"></image>
+          <view>暂时还没有商品介绍哦!</view>
+        </view>
+        <view class="productTxt">
+          <template is="wxParse" data="{{wxParseData:info.nodes}}" />
+        </view>
+      </view>
+    </view> -->
+
+    <view class="productDetail m-t-20">
+      <view wx:if="{{productData.product.info==''}}" class="noDetail t-center f-32">
+        暂时没有商品详情哦！
+      </view>
+      <view wx:else>
+        <template is="wxParse" data="{{wxParseData:info.nodes}}" />
+      </view>
+      
+    </view>
+
+    <form report-submit="true" bindsubmit="formSubmit">
+      <view class="shoppingCatFooter">
+        <!-- 已售罄，切换门店 -->
+        <block wx:if="{{productData.product.quantity==0 && productData.product.all_physical_quantity==0}}">
+          <view style="bottom:{{store_nav_list_show?'88rpx':0}}" class="timeLimit {{isIpx}}__footer__btn-group">
+            已售罄
+          </view>
+        </block>
+        <block wx:elif="{{productData.product.quantity==0 && productData.product.all_physical_quantity!=0 }}">
+          <view style="bottom:{{store_nav_list_show?'88rpx':0}}" class="timeLimit {{isIpx}}__footer__btn-group" wx:if="{{productData.product.quantity==0}}" bindtap="soldOutProduct">
+            切换门店
+          </view>
+        </block>
+        <!-- 预约 -->
+        <view style="bottom:{{store_nav_list_show?'88rpx':0}}" class="clearfix ulList {{isIpx}}__footer__btn-group" wx:if="{{productData.product.is_reservation*1==1}}">
+          <button form-type="submit" class="shoppingCatButton" bindtap="oppenShopping" data-type="make" data-product="{{productData.product.product_id}}">
+            {{productData.product.custom_reservation_name ? productData.product.custom_reservation_name : '预约'}}
+          </button>
+        </view>
+        <view class="clearfix ulList {{isIpx}}__footer__btn-group" wx:if="{{productData.product.status*1==0}}" style="bottom:{{store_nav_list_show?'88rpx':0}}">
+          <button form-type="submit" class="shoppingCatButton no-buy" data-type="no-buy" data-product="{{productData.product.product_id}}">
+            该商品已下架
+          </button>
+        </view>
+        <!-- 加入购物车/立即购买 -->
+        <view class="footBox dis-flex" wx:elif="{{productData.product.is_reservation*1!=1}}" style="padding-bottom:{{bottomHeight}}">
+          <view class="footLeftBox dis-flex flex-y-center flex-x-between col-66">
+            <view class="indexBtn t-center toindex" catchtap="goIndex">
+              <view class="iconfont iconshouye f-36"></view>
+              <view class="btninfo f-22">首页</view>
+            </view>
+            <!-- <button wx:if="{{!hasLogin}}" class="indexBtn t-center col-66 bg-ff" catchtap="_shareGroup">
+              <view class="iconfont iconfenxianghaoyou f-36"></view>
+              <view class="btninfo f-22">分享好友</view>
+            </button> -->
+            <button class="indexBtn t-center col-66 bg-ff" catchtap="shareTap">
+              <view class="iconfont iconfenxianghaoyou f-36"></view>
+              <view class="btninfo f-22">分享好友</view>
+            </button>
+          </view>
+          <button form-type="submit" wx:if="{{showFriendCircle!=0}}" class="buyBtn flex-1 bg-33 col-ff" catchtap='shareTap'>
+            <view class="btncnt f-32">分享海报
+              <view class="f-28" wx:if="{{goodType == 20 && shareRewards}}">
+                赚{{shareRewards || '--'}}积分
+              </view>  
+            </view>
+          </button>
+          <button form-type="submit" class="buyBtn flex-1 bg-f4 col-ff" bindtap="oppenShopping" data-grade="{{memberGrade}}" data-type="self_buy" data-product="{{productData.product.product_id}}">
+            <view class="btncnt f-32">立即购买
+              <view class="f-28" wx:if="{{goodType == 20 && purchaseRewards}}">
+                赚{{purchaseRewards || '--'}}积分
+              </view>
+            </view>
+          </button>
+          <!-- 用户没登录 -->
+          <button type='primary' class='authbtn' wx:if="{{_unlogin}}" open-type="getUserInfo" bindtap="clickUserButtonFun" bindgetuserinfo="userCall" binderror="errCall"></button>
+          <!-- 授权手机号码 -->
+          <button class='authbtn' wx:if='{{!_unlogin&&!_has_phone}}' type='primary' bindtap="toGetPhonenumAuth"></button>
+        </view>
+      </view>
+    </form>
+
+    <!-- 展示生成的海报 -->
+    <view class="playbill-box" wx:if="{{showPlaybill}}" catchtouchmove="preventTouchMove">
+      <view class="mask" bindtap="closePlaybillFun"></view>
+      <view class="playbill">
+        <image class="plimgs" mode="widthFix" src="{{canvasImg}}" />
+        <view class="plbtns">
+          <button class="topreview pbtn" type="primary" bindtap="toPreviewFun">预览海报长按分享</button>
+          <button class="tosave pbtn" type="primary" bindtap="saveImg">保存到手机相册</button>
+        </view>
+      </view>
+    </view>
+
+    <!-- 商品规格弹窗 -->
+    <block wx:if="{{shoppingData.shoppingShow}}">
+      <template is="shoppingCat" data="{{shoppingData:shoppingData,memberGrade:memberGrade,animation:animation,warning:warning,store_nav_list,store_nav_list_show,serviceval, bottomHeight, price: shoppingData.shoppingCatData.product.price, need_point: productData.product.cost_point, way: payDef, payDef: payDef}}" />
+    </block>
+    <!-- 加载弹窗 -->
+    <template is="warning" wx:if="{{warning.warningShow}}" data="{{warningTxt:warning.warningTxt}}" />
+    <!-- 查看大图弹窗 -->
+    <block wx:if="{{showBigPic}}">
+      <template is="showBigPic" data="{{content: commentData.comment_list[praidx].attachment_list, currentIndex: common_list_index, showBigPic: showBigPic}}" />
+    </block>
+    <!-- 售罄弹窗 -->
+    <template is="soldOutBox" wx:if="{{soldOutBoxShow}}" data="{{content:soldOutBoxData}}" />
+    <!-- 海报画布 -->
+    <canvas canvas-id='productPost' style="width: {{canvasPosition.w}}px; height: {{canvasPosition.h}}px;position:absolute;left: -1000rpx;"></canvas>
+    <!-- 用户没登录 -->
+    <button type='primary' class='authbtn' wx:if="{{_unlogin}}" open-type="getUserInfo" bindtap="clickUserButtonFun" bindgetuserinfo="userCall" binderror="errCall"></button>
+  </view> 
+</scroll-view>
+
+<bottom-modal id='shareModal' cancelText='取消' bind:_cancelEvent="_cancelEvent" bind:_shareGroup="_shareGroup" bind:_shareFriendsCircle="_shareFriendsCircle"></bottom-modal>
+<!-- 警告弹框 -->
+<com-modal className="sure-modal" show="{{modalData.isShowModal}}">
+  <view class="model-box" slot="body">
+    <view class="sure-title">{{modalData.title}}</view>
+    <view class="sure-cnt">{{modalData.content}}</view>
+  </view>
+  <view slot="footer">
+    <view class="footer-btn-box scale-1px-top">
+      <button class="surebtn cancle" wx:if="{{modalData.cancelText}}" type="primary" bindtap="toCancle">{{modalData.cancelText}}</button>
+      <view class="btnline scale-1px-right" wx:if="{{modalData.sureText&&modalData.cancelText}}"></view>
+      <button class="surebtn save" wx:if="{{modalData.sureText}}" type="primary" bindtap="toMakesure">{{modalData.sureText}}</button>
+    </view>
+  </view>
+</com-modal>
+
+<!-- 积分提示/购买弹窗提示 -->
+<com-modal show="{{integralShow}}" width="520" padding="0rpx" radius="15">
+  <view slot="body" class="integral-popup bg-ff t-center f-32">
+    <image src="{{integral(integralType).iconUrl}}" class="exchange-img"/>
+    <view class="exchange-title f-bold">{{integral(integralType).title}}</view>
+
+    <view wx:if="{{integralType === 1}}" class="exchange-word">确认消耗<text class="col-f44">{{productData.product.cost_point}}</text>积分兑换</view>
+    <view wx:else class="exchange-word">{{integral(integralType).word}}</view>
+
+    <view class="exchange-foot">
+      <view wx:if="{{integralType === 1}}" class="foot-box dis-flex">
+        <view class="flex-1 cancel-btn btn col-99" bindtap="hideIntegralPopup">取消兑换</view>
+        <view class="flex-1 btn col-f44" bindtap="sureExchange" data-way="{{payDef}}" data-grade="{{memberGrade}}" data-type="self_buy" data-product="{{productData.product.product_id}}">确认兑换</view>
+      </view>
+      <view wx:else class="t-center {{integralType === 4?'col-f44': ''}}" bindtap="hideIntegralPopup">{{integralType === 4?'去赚积分': '我知道了'}}</view>
+    </view>
+  </view>
+</com-modal>
+
+
+
+<include src="/pages/public/page_footer.wxml"></include>

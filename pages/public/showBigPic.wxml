@@ -1,0 +1,10 @@
+<!--商品评价查看大图模板-->
+<template name="showBigPic">
+    <view class="bigPicWrapper" data-page="page.public.showBigPic" wx:if="{{showBigPic == true}}" bindtap="hideBigPic">
+        <swiper class="bigPicContent" current="{{currentIndex}}" autoplay="false" interval="5500" circular="true" indicator-dots="true" data-index="{{index}}" data-length="{{content.length}}">
+            <swiper-item class="bigPicItem" wx:for="{{content}}" wx:key="index">
+                    <image src="{{item.file}}" class="itemImage"></image>
+            </swiper-item>
+        </swiper>
+    </view>
+</template>

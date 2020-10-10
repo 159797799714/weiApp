@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "购物车",
+  "enablePullDownRefresh":true,
+  "backgroundTextStyle":"dark",
+  "usingComponents": {
+    "com-modal": "../../components/com-modal/com-modal"
+  }
+}

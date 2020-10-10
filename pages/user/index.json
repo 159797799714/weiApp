@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "time-count-down": "../../components/timeCountDown/index"
+  },
+  "enablePullDownRefresh": true
+}

@@ -1,0 +1,40 @@
+<view class="register-wrap">
+  <view class="title">注册会员，享更多购物福利</view>
+  <view class="input-part">
+    <view class="input-box">
+      <view class="name">手机号</view>
+      <input class="input-item" type="number" value="{{phoneNumber}}" maxlength="11" data-type="phoneNumber" bindinput="bindinput" placeholder="输入手机号"/>
+      <button class="authbtn {{phoneNumber?'unable':''}}" type="primary" disabled="{{phoneNumber}}" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">{{phoneNumber?'已授权':'点击授权'}}</button>
+    </view>
+    <view class="input-box">
+      <view class="name">验证码</view>
+      <input class="input-item" type="number" value="{{checkCode}}" maxlength="6" data-type="checkCode" bindinput="bindinput" placeholder="输入验证码"/>
+      <button class="getcode {{counts<60?'unable':''}}" type="primary" disabled="{{counts<60}}" bindtap="getCodeFun">{{checkCodeName}}</button>
+    </view>
+    <view class="input-box">
+      <view class="name">邀请码</view>
+      <input class="input-item" type="text" value="{{inviteCode}}" maxlength="6" data-type="inviteCode" bindinput="bindinput" placeholder="输入会员专属邀请码"/>
+    </view>
+  </view>
+  <button class="save" type="primary" style="background:{{themeColorValue}};color:#fff;" bindtap="saveFun">提交</button>
+
+  <!-- 确认弹框 -->
+  <com-modal className="sure-modal" isMaskClose="{{true}}" showClosebtn="{{true}}" show="{{showModal}}">
+    <view class="sure-box" slot="body">
+      <view class="sure-title">您的邀请人</view>
+      <view class="sure-info">
+        <view class="imgs">
+          <image class="photos" mode="widthFix" src="{{modalData.avatar}}" />
+        </view>
+        <view class="infos">
+          <view class="invi-name">{{modalData.invitationName}}</view>
+          <view class="invi-code">邀请码：{{inviteCode}}</view>
+        </view>
+      </view>
+    </view>
+    <view slot="footer">
+      <button class="surebtn" type="primary" bindtap="toRegisterFun">确认注册</button>
+    </view>
+  </com-modal>
+
+</view>

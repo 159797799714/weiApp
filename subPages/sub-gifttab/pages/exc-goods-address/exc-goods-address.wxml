@@ -1,0 +1,69 @@
+<view class="address-wrap">
+    <view class="addr-section">
+        <view class="addr-item">
+            <view class="left-title"> 收货人 </view>
+            <view class="right-msg">
+                <input value="{{consignee}}" data-name="consignee" placeholder="姓名" placeholder-class="inpu-palce"
+                    bindblur="hideDelete" bindinput="writeInfo" bindfocus="showDelete"/>
+               <view wx:if="{{curName=='consignee'}}" class="iconLC-style iconfont iconLC_icon_close_fill_circle"  data-name="consignee" bindtap="deleteAll"></view>
+            </view>
+        </view>
+        <view class="addr-item">
+            <view class="left-title">联系方式</view>
+            <view class="right-msg">
+                <input value="{{phone}}" type="number" data-name="phone" placeholder="请输入收货人手机号码"
+                    placeholder-class="inpu-palce" bindblur="hideDelete" bindinput="writeInfo" bindfocus="showDelete"/>
+                    <view wx:if="{{curName=='phone'}}" class="iconLC-style iconfont iconLC_icon_close_fill_circle" data-name="phone" bindtap="deleteAll" ></view>
+            </view>
+        </view>
+    </view>
+    <view class="addr-section">
+        <view class="addr-item">
+            <view class="left-title">所在地区</view>
+            <view class="right-msg">
+                <picker mode="region" bindchange="bindRegionChange" value="{{region}}">
+                    <view class="picker">
+                        <text wx:if="{{!region.length}}" style="color:#999;">请选择</text>
+                        <text wx:else> {{region[0]}} {{region[1]}} {{region[2]}}</text>
+                    </view>
+                </picker>
+            </view>
+        </view>
+        <view class="addr-item">
+            <view class="left-title">详细地址</view>
+            <view class="right-msg">
+                <input value="{{addrDetail}}" data-name="addrDetail" placeholder="请输入街道，门牌号等"
+                    placeholder-class="inpu-palce" bindblur="hideDelete" bindinput="writeInfo" bindfocus="showDelete"/>
+                    <view wx:if="{{curName=='addrDetail'}}"  class="iconLC-style iconfont iconLC_icon_close_fill_circle"  data-name="addrDetail" bindtap="deleteAll" ></view>
+            </view>
+        </view>
+        <view class="addr-item">
+            <view class="left-title">邮政编码</view>
+            <view class="right-msg">
+                <input value="{{postCode}}" type="number" maxlength="6" data-name="postCode" placeholder="请输入邮政编码"
+                    placeholder-class="inpu-palce" bindblur="hideDelete" bindinput="writeInfo"  bindfocus="showDelete"/>
+                    <view wx:if="{{curName=='postCode'}}"  class="iconLC-style iconfont iconLC_icon_close_fill_circle" data-name="postCode" bindtap="deleteAll"></view>
+            </view>
+        </view>
+    </view>
+    <view class="bottom-btn-box">
+        <button class="mt-style" type="warn" bindtap="submitInfo">确定</button>
+    </view>
+</view>
+<!-- 兑换成功的弹窗样式 -->
+
+<com-modal className="sure-modal" show="{{isShowModal}}" width="540" radius="15" padding="0">
+    <view class="fail-modal" slot="body">
+        <view class="fail-icon">
+            <image mode="widthFix"
+                src="https://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/exchange_confirm_icon.png" />
+        </view>
+        <view class="fail-content">
+            <view class="fail-title">兑换成功</view>
+            <view class="fail-tips">恭喜您兑换成功</view>
+        </view>
+        <view class="confirm-footer fail-footer" bindtap="backExc">
+            我知道了
+        </view>
+    </view>
+</com-modal>

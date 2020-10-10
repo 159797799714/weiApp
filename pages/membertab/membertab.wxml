@@ -1,0 +1,226 @@
+<import src="../../template/gift-list/gift-list.wxml" />
+<!-- 展示购物车悬浮图标 -->
+<import src=".././public/contact.wxml" />
+<!-- 弹框类 -->
+<import src="../../pages/public/shoppingCat.wxml" />
+<import src="../../pages/public/warning.wxml" />
+<import src="../../pages/public/soldOutBox.wxml" />
+<import src="../../template/together-dialog/together-dialog.wxml" />
+<wxs src="../../utils/filter.wxs" module="filter"></wxs>
+<wxs src="./membertab.wxs" module="filterVip"></wxs>
+
+<view class="membertab-wrap {{pageTheme}}">
+  
+  <view class="head-box bg-13">
+    <view class="header p-re {{'bg-vip'+ memberInfos.memberGrade}}">
+      <view class="user-box dis-flex flex-x-between flex-y-center">
+        <view class="user-img bg-ff">
+          <image src="{{memberInfos.headImg?memberInfos.headImg: 'https://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/default_photo.png'}}" class="img"></image>
+        </view>
+        <view class="user-info flex-1">
+          <view class="user-name f-32 f-bold oneline-hidden {{memberInfos.memberGrade == 4?'col-ff': 'col-2c'}}" >{{filterVip.nickName(memberInfos)}}</view>
+          <view wx:if="{{memberInfos.roleName}}" class="member-grade f-20 t-center {{'vip-bg'+memberInfos.memberGrade}}">
+            <view class="f-left dis-inline-block m-icon v-center t-center" style="{{filterVip.vipIcon(memberInfos).bg}}">
+              <text class="iconfont vipname {{filterVip.vipIcon(memberInfos).iconName}} f-18" style="{{filterVip.vipIcon(memberInfos).color}}"></text>
+            </view>
+            <text wx:if="{{memberInfos.roleName}}" class="v-center f-bold over-hidden" style="{{filterVip.vipIcon(memberInfos).color}}">{{memberInfos.roleName}}</text>
+          </view>
+        </view>
+        <view wx:if="{{memberInfos.memberGrade <= 1 }}" class="power-info f-22 f-bold">
+          升级享<text class="col-f44">35+</text>特权
+        </view>
+        <!-- <view wx:elif="{{memberInfos.memberGrade == 1}}" class="power-info f-22 f-bold">
+          已为您省赚<text class="col-f44">￥{{ memberInfos.settlementPoints || 0}}</text>
+        </view> -->
+        <view wx:elif="{{memberInfos.memberGrade > 1}}" class="power-info time-info  f-22 {{memberInfos.memberGrade == 4?'black-20': ''}}">
+          <text class="col-ff">{{ memberInfos.expirationTime? memberInfos.expirationTime + '到期': ''}}</text>
+        </view>
+      </view>
+
+
+      <!-- 普通会员及以下 -->
+      <view wx:if="{{memberInfos.memberGrade < 2}}" class="member-box dis-flex flex-x-between flex-y-center">
+        <view style="{{memberInfos.memberGrade == 1 ?'color: #4677A4;': ''}}">
+          <view class="buy-info f-26 f-bold">购买礼包商品，即可直升VIP会员</view>
+          <view class="f-22">VIP会员·省的更多·分享更赚</view>
+        </view>
+        <view class="up-btn f-22 f-bold col-ff" data-url="giftstore" bindtap="toRegister">升级VIP</view>
+      </view>
+
+      <!-- vip会员及以上 -->
+      <view wx:else class="fans-box" bindtap="goViprecord">
+        <view class="slipe">
+          <view class="slipe-over bg-13 {{'sliper-bg'+memberInfos.memberGrade}}" style="width: {{memberInfos.exclusiveVip / memberInfos.requireVip * 100}}%"></view>
+        </view>
+        <view class="fans-num {{'col'+memberInfos.memberGrade}} f-26 dis-flex flex-x-between">
+          <view class="line-37">VIP粉丝：
+            <text class="line-37">{{memberInfos.exclusiveVip}}/{{memberInfos.requireVip}}</text>
+          </view>
+          <view class="line-37" wx:if="{{memberInfos.memberGrade == 4}}">已升至最高等级</view>
+          <view class="line-37" wx:else>满{{memberInfos.requireVip}}个升级合伙人
+            <view class="dis-inline-block iconfont iconarrowright f-18 line-37 v-top"></view>
+          </view>
+        </view>
+      </view>
+
+      <view class="vipBg {{memberInfos.memberGrade == 0?'plainVip': ''}}" style="{{memberInfos.memberGrade == 4?'opacity: 0.3;': ''}}"></view>
+    </view>
+    <view class="navList dis-flex">
+      <view wx:for="{{navList}}" wx:key="index" class="navBar t-center f-30 {{navDef === index ? 'actived': ''}}"
+        style="width: {{100 / (navList.length)}}%" bindtap="slectNav" data-index="{{index}}">{{item.name}}</view>
+      
+      <view class="slipe-span" style="left: {{left}}"></view>
+    </view>
+    
+    <view class="bg-linear"></view>
+  </view>
+
+  <!-- 礼包商城 -->
+  <block wx:if="{{navDef === 0}}">
+    <view class="goods-list margin-372">
+      <view wx:for="{{giftListData}}" wx:key="index" class="good-item bg-ff" data-id="{{item.id}}" bindtap="goDetail">
+        <view class="good-img">
+          <image src="{{item.goodImage}}" class="img" mode="aspectFill" lazy-load="true"/>
+        </view>
+        <view class="good-info">
+          <view class="good-title twoline-hidden f-24 col-33">
+            <text class="sale-point f-18">热销</text>{{item.goodName}}
+          </view>
+          <view>
+            <view class="dis-inline-block vip-logo f-20">
+              <view class="up-vip">
+                <text class="iconfont iconshengjihuiyuan f-16"></text>
+                <view class="dis-inline-block v-top">{{memberInfos.memberGrade > 1?'会员续期': '直升VIP会员'}}</view>
+              </view>  
+            </view>
+          </view>
+          <view class="dis-flex flex-y-end">
+            <view class="min-price col-f44 f-28">
+              <text wx:if="{{item.goodPrice > 0}}" class="line-1">￥{{item.goodPrice}}</text>
+              <text wx:if="{{item.goodPrice && item.cost_point > 0}}" class="col-99">或</text>
+              <text wx:if="{{item.cost_point > 0}}" class="line-1">{{item.cost_point}}积分</text>
+            </view>
+            <!-- <view class="max-price f-22 col-99">￥299</view> -->
+          </view>
+        </view>
+      </view>
+
+      <view wx:if="{{giftListData.length < 1}}" class="white-word col-33 t-center">暂无相关商品~</view>
+    </view>
+  </block>
+
+  <!-- 会员权益 -->
+  <block wx:elif="{{navDef === 1}}">
+    <view class="margin-372 member">
+      <view class="bg-banner t-center col-DE f-bold">
+        <view class="vip-img margin-auto">
+          <image src="" class="vipimg" mode="aspectFill" style="visibility: hidden;"/>
+        </view>
+        <view class="f-30 small-word">成为闪购Live VIP</view>
+        <view class="f-48 big-word">自购省钱·分享赚钱</view>
+      </view>
+      <view class="bg-gray"></view>
+
+      <view class="member-content">
+        <!-- 会员专属扶持 -->
+        <view class="title">
+          <image src="../../images/liebiao.png" class="title-icon rotate-180" mode="scaleToFill"/>
+          <text class="f-32 title-word col-ff">会员专属扶持</text>
+          <image src="../../images/liebiao.png"  class="title-icon" mode="scaleToFill"/>
+        </view>
+        <view class="help dis-flex flex-x-between">
+          <view wx:for="{{freeWork}}" wx:key="index" class="help-item">
+            <image src="{{item.imgUrl}}" class="help-icon"/>
+            <view class="f-26 col-ff help-name">{{item.name}}</view>
+          </view>
+        </view>
+        <!-- 会员超省权益 -->
+        <view class="title">
+          <image src="../../images/liebiao.png" class="title-icon rotate-180" mode="scaleToFill"/>
+          <text class="f-32 title-word col-ff">尊享超省权益</text>
+          <image src="../../images/liebiao.png"  class="title-icon" mode="scaleToFill"/>
+        </view>
+        
+        <view class="vip-list t-center">
+          <view class="one-row dis-flex flex-x-between col-ff">
+            <view wx:for="{{oneRowVipList}}" wx:key="index" 
+              class="one-row-item {{index === 0?'width-160': 'flex-1'}} {{index === 2?'col-DE': ''}}">
+              <view class="name f-30">{{item.name}}</view>
+              <view class="f-26 t-center">{{item.info}}</view>
+            </view>
+          </view>
+
+          <view class="two-row col-ff f-30">
+            <view wx:for="{{scaleList}}" wx:key="index" class="row-column">
+              <view class="width-160">{{item.name}}</view>
+              <view wx:for="{{item.array}}" wx:for-item="item2" wx:for-index="num" wx:key="num"
+                class="flex-1 {{num === 1?'col-DE': ''}}">{{item2}}%</view>
+            </view>
+          </view>
+        </view>
+
+
+        <!-- 购物可省 -->
+        <view class="title">
+          <image src="../../images/liebiao.png" class="title-icon rotate-180" mode="scaleToFill"/>
+          <view class="f-32 title-word col-ff">购物可省赚<text class="col-DE">9988元/每年</text></view>
+          <image src="../../images/liebiao.png"  class="title-icon" mode="scaleToFill"/>
+        </view>
+
+        <view class="buy-discount">
+          <view wx:for="{{discountList}}" wx:key="index" class="discount-item dis-flex flex-y-center">
+            <view class="item-img bg-ff">
+              <image src="{{item.imgUrl}}" class="img"/>
+            </view>
+            <view class="item-name f-26 col-ff oneline-hidden">{{item.name}}</view>
+            <view class="item-price">
+              <view class="old-price f-20 col-66 text-line">原价{{item.oldPrice}}</view>
+              <view class="hand-price col-DE f-22">到手价：{{item.newPrice}}</view>
+            </view>
+            <view class="kill-price t-center f-26">省{{item.discountPrice}}</view>
+          </view>
+        </view>
+
+        <!-- 关于闪购 -->
+        <view class="title">
+          <image src="../../images/liebiao.png" class="title-icon rotate-180" mode="scaleToFill"/>
+          <view class="f-32 title-word col-ff">关于闪购Live</view>
+          <image src="../../images/liebiao.png"  class="title-icon" mode="scaleToFill"/>
+        </view>
+
+        <view class="shangouLive t-center">
+          <view class="shangou t-center">
+            <image src="http://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/member/live_logo.png" class="img"/>
+            <view class="f-32 linear-word">闪购Live</view>
+          </view>
+          <view class="live-word f-30 f-bold">
+            <text class="iconfont iconshuangyinhaoyou col-f44 f-16 leftyinhao"></text>
+            <view class="dis-inline-block text">让10亿网民都能用的优惠返佣创业平台</view>
+            <text class="iconfont iconshuangyinhaoyou col-f44 f-16 rightyinhao"></text>
+          </view>
+          <view class="shangouDream col-DE f-30">闪购三大愿景</view>
+          <view class="col-DE f-26 dream-box t-left">
+            <view wx:for="{{deramList}}" wx:key="index" class="dream-item">{{item}}</view>
+          </view>
+        </view>
+
+      </view>  
+    </view>
+  </block>
+
+  <!-- 赚钱攻略 -->
+  <block wx:elif="{{navDef === 2}}">
+    赚钱攻略
+  </block>
+
+  <!-- 用户没登录 -->
+  <button class='authbtn' wx:if='{{_unlogin}}' type='primary' bindtap="isLogin"></button>
+
+  <!-- 授权手机号码 -->
+  <button class='authbtn' wx:if='{{!_unlogin&&!_has_phone}}' type='primary' bindtap="toGetPhonenumAuth"></button>
+
+  <!-- 首页合作/商品搜索/授权 弹框 -->
+  <template is="togetherDialog" data='{{...commonModalData}}'></template>
+
+</view>
+<include src="/pages/public/page_footer.wxml"></include>

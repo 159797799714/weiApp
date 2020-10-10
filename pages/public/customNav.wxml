@@ -1,0 +1,40 @@
+<wxs src="../../utils/filter.wxs" module="filter"></wxs>
+<template name="customNav">
+  <block>
+      <!-- 导航 -->
+    <view class="nav-block" wx:if="{{!isHotTab}}" style="background-color:{{barType==1?'#fff':themeColorValue}};height:{{status + navHeight}}px" >
+      <view class="status-colum" style="height:{{status}}px"></view>
+      <view class="contents" style="height:{{navHeight}}px">
+        <view class="nav-left">
+          <!-- 返回 -->
+          <view class="_centet nav_back" wx:if='{{1==2}}'>
+            <text class="iconfont icon-shangyibu"></text>
+          </view>
+          <!-- 用户头像 -->
+          <view class="nav-user _centet">
+            <!-- <text class="iconfont icon-touxiang" wx:if='{{_unlogin}}'></text> -->
+            <button type='primary' class='iconfont icon-touxiang user-icon' style="color:{{barType==1?'#000':'#fff'}};background:transparent;" open-type="getUserInfo" bindgetuserinfo="userCall"
+            binderror="errCall" wx:if='{{_unlogin}}'>
+            </button>
+          
+            <navigator url="/pages/user/index" hover-class="none" open-type="{{filter.getOpenType('/pages/user/index',store_nav_list)}}">
+            <image src="{{user_pic}}" mode="aspectFill" style="width:64rpx;height:64rpx;border-radius:50%;"  wx:if='{{_unlogin==false && user_pic}}'></image>
+            <text wx:if='{{_unlogin==false && (!user_pic)}}' class="iconfont icon-geren" style="color:{{barType==1?'#000':'#fff'}};text-align:center;font-size:48rpx;display:block;width:64rpx;height:58rpx;opacity:.9;"></text>
+            </navigator>
+          </view>
+        </view>
+        <view class="nav-title _centet" style="color:{{barType==1?'#000':'#fff'}}">{{_barTitle}}</view>
+      </view>
+    </view>
+
+    <!-- 导航： 正常模式展示(只展示标题) -->
+    <view class="nav-block nav-block-nomal" wx:else style="background-color:{{barType==1?'#fff':themeColorValue}};height:{{status + navHeight}}px" >
+      <view class="status-colum" style="height:{{status}}px"></view>
+      <view class="contents" style="height:{{navHeight}}px;color:{{barType==1?'#000':'#fff'}};justify-content:center;padding:0;">
+        <image class="nav_img" mode="widthFix" src="../../images/cps/nav_bg.png" style="width:202rpx;" />
+      </view>
+    </view>
+    <!-- 占位 -->
+    <view class='nav-position' style="background-color:{{barType==1?'#fff':themeColorValue}}; height:{{status+navHeight}}px;">占位</view>
+  </block>
+</template>

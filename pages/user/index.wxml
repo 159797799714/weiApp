@@ -1,0 +1,355 @@
+<!--个人中心页面-->
+<wxs src="../../utils/filter.wxs" module="filter"></wxs>
+<view class="container user {{pageTheme}}" data-page="page.user.index">
+  <view class="containerLayer" wx:if="{{!containerLayer}}"></view>
+  <view class="userHeader clearfix theme-bg-color">
+    <view class='userinfo'>
+      <image src="{{userData.user.avatar}}" wx:if='{{userData.user && _unlogin==false}}' mode="aspectFill" class='userimg'></image>
+
+      <view class="login-box" wx:if='{{_unlogin}}'>
+        <text class="iconfont icon-touxiang default_user" ></text>
+        <!-- <button type='primary' class='btn-logins' style="border:2rpx solid #fff;color:#fff;background:rgba(255,255,255,.2)" open-type="getUserInfo" bindgetuserinfo="userCall"
+          binderror="errCall">登录
+        </button> -->
+         <button class='btn-logins' style="border:2rpx solid #fff;color:#fff;background:rgba(255,255,255,.2)" bindtap="isLogin">登录
+        </button>
+      </view>
+
+
+      <view class='usercontent new-usercontent' wx:if='{{_unlogin==false && userData.user}}'>
+        <view class='name'>
+          <view class='nick textOmitted' style='max-width:350rpx;'>{{userData.user.nickname}}</view>
+          <!-- <view class='sp' style='min-width:160rpx'>  
+            <image class='icon' src="{{userData.user.degree_logo}}"></image>
+            {{userData.user.degree_name}}</view> -->
+        </view>
+        <view>
+          <view class='more' wx:if='{{userData.user}}' open-type="getUserInfo" bindtap='updateInfo'>
+            更新资料
+          </view>
+        </view>
+        <!-- 会员版本-邀请码 -->
+        <view class='invitation-code' wx:if='{{invitationCode}}'>邀请码：{{invitationCode}}
+          <text data-code='{{invitationCode}}' catchtap='copyCode' class='txt-copy'>复制</text> 
+        </view>
+
+        <!-- 商城-邀请码 -->
+        <!-- <view class='invitation-code' wx:if='{{userData.invite_code}}'>邀请码：{{userData.invite_code}}
+          <text data-code='{{userData.invite_code}}' catchtap='copyCode' class='txt-copy'>复制</text> 
+        </view> -->
+      </view>
+
+    </view>
+    <view class="bgbox">
+      <image class='add-bg' mode="widthFix" src='../../images/person_top_bg.png'></image>
+    </view>
+  </view>
+  <!-- 新增拉粉展示-->
+  <!-- is_gift：是否开启礼包分销=》0、未开启=》1、开启 -->
+  <!-- 
+      show_member_benfites = 0; // 展示粉丝数量等等
+      show_member_benfites = 1; // 展示您已成功升级VIP
+      show_member_benfites = 2; // 不展示相关提示
+  -->
+  <!-- <view>------show_member_benfites={{userData.show_member_benfites}}</view>
+  <view>------is_gift={{userData.is_gift}}</view> -->
+
+  <!-- 商城会员展示 -->
+  <!-- <view class='vip-box' wx:if='{{_unlogin==false && userData.show_member_benfites!=undefined && userData.show_member_benfites != 2&&!userData.is_gift}}'>
+    <view class="equity">
+      <image class='icon' src="../../images/level.png"></image>
+      <view class='part-left'>
+        <view class='num' wx:if='{{userData.show_member_benfites == 0}}'>邀请{{pageData.num}}粉丝成为{{pageData.member_alias}}</view>
+        <view class='num' wx:if='{{userData.show_member_benfites == 1}}'>您已成功升级成{{pageData.member_alias}}</view>
+      </view>
+      <view class='golevel theme-bg-color'>
+        <navigator url="/pages/user/vip/vip" hover-class="none" open-type="navigate">
+          <text wx:if='{{userData.show_member_benfites == 0}}'> 立即升级</text>
+          <text wx:if='{{userData.show_member_benfites == 1}}'>查看详情</text>
+        </navigator>
+      </view>
+    </view>
+    <image src='../../images/person_top_bg.png' class='add-bg'></image>
+  </view> -->
+
+  <!-- 礼包会员展示 -->
+  <!-- <view class='vip-box' wx:if="{{_unlogin==false && userData.is_gift && userData.show_gift}}">
+
+    <view class="equity">
+      <image class='icon' src="../../images/level.png"></image>
+      <view class='part-left'>
+        <view class='num' wx:if="{{userData.show_gift*1 == 1}}">已开通会员 享超值会员权益</view>
+        <view class='num' wx:if="{{userData.show_gift*1 == 2}}">开通会员 享超值会员权益</view>
+
+      </view>
+      <view class='golevel theme-bg-color'>
+        <navigator url="{{userData.show_gift==1?'/pages/giftMember/giftuser/user':'/pages/giftMember/giftVip/vip' }}" hover-class="none" open-type="navigate">
+          <text wx:if="{{userData.show_gift == 1}}">查看详情</text>
+          <text wx:if="{{userData.show_gift == 2}}">立即开通</text>
+
+        </navigator>
+      </view>
+
+    </view>
+    <image src='../../images/person_top_bg.png' class='add-bg'></image>
+  </view> -->
+
+  <!-- 我的账户 -->
+  <!-- <view class="mymoeny {{(userData.show_member_benfites == 2&&!userData.show_gift!=0)?'margin-less':''}}" catchtap='gotoMyMoney' wx:if="{{(_unlogin==false && userData.is_gift != 1 && userData.hide_myaccount == 0) || (_unlogin==false && userData.is_gift == 0 && userData.hide_myaccount != 1) }}">
+    <view class='title'>我的账户
+      <image src='/images/go_rg.png'></image>
+    </view>
+    <view class='line'></view>
+    <view class='details'>
+      <view class='item'>
+        {{userData.my_account.store_income}}
+        <text>总金额</text>
+      </view>
+      <view class='item'>
+        {{userData.my_account.balance}}
+        <text>可提现</text>
+      </view>
+      <view class='item'>
+        {{userData.my_account.unbalance}}
+        <text>待入账</text>
+      </view>
+    </view>
+  </view> -->
+
+  <!-- 为成为团长 -->
+  <!-- <view wx:if="{{_unlogin==false &&userData.open_community_group*1 == 1}}">
+    <view class='group-buying-wrap group-buying-wrap1' bindtap='gotoGroupstatus' wx:if="{{userData.show_community_group*1 == 1||userData.show_community_group == 0}}">
+      <text class='icon iconfont icon-shenqing' style='color:#ff500c;'></text>
+      <view class='applytogrouper'>
+        申请成为团长
+        <image src='/images/go_rg.png'></image>
+      </view>
+    </view> -->
+    <!-- 成为团长 -->
+    <!-- <view class='group-buying-wrap' wx-if="{{userData.show_community_group == 2}}">
+      <view class='isgrouper'>
+        我是团长 -->
+
+        <!-- <navigator url='/pages/groupbuying/editgrouperaddress/editgrouperaddress' open-type='navigate' hover-class='none'> 
+        <view class='text'>修改自提地址<image src='/images/go_rg.png'></image></view>
+        </navigator> -->
+
+      <!-- </view>
+      <view>
+        <view class='group-list-item' bindtap='grouperScancode'>
+          <text class="iconfont icon-saoma" style='color:{{themeColorValue}}'></text>
+          <text>扫码核销</text>
+        </view>
+        <view class='group-list-item'>
+          <navigator open-type='navigate' url='/pages/SHOPGOODS/pages/groupbuying/ordermanagement'>
+            <text class="iconfont icon-dingdan" style='color:#ff7800'></text>
+            <text>订单管理</text>
+          </navigator>
+        </view>
+        <view class='group-list-item' bindtap='gotoMyMoney'>
+          <text class="iconfont icon-jineqiandaiyueshangjin" style='color:#ff7800'></text>
+          <text>我的佣金</text>
+        </view>
+      </view>
+    </view>
+  </view> -->
+  
+  <view class="userOrder  userOrder1">
+    <view data-status="unpay" bindtap="orderListGo">
+      <text class="iconfont icon-daifukuan" style='color:#ff7800'></text>
+      <text data-status="unpay">待付款</text>
+    </view>
+    <view data-status="unsend" bindtap="orderListGo">
+      <text class="iconfont icon-daifahuo" style='color:#fe5480'></text>
+      <text data-status="unsend">待发货</text>
+    </view>
+    <view data-status="send" bindtap="orderListGo">
+      <text class="iconfont icon-yifahuo" style='color:#2374fa'></text>
+      <text data-status="send">已发货</text>
+    </view>
+    <view data-status="complete" bindtap="orderListGo">
+      <text class="iconfont icon-yiwancheng" style='color:#06b8a3'></text>
+      <text data-status="complete">已完成</text>
+    </view>
+    <view data-status="all" bindtap="orderListGo">
+      <text class="iconfont icon-iconwddd"></text>
+      <text data-status="all">我的订单</text>
+    </view>
+
+  </view>
+
+  <!-- <view class='mymoeny mymoeny1' catchtap='goToMyFans' wx:if="{{(_unlogin==false)&&(!userData.is_gift) && (userData.hide_myaccount == 0 || userData.hide_myaccount != 1)}}">
+    <view class='title'>我的粉丝
+      <view class='more'>更多
+        <image src='/images/go_rg.png'></image>
+      </view>
+    </view>
+    <view class='line'></view>
+    <view class='details'>
+      <view class='item'>
+        {{userData.fans_module.fans_num}}
+        <text>粉丝总数</text>
+      </view>
+      <view class='item'>
+        {{userData.fans_module.today_fans_num}}
+        <text>今日新增用户</text>
+      </view>
+      <view class='item'>
+        {{userData.fans_module.yesterday_fans_num}}
+        <text>昨日新增用户</text>
+      </view>
+    </view> -->
+    <!-- <view class='title title-bottom'>
+      <view class='num'>还差 <text>{{pageData.num&&pageData.now_num?pageData.num-pageData.now_num:0}}粉丝</text> 成为{{pageData.member_alias}}         </view>
+      <navigator url="/pages/user/membersDetails/membersDetails" hover-class="none" open-type="navigate">
+        <view class='more'>
+          <image src='/images/go_rg.png'></image>
+        </view>
+      </navigator>
+      
+    </view> -->
+    <!-- <progress color="#e7e7e7" activeColor='{{themeColorValue}}' percent="{{progress}}" border-radius="4rpx" stroke-width='5px'></progress> -->
+  <!-- </view> -->
+
+  <!--我的邀请人-->
+  <!-- <block wx:if="{{show_inviter!=0 && (_unlogin==false)}}">
+    <view class='mymoeny mymoeny1 mymoeny2' catchtap='haveAndNo'>
+      <view class='title'>我的邀请人
+        <image src='/images/go_rg.png' style='{{haveShow?"transform:rotate(90deg)":""}}'></image>
+      </view>
+    </view>
+    <view class='invate' wx:if="{{haveShow}}">
+      <image src='{{userData.invite_module.inviter.avatar}}'></image>
+      <view class='infocontent'>
+        <view class='name'>{{userData.invite_module.inviter.nickname}}</view>
+        <view class='date'>{{userData.invite_module.inviter.reg_time}}</view>
+      </view>
+    </view>
+  </block> -->
+
+  <view class="userLinke1" wx:if='{{(_unlogin==false)}}'>
+    <!-- 自研版本：屏蔽礼券入口 -->
+    <!-- <view class="item clearfix" wx:if="{{userData.open_card == 1}}">
+      <navigator class="navigator" url="{{SUER_URL}}/pages/coupons/coupons" hover-class="none" open-type="{{filter.getOpenType('{{SUER_URL}}/pages/coupons/coupons',store_nav_list)}}">
+        <text class="iconfont icon-quan"></text>
+        <text class='txt'>礼券</text>
+      </navigator>
+    </view> -->
+
+    <!-- 自研版本：屏蔽商城会员卡入口 -->
+    <!-- <block wx:if="{{userData.open_card == 1 && wxapp_member_content.huiyuanka==1}}">
+      <block wx:if="{{!userData.wx_card || userData.wx_card.card_type == 1}}">
+        <view class="item clearfix" wx:if="{{userData.open_card == 1}}">
+          <navigator class="navigator" url="/pages/coupons/membership" hover-class="none" open-type="navigate">
+            <text class="iconfont icon-huiyuanqia"></text>
+            <text class='txt'>会员卡</text>
+          </navigator>
+        </view>
+      </block>
+      <block wx:else>
+        <view class="item clearfix">
+          <view class="navigator" bindtap="openMemberCard" data-card-type="{{userData.wx_card.card_type}}">
+            <text class="iconfont icon-huiyuanqia"></text>
+            <text class='txt'>会员卡</text>
+          </view>
+        </view>
+      </block>
+    </block> -->
+    <view class="item clearfix v7" wx:if="{{wxapp_member_content.shouhuodizhi==1}}">
+      <navigator class="navigator" url="/pages/user/address/index" hover-class="none" open-type="navigate">
+        <text class="iconfont icon-address"></text>
+        <text class='txt'>收货地址</text>
+      </navigator>
+    </view>
+    <view class="item clearfix v1" wx:if="{{wxapp_member_content.gouwuche==1}}">
+      <navigator class="navigator" url="/pages/shoppingCat/index" hover-class="none" open-type="{{filter.getOpenType('/pages/shoppingCat/index',store_nav_list)}}">
+        <text class="iconfont icon-gouwuche"></text>
+        <text class='txt'>购物车</text>
+      </navigator>
+    </view>
+    <view class="item clearfix v6">
+      <view class="navigator">
+        <text class="iconfont icon-weixin_icon"></text>
+        <text class='txt'>联系客服</text>
+      </view>
+      <button class="contact" hover-class="none" open-type="contact"></button>
+    </view>
+    <view class="item clearfix v5" wx:if="{{wxapp_member_content.wodeshouhou==1}}">
+      <navigator class="navigator" url="{{SUER_URL}}/pages/user/myServer/index" hover-class="none" open-type="navigate">
+        <text class="iconfont icon-shouhoufuwu"></text>
+        <text class='txt'>我的售后</text>
+      </navigator>
+    </view>
+
+    <!-- 自研版本：屏蔽入口 -->
+    <!-- <view class="item clearfix v8" wx:if="{{userData.use_reservation == 1 && wxapp_member_content.wodeyuyue==1}}">
+      <navigator class="navigator" url="{{SUER_URL}}/pages/user/appointment/index" hover-class="none" open-type="navigate">
+        <text class="iconfont icon-yuyue"></text>
+        <text class='txt'>我的预约</text>
+      </navigator>
+    </view>
+    <view class="item clearfix v10" wx:if="{{userData.use_tuan == 1 && wxapp_member_content.wodepintuan==1}}">
+      <navigator class="navigator" url="{{SUER_URL}}/pages/myCollage/myCollageList" hover-class="none" open-type="navigate">
+        <text class="iconfont icon-zizhutuiguang"></text>
+        <text class='txt'>我的拼团</text>
+      </navigator>
+    </view> -->
+
+    <!-- <view class="item clearfix v10" wx:if="{{wxapp_member_content.huiyuanquanyi==1}}">
+      <navigator class="navigator" url="/pages/user/membersDetails/membersDetails" hover-class="none" open-type="navigate">
+        <text class="iconfont icon-zizhutuiguang"></text>
+        <text class='txt'>会员权益</text>
+      </navigator>
+    </view> -->
+    <!-- &&(userData.show_community_group*1!=1 && userData.show_community_group*1!=0) -->
+
+    <!-- 自研版本：屏蔽分销管理入口 开始分享按钮时。是不是分销商都显示分销管理，不开启时，是分销商才显示  -->
+    <!-- <view class="item clearfix v10" wx:if="{{userData.store_config.applet_fx_button==1}}">
+      <navigator class="navigator" url="{{userData.fx_store == 1 ? '/pages/distribution/index' : '/pages/distribution/create_distribution'}}" hover-class="none" open-type="navigate">
+        <text class="iconfont icon-fx_guanli"></text>
+        <text class='txt'>{{userData.fx_name}}管理</text>
+      </navigator>
+    </view> -->
+
+<!-- //积分 自研版本：屏蔽积分明细入口 -->
+    <!-- <view class="item clearfix v1" wx:if="{{wxapp_member_content.jifenmingxi==1}}}">
+      <navigator class="navigator" url="/pages/POINT/pages/details/details" hover-class="none" open-type="navigate">
+        <text class="iconfont icon-wujiaoxing"></text>
+        <text class='txt'>积分明细</text>
+      </navigator>
+    </view> -->
+    <view class="item clearfix v1" wx:if="{{wxapp_member_content.wodeshoucang==1}}">
+        <navigator class="navigator" url="/pages/SHOPGOODS/pages/user/myCollection/index" hover-class="none" open-type="navigate">
+            <text class="iconfont icon-shoucang"></text>
+            <text class='txt'>我的收藏</text>
+        </navigator>
+    </view>
+    <view class="item clearfix v1" wx:if="{{wxapp_member_content.zgrassshow==1}}">
+      <navigator class="navigator" url="/pages/SHOPKEEPER/pages/publish/publishList" hover-class="none" open-type="navigate">
+        <text class="iconfont icon-dingdan"></text>
+        <text class='txt'>我的心得</text>
+      </navigator>
+    </view>
+    <view class="item clearfix v1" wx:if="{{wxapp_member_content.channel==1}}">
+      <navigator class="navigator" url="/pages/SHOPGOODS/pages/user/balance/balance" hover-class="none" open-type="navigate">
+        <text class="iconfont icon-qiandai" style="color:#ffa304;"></text>
+        <text class='txt'>{{userData.channel_privilege_name}}</text>
+      </navigator>
+    </view>
+     <view class="item clearfix v6" wx:if="{{wxapp_member_content.shimingrenzheng==1}}">
+            <navigator class="navigator" url="/pages/customized/showdetailstatus" hover-class="none" open-type="{{filter.getOpenType('/pages/customized/realname',store_nav_list)}}">
+                <text class="iconfont icon-geren"></text>
+                <text class='txt'>实名认证</text>
+            </navigator>
+        </view>
+  </view>
+  <!-- 分销userData.hide_myaccount、礼包userData.is_gift都不展示 -->
+  <view class='romm {{pageTheme}}' wx:if="{{_unlogin==false && wxapp_member_content.tuiguangbendian==1 &&userData.is_gift !=1 && userData.hide_myaccount!=0}}">
+    <button class='shop theme-bg-color' open-type="share">推广本店</button>
+    <button class='canvas theme-bg-color' catchtap='tuiguangHaiBao'>推广海报</button>
+  </view>
+  <include src="/pages/public/live_code_leading.wxml"></include>
+</view>
+<!-- 公司说明company instructions -->
+<view class="company-instruct" wx:if='{{userData.store_config.show_applet_server==1 && userData.store_config.applet_server_tips}}'>{{userData.store_config.applet_server_tips}}</view>
+<include src="/pages/public/page_footer.wxml"></include>

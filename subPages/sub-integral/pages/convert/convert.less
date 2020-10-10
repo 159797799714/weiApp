@@ -1,0 +1,100 @@
+// out: convert.wxss, compress: true
+page{
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  background: #fff;
+}
+
+.convert-wrap{
+  padding-bottom: 30rpx;
+  .top-part{
+    padding-top: 50rpx;
+    background: #fdf5e4;
+    .points{
+      width: 690rpx;
+      height: 280rpx;
+      font-size: 28rpx;
+      color: #fff;
+      line-height: 28rpx;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: url('https://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/integral_detail.png') no-repeat;
+      background-size: contain;
+      margin: 0 auto;
+      border-radius: 40rpx 40rpx 0 0;
+    }
+    .val{
+      font-size: 80rpx;
+      line-height: 80rpx;
+      margin-bottom: 20rpx;
+    }
+  }
+  .parts{
+    width: 690rpx;
+    background: #FFFFFF;
+    padding: 0 30rpx;
+    margin: 30rpx auto 0;
+    border-radius: 16rpx;
+    box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+  }
+  .picker-box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 30rpx;
+    color: #333;
+    line-height: 30rpx;
+    padding: 45rpx 0;
+    border-bottom: 1rpx solid #eee;
+    .method-val{
+      padding-right: 30rpx;
+      &::after{
+        border-color: #999;
+      }
+    }
+    .unval{
+      color: #999;
+    }
+  }
+  .input-box{
+    font-size: 30rpx;
+    color: #333;
+    line-height: 30rpx;
+    padding: 36rpx 0;
+    border-bottom: 1rpx solid #eee;
+    &.noline{
+      border: none;
+    }
+    .curinput{
+      font-size: 30rpx;
+      color: #333;
+      line-height: 30rpx;
+      margin-top: 30rpx;
+    }
+    .place{
+      font-size: 30rpx;
+      color: #999;
+      line-height: 30rpx;
+    }
+  }
+  .savebtn{
+    width: 620rpx;
+    height: 88rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32rpx;
+    color: #fff;
+    margin: 50rpx auto 0;
+    border-radius: 100rpx;
+    background: linear-gradient(-67deg, #F8903D 0%, #F46C36 100%);
+    margin-bottom: env(safe-area-inset-bottom);
+    &::after{
+      display: none;
+    }
+  }
+}

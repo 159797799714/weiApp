@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "提现记录",
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "backgroundTextStyle": "dark",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "com-popup": "../../../../components/com-popup/com-popup"
+  }
+}

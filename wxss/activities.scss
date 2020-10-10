@@ -1,0 +1,431 @@
+/**
+请勿直接修改activities.wxss文件
+ */
+$theme_color: (
+        blackTheme:#000000,
+        redTheme:#FA0029,
+        orangeTheme:#FF5C1C,
+        blueTheme:#0098F8,
+        pinkDarkTheme:#FF007C,
+        purpleTheme:#7948FD,
+        brownTheme:#B7A392
+);
+
+$theme_color_gradient: (
+        blackTheme:#595959,
+        redTheme:#F45C43,
+        orangeTheme:#F06A0B,
+        blueTheme:#50dbfc,
+        pinkDarkTheme:#FC6767,
+        purpleTheme:#E100FF,
+        brownTheme:#CBBCAF
+);
+
+.al-container {
+  .al-title{
+    width: 750rpx;
+    height: 35rpx;
+    font-size: 36rpx;
+    margin: 25rpx 0 32rpx 32rpx;
+    color: #333333;
+    .al-indicate{
+      float: right;
+      margin-right: 72rpx;
+    }
+    .al-indicate-current{
+      font-size: 32rpx;
+    }
+    .al-indicate-all{
+      font-size: 20rpx;
+      color: #9c9c9c;
+    }
+  }
+  .al-item {
+    background-color: #fff;
+    display: block;
+    width: 686rpx;
+    margin-left: 32rpx;
+    border-radius: 10rpx;
+  }
+  .al-main-img {
+    width: 686rpx;
+    height: 385rpx;
+    border-top-left-radius: 10rpx;
+    border-top-right-radius: 10rpx;
+  }
+  .al-buy-btn {
+    float: right;
+    margin-right: 15rpx;
+  }
+  .al-board {
+    color: #ffffff;
+    display: flex;
+    width: 686rpx;
+    height: 80rpx;
+    line-height: 80rpx;
+    text-align: center;
+    border-bottom-left-radius: 3rpx;
+    border-bottom-right-radius: 3rpx;
+    &.activity-end{
+      background-image: none!important;
+      background-color: #AEAEAE;
+    }
+    &.activity-unstart{
+      background-image: none!important;
+      background-color: #F2B967;
+    }
+  }
+  .al-type-name {
+    flex: 1;
+    width: 67rpx;
+    height: 32rpx;
+    margin-top: 28rpx;
+    font-size: 34rpx;
+    line-height: 27rpx;
+    letter-spacing: 0px;
+    color: #ffffff;
+    text {
+      font-weight: bold;
+    }
+  }
+  .al-time-count {
+    flex: 3;
+    line-height: 74rpx;
+    text {
+      font-size: 24rpx;
+    }
+  }
+  .al-remain-sku {
+    flex: 1;
+    width: 142rpx;
+    height: 30rpx;
+    line-height: 30rpx;
+    margin-top: 25rpx;
+    border-radius: 15rpx;
+    font-size: 18rpx;
+    text-align: center;
+    view {
+      width: 135rpx;
+      background-color: #ffffff;
+      border-radius: 15rpx;
+      font-size: 18rpx;
+      text-align: center;
+    }
+  }
+  .al-presale-tail{
+    flex: 2;
+    line-height: 74rpx;
+    text {
+      font-size: 24rpx;
+    }
+    image {
+      width: 20rpx;
+      height: 20rpx;
+      margin-top:0rpx;
+      margin-right:5rpx;
+    }
+  }
+  .al-presale-price {
+    flex: 2;
+    text-align: center;
+    view {
+      margin: 0 auto;
+      width: 168rpx;
+      height: 38rpx;
+      line-height: 38rpx;
+      margin-top: 25rpx;
+      background-color: #ffffff;
+      border-radius: 19rpx;
+      font-size: 20rpx;
+      text-align: center;
+    }
+  }
+  .al-action-list {
+    height: 64rpx;
+    margin-top: 10rpx;
+  }
+  .al-buy-btn {
+    display: inline-block;
+    width: 124rpx;
+    height: 52rpx;
+    border-radius: 8rpx;
+    font-size: 24rpx;
+    line-height: 52rpx;
+    text-align: center;
+  }
+  .al-good-name {
+    margin-left: 20rpx;
+    margin-right: 50rpx;
+    font-size: 30rpx;
+    font-weight: normal;
+    font-stretch: normal;
+    height: 60rpx;
+    line-height: 60rpx;
+    color: #333333;
+  }
+
+  .al-price {
+    display: inline-block;
+    height: 52rpx;
+    line-height: 52rpx;
+    margin-left: 20rpx;
+  }
+  .al-price-prefix {
+    font-size: 24rpx;
+  }
+  .al-current-price {
+    font-size: 36rpx;
+  }
+  .al-original-price {
+    color: #6d6d6d;
+    font-size: 24rpx;
+    text-decoration: line-through;
+  }
+  .al-btn-buy-lg {
+    width: 358rpx;
+  }
+  .al-btn-buy-md {
+    width: 250rpx;
+  }
+  &.al-display-style-1 {
+    .al-item{
+      margin-bottom: 20rpx;
+    }
+    .al-main-image-size-style-2.al-main-img {
+      height: 686rpx;
+    }
+  }
+
+  &.al-display-style-2 {
+    white-space: nowrap;
+    .al-item {
+      display: inline-block;
+      width: 606rpx;
+    }
+    .al-board {
+      width: 606rpx;
+    }
+    .al-main-img {
+      width: 606rpx;
+    }
+    .al-main-image-size-style-2.al-main-img {
+      height: 606rpx;
+    }
+  }
+  &.al-display-style-4 {
+    white-space: nowrap;
+    .al-item {
+      display: inline-block;
+      float: left;
+      width: 330rpx;
+      margin-left: 30rpx;
+      padding-bottom: 15rpx;
+      margin-bottom: 25rpx;
+    }
+    .al-action-list{
+      margin-top: 0;
+    }
+    .al-type-name {
+      width: 72rpx;
+      height: 22rpx;
+      font-size: 24rpx;
+      margin-top: 22rpx;
+      font-weight: normal;
+      line-height: 16rpx;
+    }
+    .al-time-count {
+      line-height: 48rpx;
+        text {
+        font-size: 17rpx;
+      }
+    }
+    .al-presale-price>view{
+      margin-top: 10rpx;
+    }
+    .al-remain-sku {
+      display: inline-block;
+      margin-top: 0;
+      margin-left: 10rpx;
+    }
+    .al-main-img {
+      width: 330rpx;
+      height: 200rpx;
+    }
+    .al-board {
+      width: 330rpx;
+      height: 60rpx;
+      line-height: 60rpx;
+    }
+    .al-good-name {
+      font-size: 28rpx;
+      line-height: 39rpx;
+      width: 320rpx;
+      margin-left: 10rpx;
+      height: 75rpx;
+      margin-top: 10rpx;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      white-space: normal
+
+    }
+    .al-price {
+      margin-left: 10rpx;
+    }
+    .al-price-prefix, .al-original-price {
+      font-size: 20rpx;
+    }
+    .al-current-price {
+      font-size: 30rpx;
+    }
+  }
+  &.al-display-style-5 {
+    .al-item {
+      width: 689rpx;
+      height: 220rpx;
+      margin: 0;
+      margin-left: 31rpx;
+      margin-bottom: 25rpx;
+    }
+    .al-left, .al-right {
+      display: inline-block;
+      height: 220rpx;
+      float: left;
+      width: 240rpx;
+    }
+    .al-right {
+      width: 419rpx;
+      margin-left: 20rpx;
+      margin-top: 10rpx;
+
+    }
+    .al-time-count {
+      line-height: 33rpx;
+      text {
+        font-size: 15rpx;
+      }
+    }
+    .al-presale-tail{
+      line-height: 46rpx;
+    }
+    .al-presale-price{
+      border-radius: 19rpx;
+      display: inline-block;
+      margin:0 auto;
+      width:168rpx;
+      margin-top:20rpx;
+      background-color:#ffffff;
+      font-size:20rpx;
+      &>view{
+        margin-top: 0;
+        line-height: 38rpx;
+      }
+    }
+    .al-remain-sku {
+      display: inline-block;
+      margin-top: 0;
+    }
+    .al-main-img {
+      width: 240rpx;
+      height: 170rpx;
+    }
+    .al-board {
+      width: 240rpx;
+      height: 50rpx;
+      line-height: 50rpx;
+    }
+    .al-good-name {
+      font-size: 28rpx;
+      line-height: 39rpx;
+      width: 400rpx;
+      height: 70rpx;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      white-space: normal
+
+    }
+    .al-price-prefix, .al-original-price {
+      font-size: 22rpx;
+    }
+    .al-current-price {
+      font-size: 34rpx;
+    }
+    .al-buy-btn{
+      margin-top: 15rpx;
+    }
+  }
+}
+@each $theme, $t_color in $theme_color {
+  .#{$theme} .al-container {
+    color: $t_color;
+    .al-board {
+      background-image: linear-gradient(-90deg,
+              map_get($theme_color_gradient, $theme) 0%,
+              $t_color 71%),
+      linear-gradient(
+                      #da3c3f,
+                      #da3c3f);
+      background-blend-mode: normal,
+      normal;
+    }
+    .al-presale-price>view{
+      background-image:linear-gradient(-45deg, rgba($t_color, 0.1) 25%,
+              transparent 25%,transparent 50%, rgba($t_color, 0.1) 50%,
+              rgba($t_color, 0.1) 75%,transparent 75%,transparent);
+      background-size: 30rpx 30rpx;
+    }
+    .al-remain-sku>view{
+      background-image:linear-gradient(-45deg, rgba($t_color, 0.1) 25%,
+              transparent 25%,transparent 50%, rgba($t_color, 0.1) 50%,
+              rgba($t_color, 0.1) 75%,transparent 75%,transparent);
+      background-size: 30rpx 30rpx;
+    }
+    .al-remain-sku {
+      color: $t_color;
+    }
+    .al-presale-price{
+      color: $t_color;
+    }
+    &.al-display-style-4, &.al-display-style-5 {
+      .al-remain-sku {
+        border: 1rpx solid $t_color;
+      }
+    }
+    &.al-display-style-5 {
+      .al-presale-price{
+        border: 1rpx solid $t_color;
+      }
+    }
+    .al-buy-btn-style-1, .al-buy-btn-style-3 {
+      background-color: #fff;
+      color: $t_color;
+      height: 50rpx;
+      border: 2rpx solid $t_color;
+      &.activity-end{
+        color: #6D6D6D;
+        border: 2rpx solid #6D6D6D;
+      }
+    }
+    .al-buy-btn-style-2, .al-buy-btn-style-4 {
+      background-color: $t_color;
+      color: #ffffff;
+      &.activity-end{
+        background-color: #6D6D6D;
+      }
+    }
+    .al-buy-btn-style-3, .al-buy-btn-style-4 {
+      border-radius: 26rpx;
+    }
+    .al-price {
+      color: map_get($theme_color_gradient, $theme);
+      &.activity-end{
+        color: #6D6D6D;
+      }
+    }
+  }
+}

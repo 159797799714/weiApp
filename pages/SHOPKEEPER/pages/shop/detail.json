@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "bottom-modal": "../../../../components/bottomModal/index",
+    "dialog-modal": "../../../../components/dialog/index",
+    "com-circle": "../../../../components/com-circle/com-circle"
+  },
+  "navigationBarTitleText": "内容详情"
+}

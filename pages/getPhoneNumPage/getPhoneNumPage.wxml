@@ -1,0 +1,14 @@
+<view class="getPhoneNumPage-wrap">
+  <view class="imgbox">
+    <image class="imgs" mode="widthFix" src="https://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/live_logo.png" />
+  </view>
+  <view class="title">闪购Live</view>
+  <view class="tinfo">购物省钱 推广赚钱</view>
+  
+  <!-- 授权手机号码 -->
+  <button class='phone-authbtn' type='primary' open-type="{{isClick?'':'getPhoneNumber'}}" bindtap="clickPhoneFun" bindgetphonenumber="bindgetphonenumber">
+    <text class="iconfont icon_cps_wxlogo"></text>
+    <text class="bntcnt">微信一键登录</text>
+  </button>
+  <view class="btinfo">立刻开启省赚之旅</view>
+</view>

@@ -1,0 +1,10 @@
+<view class="com-money {{classStr}}" style="color:{{color?color:'#ffffff'}};">
+  {{sym}}
+  <text class="iconfont {{moneyEl}} {{moneyEl == 'icon-num-dot' ? 'small' : 'big'}}" 
+    style="font-size:{{moneyEl == 'icon-num-dot'? pointFontSize : fontSize}}rpx;"
+    wx:for="{{numImg}}" 
+    wx:for-index="moneyIndex" 
+    wx:for-item="moneyEl"
+    wx:key="moneyIndex">
+  </text>
+</view>

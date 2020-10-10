@@ -1,0 +1,55 @@
+<import src="../../template/compere-list/compere-list.wxml" />
+<import src="../../template/tabs/tabs.wxml" />
+<wxs src="../../utils/filter.wxs" module="filter" />
+ 
+<view class="livetab-wrap">
+  <view class="hasnew" wx:if="{{hasNewLive}}">
+    <view class="iconfont iconshuaxin"></view>
+    有新的直播请下拉刷新
+  </view>
+
+  <view class="banner-box">
+    <view class="banner-title">即将开播</view>
+    <view class="page-swiper" data-roomid="{{bannerList[bannerIndex].roomId}}" bindtap="applyFun">
+      <swiper class="com-swiper" autoplay="{{true}}" circular="{{true}}" interval="{{3000}}" data-type="bannerIndex" bindchange="swiperChange">
+        <block wx:for="{{bannerList}}" wx:key="index">
+          <swiper-item>
+            <image class="swiper-item imgs" mode="widthFix" src="{{item.anchorImg}}" />
+            <!-- 用户没登录 -->
+            <button class='authbtn' wx:if='{{_unlogin}}' type='primary' bindtap="isLogin"></button>
+          </swiper-item>
+        </block>
+      </swiper>
+      <view class="info" wx:if="{{(bannerList.length == 1 && bannerList[0].roomId) || bannerList.length > 1}}">
+        <view class="info-title">{{bannerList[bannerIndex].liveName}}</view>
+        <view class="info-time">
+          <text class="times">{{filter.timestampFormat(bannerList[bannerIndex].startTime, 'YYYY-MM-DD HH:mm')}}</text>
+          <view class="apply-btn">预约直播</view>
+        </view>
+      </view>
+      <view class="dots" wx:if="{{bannerList.length > 1}}">
+        <view class="dots-item {{bannerIndex == index ? 'dots-active' : ''}}" wx:for="{{bannerList}}" wx:key="index"></view>
+      </view>
+    </view>
+
+    <!-- 用户没登录 -->
+    <button class='authbtn' wx:if='{{_unlogin}}' type='primary' bindtap="isLogin"></button>
+  </view>
+
+  <template is="tabs" data="{{...tabsData}}"></template>
+  <swiper class="list-swiper" current="{{tabsData.activeTab}}" autoplay="{{false}}" data-type="activeTab" style="height: {{listHeight?listHeight:'250'}}px;" bindchange="swiperChange">
+    <block wx:for="{{playerData}}" wx:key="index">
+      <swiper-item>
+        <view class="datas" id="datas_{{index}}">
+          <template is="comperelist" wx:if="{{item.listData.length}}" data="{{...item}}"></template>
+          <view class="nodata" wx:else>暂无数据</view>
+
+          <!-- 用户没登录 -->
+          <button class='authbtn' wx:if='{{_unlogin}}' type='primary' bindtap="isLogin"></button>
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+
+<include src="/pages/public/page_footer.wxml"></include>

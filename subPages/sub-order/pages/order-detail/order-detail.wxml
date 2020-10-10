@@ -1,0 +1,50 @@
+<view class="order-detail-wrap">
+  <view class="proinfo">
+    <view class="infos-part scale-1px-bottom">
+        <view class="imgbox">
+          <image class="imgs" mode="widthFix" src="{{orderDetail.goods_thumbnail_url}}" />
+        </view>
+        <view class="info">
+          <view class="name">{{orderDetail.goods_name}}</view>
+          <view class="times">{{orderDetail.createtime}}</view>
+        </view>
+      </view>
+      <view class="price-part">
+        <view class="tcnt">订单金额</view>
+        <view class="val">￥{{orderDetail.order_amount/100}}</view>
+      </view>
+      <view class="price-part last-price">
+        <view class="tcnt">订单完成返现</view>
+        <view class="val cashval">￥{{orderDetail.return_amount/100 || 0}}</view>
+      </view>
+      <view class="outbt">
+        <button class="againbtn" type="primary" data-id="{{orderDetail.goods_id}}" bindtap="toProductDetail">再来一单</button>
+      </view>
+  </view>
+  <view class="order-part">
+    <view class="order-info">
+      <view class="no">订单编号：{{orderDetail.order_sn}}</view>
+      <view class="status">当前状态：
+        <text class="status-val">{{statusObj[orderDetail.status]}}</text>
+      </view>
+    </view>
+    <view class="order-plain scale-1px-top" wx:if="{{orderDetail.status != 3}}">
+      <view class="head">订单追踪</view>
+      <block wx:if="{{orderDetail.orderSteps && orderDetail.orderSteps.length}}">
+        <view class="plain-part" wx:for="{{orderDetail.orderSteps}}" wx:key="index">
+          <view class="left {{index==0?'cur-step':''}}">
+            <view class="line top-line scale-1px-right"></view>
+            <view class="range">
+              <view class="gray-range"></view>
+            </view>
+            <view class="line scale-1px-right" wx:if="{{index!=orderDetail.orderSteps.length - 1}}"></view>
+          </view>
+          <view class="right">
+            <view class="title">{{stepDec[item.step]}}</view>
+            <view class="ortime">{{item.times}}</view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

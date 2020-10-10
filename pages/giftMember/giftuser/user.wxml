@@ -1,0 +1,171 @@
+
+<view class='vip-page'>
+  <view class='navbar'>
+    <view class='back-box' style='top:{{nav_top?nav_top:61}}rpx;'>
+      <text class='iconfont icon-shangyibu' style='color:#fff;width:70rpx;height:60rpx;line-height:60rpx;' bindtap='goback' wx:if="{{!showback}}"></text>
+      <text style='color:#fff;font-size:32rpx;box-size:border-box;padding-right:60rpx;' class='title'>会员权益</text>
+    </view>
+    <view  class='person-detail height-min'>
+
+    </view>
+
+  </view>
+  
+  
+  <!-- 头部 -->
+  <view class='vip-head'>
+    <!-- 未登录 -->
+    <view class="login-block" wx:if='{{_unlogin}}'>
+      <text class="iconfont icon-touxiang default_user" wx:if='{{_unlogin}}'></text>
+      <button type='primary' class='btn-logins' style="background-color:transparent;border:2rpx solid #fff;color:#fff;" 
+      bindtap="isLogin"
+          >登录
+      </button>
+
+    </view>
+    <!-- 登录 -->
+    <view class='person-messgae' wx:if='{{_unlogin==false}}'>
+      <image src='{{userData.avatar}}' wx:if='{{userData.avatar}}'></image>
+      <view class='person-messgae-show'>
+        <text>{{userData.nickname}}</text>
+        <!-- <view class='code' wx:if='{{userData.is_member==1&&userData.invite_code}}'>邀请码：{{userData.invite_code}}<text data-code='{{userData.invite_code}}' catchtap='copyCode'>复制</text> </view> -->
+        <view class='code' wx:if="{{userData.is_supplier != 1 }}">推荐人：<image src='{{userData.referee_avatar}}'></image>{{userData.referee}}</view>
+      </view>
+    </view>
+    <!-- <view class='invite-friends'>邀请好友下载注册APP <button>去邀请</button></view> -->
+  </view>
+  <!-- main -->
+  <view class='vip-main'>
+  <!-- 我的账户 -->
+    <view class='main-card main-card-top'>
+     <navigator open-type='navigate' hover-class='none' url='{{_unlogin==false?"/pages/user/myMoney/myMoney?giftaccunt=true":""}}'>
+      <view class='card-title'>我的账户<icon class='iconfont ' wx:if='{{_unlogin==false}}'></icon></view>
+      <view class='card-myacount'>
+        <view>
+          <text style="font-size:{{defatult_size?defatult_size:70}}rpx;">{{_unlogin==false ?(userData.my_account.store_income || 0):'--'}}</text>
+          <text>总金额</text>
+        </view>
+        <view>
+           <text style="font-size:{{defatult_size?defatult_size:70}}rpx;">{{_unlogin==false ?(userData.my_account.balance || 0):'--'}}</text>
+          <text>可提现</text>
+        </view>
+        <view>
+          <text style="font-size:{{defatult_size?defatult_size:70}}rpx;">{{_unlogin==false ?(userData.my_account.unbalance ||0):'--'}}
+          </text>
+        <text>待入账</text>
+
+
+        </view>
+      </view>
+      </navigator>
+    </view>
+    <!-- 通栏展示 -->
+    <view class='btn-inviter'  wx:if="{{userData.set_info.jump_page*1 !=2 &&userData.is_member == 1}}" bindtap='gotowhere' >
+      <image src='{{userData.set_info.tonglan_img}}'></image>
+    </view>
+     <button class='btn-inviter' hover-class='none'  wx:if="{{userData.set_info.jump_page*1 ==2&&userData.is_member == 1}}" open-type='share'  >
+      <image src='{{userData.set_info.tonglan_img}}'></image>
+    </button>
+    <!-- 我的好友 -->
+     <navigator open-type='navigate' hover-class='none' wx:if='{{_unlogin==false}}' url='/pages/user/myFans/myFans?type=1'>
+      <view class='main-card main-card-friend'>
+        <view class='card-title'>我的好友</view>
+        <view class='card-myacount'>
+          <view>
+              <text>{{userData.fans_num}}</text>
+              <text>已邀粉丝</text>
+          </view>
+          <view>
+              <text>{{userData.member_num}}</text>
+              <text>已邀会员</text>
+          </view>
+        </view>
+      </view>
+      </navigator>
+    <!-- 公告 -->
+    <view class='main-card main-card-friend' wx:if="{{userData.notice&&userData.notice.length>0}}">
+      <view class='card-title'>{{userData.notice_name?userData.notice_name:'公告'}}</view>
+      <view class='notice-content'>
+        <navigator wx:for="{{userData.notice}}" url='/pages/giftMember/giftuser/notice?noticeId={{item.id}}' wx:key="{{item}}" hover-class='none'>
+          <view class='image-box'>
+            <image src='{{item.gift_logo}}' mode='widthFix'></image>
+          </view>
+          <text>{{item.gift_title}}</text>
+        </navigator>
+        <!-- <view>
+          <view class='image-box'>
+            <image src='{{base_img_url}}images/giftuser-question.png'></image>
+          </view>
+          <text>常见问题</text>
+        </view>
+        <view>
+          <view class='image-box'>
+            <image src='{{base_img_url}}images/giftuser-chat.png'></image>
+          </view>
+          <text>联系我们</text>
+        </view> -->
+      </view>
+    </view>
+    <!-- 新人专享商品 -->
+    <view class='vip-you vip' wx:if="{{userData.products}}">
+      <!-- 标题 -->
+      <view class='member-title'>
+        <image src='{{base_img_url}}images/hy_title_icon2.png' class='img'></image>
+        <text class='title-info'>新人专享商品</text>
+        <view class='line'></view>
+        <view class='more' data-url="/pages/new_user/index" bindtap='goToPage'>
+          <text>更多新人专享商品</text>
+          <text class='iconfont icon-xiayibu'></text>
+        </view>
+      </view>
+      <!-- 内容 -->
+      <view class='discount-con'>
+        <view class='goods_list' wx:for="{{product_list}}" wx:key="{{index}}" >
+          <view class='list-box'>
+          <navigator url="/pages/product/details?product_id={{item.product_id}}" hover-class="none" open-type="navigate">
+            <image src="{{item.image}}" style="will-change:transform;" mode="aspectFill"></image>
+            <view class='goods-right'>
+              <view class='goods-title'>
+                {{item.name}}
+              </view>
+               <view style='display:flex;align-items:center;color:#c0242f;position:relative'>
+                  <view style="font-weight:bold;font-size:30rpx;" class='pro-price'>￥</view>
+                  <view style="font-weight:bold;font-size:40rpx;" class='pro-price'>
+                    {{item.price}}
+                  </view>
+                  <view wx:if='{{item.original_price!="0.00"}}' style="text-decoration:line-through;margin-left:10rpx;font-size:24rpx;color:#999;">￥{{item.original_price}}</view>
+                  <view class='share' catchtap='showShareOperation' data-products='{{item}}'><icon class='iconfont icon-share2'></icon></view>
+                </view>
+            </view>
+            </navigator>
+          </view>
+          
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view id="homePage" bindtouchstart='touchStart' catchtouchmove='touchMove' bindtouchend='touchEnd' class='xuanfu' style="{{Style}};color:{{themeColorValue}}" catchtap='showNewgiftvip'  wx:if="{{_unlogin==false && userData.set_info.show_page == 2}}">
+   <image src='{{userData.set_info.xuanfu_img}}' mode='widthFix'></image>
+   <text>{{userData.is_member == 1?'立即邀请>':'开通会员>'}}</text>
+</view>
+<view wx:if="{{showOpertaion}}">
+  <view class='windowmask' catchtouchmove='false' catchtap='closeCanvas'></view>
+  <image class='haibaoimg' src='{{lafenImgurl}}' catchtouchmove='false'  wx:if="{{haibaoCanvas}}"></image>
+  <view class='sharebutton' catchtouchmove='false' >
+    <button class='item' open-type='share'>
+      <image src='{{base_img_url}}images/haoyou.png'></image>
+      分享好友
+    </button>
+    <!-- <button class='item' catchtap='downLoadHb' > -->
+    <button class='item' catchtap='showCanvasWind' >
+     <image src='{{base_img_url}}images/pengyouquan.png'></image>
+     分享海报图
+    </button>
+  </view>
+</view>
+<!-- <block wx:if="{{showback}}" > -->
+  <include src="/pages/public/page_footer.wxml"></include>
+<!-- </block> -->
+
+<canvas style="width: {{canvasWidth}}px; height: {{canvasHeight}}px;" canvas-id="lafenCanvas" ></canvas>

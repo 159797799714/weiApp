@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "发圈",
+  "navigationBarBackgroundColor": "#141313",
+  "navigationBarTextStyle": "white",
+  "backgroundColor": "#f5f5f5",
+  "backgroundColorTop": "#f5f5f5",
+  "backgroundTextStyle": "dark",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "com-modal": "../../components/com-modal/com-modal"
+  }
+}

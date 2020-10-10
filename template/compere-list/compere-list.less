@@ -1,0 +1,37 @@
+// out: false
+.lists{
+  overflow: hidden;
+  .data-item{
+    float: left;
+    width: 330rpx;
+    height: 440rpx;
+    background: #fff;
+    margin-bottom: 30rpx;
+    border-radius: 16rpx;
+    overflow: hidden;
+    box-shadow: 0 6rpx 10rpx 0 rgba(0,0,0,0.2);
+    &:nth-of-type(even){
+      margin-left: 30rpx;
+    }
+    .compere-img-box{
+      width: 330rpx;
+      height: 370rpx;
+      overflow: hidden;
+      .compere-img{
+        display: block;
+        width: 330rpx;
+        height: 370rpx;
+      }
+    }
+    .compere-name{
+      font-size: 26rpx;
+      color: #333;
+      text-align: center;
+      line-height: 26rpx;
+      padding: 22rpx 10rpx;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}

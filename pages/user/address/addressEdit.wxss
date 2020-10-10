@@ -1,0 +1,4 @@
+/* pages/user/address/addressEdit.wxss */
+page{
+  background: #f5f5f5;
+}

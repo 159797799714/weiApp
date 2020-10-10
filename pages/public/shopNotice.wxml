@@ -1,0 +1,16 @@
+<!-- 店铺公告 -->
+<template name="notice">
+    <view class="shopNotice bgF mB16 clearfix" style="background:{{content.bgcolor}}" data-page="page.public.shopNotice">
+        <view class=" ">
+            <text class="icon-dianpu iconfont"></text>
+            <text class="icon-gonggao iconfont"></text>
+        </view>
+        <view class="example">
+            <view class="marquee_box">
+                <view class="marquee_text" style="color:{{content.color}};left:{{content.marqueeDistance}}px;">
+                    {{content.content}}
+                </view>
+            </view>
+        </view>
+    </view>
+</template>

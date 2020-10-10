@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "收益明细",
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "backgroundTextStyle": "dark",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 10,
+  "usingComponents": {}
+}

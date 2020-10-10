@@ -1,0 +1,23 @@
+// out: prolist.wxss, compress: true
+@import "../../../template/cps-prolist/cps-prolist.less";
+page{
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  background: #f2f3f5;
+}
+
+.prolist-wrap{
+  &.nopro{
+    height: 100%;
+    background: #fff;
+  }
+  .imgbox{
+    width: 100%;
+    overflow: hidden;
+    .imgs{
+      display: block;
+      width: 100%;
+    }
+  }
+}

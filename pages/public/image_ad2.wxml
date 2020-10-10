@@ -1,0 +1,78 @@
+<!--首页轮播图-->
+<wxs src="../../utils/filter.wxs" module="filter"></wxs>
+<template name="image_ad2">
+  <view class="banner-list banner-list{{content.content.displayStyle}}{{content.content.borderRadius*1>0?' bordered':''}}">
+    <block wx:if="{{content.content.displayStyle==1}}">
+      <view class="banner-title">
+        <view class="banner-name">{{content.content.nav_list[content.content.current_indicator_index||0].title}}</view>
+        <view class="banner-indicator">
+          <view class="banner-indicator-current">{{content.content.current_indicator_index?(content.content.current_indicator_index*1+1):1}}</view>
+          <view class="banner-indicator-count">/{{content.content.nav_list.length}}</view>
+        </view>
+      </view>
+      <swiper class="banner-swiper 1" autoplay circular bindchange="swiperChange" data-banner-index="{{t_index}}">
+        <block wx:for-items="{{content.content.nav_list}}" wx:key="{{index}}">
+          <swiper-item class="banner-item">
+            <navigator url="{{filter.urlTransform(item.url)}}" open-type="{{item.type=='switchTab'?'reLaunch':'navigate'}}" catchtap="{{item.url=='ad_scan'?'ad_scan':''}}">
+              <image style="border-radius: {{content.content.borderRadius}}rpx;" mode="{{content.content.fillType==1?'widthFix':'aspectFit'}}" src="{{item.image}}"></image>
+            </navigator>
+          </swiper-item>
+        </block>
+      </swiper>
+    </block>
+    <block wx:if="{{content.content.displayStyle==2}}">
+      <swiper class="banner-swiper" autoplay circular>
+        <block wx:for-items="{{content.content.nav_list}}" wx:key="{{index}}">
+          <swiper-item class="banner-item" bindtap="{{item.url=='ad_scan'?'ad_scan':''}}">
+            <navigator open-type="{{item.type=='switchTab'?'reLaunch':'navigate'}}" url="{{filter.urlTransform(item.url)}}">
+              <image style="border-radius: {{content.content.borderRadius}}rpx;" mode="{{content.content.fillType==1?'widthFix':'aspectFit'}}" src="{{item.image}}"></image>
+            </navigator>
+            <view class="banner-title">
+              <view class="banner-name">{{item.title}}</view>
+              <view class="banner-indicator">
+                <view class="banner-indicator-current">{{index+1}}</view>
+                <view class="banner-indicator-count">/{{content.content.nav_list.length}}</view>
+              </view>
+            </view>
+          </swiper-item>
+        </block>
+      </swiper>
+    </block>
+    <block wx:if="{{content.content.displayStyle==3}}">
+
+      <swiper class="banner-swiper" indicator-dots="{{content.content.nav_list&&content.content.nav_list.length>1?true:false}}" circular indicator-color="#ffffff" indicator-active-color="{{themeColorValue}}" autoplay style="border-radius: {{content.content.borderRadius}}rpx;">
+        <block wx:for-items="{{content.content.nav_list}}" wx:key="{{index}}">
+          <swiper-item class="banner-item" bindtap="{{item.url=='ad_scan'?'ad_scan':''}}">
+            <navigator open-type="{{item.type=='switchTab'?'reLaunch':'navigate'}}" url="{{filter.urlTransform(item.url)}}">
+              <image style="border-radius: {{content.content.borderRadius}}rpx;" mode="{{content.content.fillType==1?'aspectFill':'widthFix'}}" src="{{item.image}}"></image>
+            </navigator>
+            <view class="banner-text">{{item.title}}</view>
+          </swiper-item>
+        </block>
+      </swiper>
+    </block>
+    <block wx:if="{{content.content.displayStyle==4}}">
+      <swiper class="banner-swiper" autoplay circular previous-margin="50rpx" next-margin="50rpx" bindchange="swiperChange" skip-hidden-item-layout data-banner-index="{{t_index}}" style="border-radius: {{content.content.borderRadius}}rpx;margin:20rpx auto;">
+        <swiper-item wx:for-items="{{content.content.nav_list}}" wx:key="{{t_index}}_{{index}}" class="banner-item {{(content.content.current_indicator_index||0)==index?'current':''}}" style="border-radius:20rpx;overflow: hidden;" bindtap="{{item.url=='ad_scan'?'ad_scan':''}}">
+          <navigator open-type="{{item.type=='switchTab'?'reLaunch':'navigate'}}" url="{{filter.urlTransform(item.url)}}">
+            <!-- <image class="banner-nav-image" style="border-radius: {{content.content.borderRadius}}rpx;" mode="{{content.content.fillType==1?'widthFix':'aspectFit'}}" src="{{item.image}}"></image> -->
+            <view class="banner-nav-image" style='background:url("{{item.image}}") no-repeat center center/cover;border-radius:15rpx;'>
+
+            </view>
+          </navigator>
+          <view class="banner-text textOmitted">{{item.title}}</view>
+        </swiper-item>
+      </swiper>
+    </block>
+    <block wx:if="{{content.content.displayStyle==5||content.content.displayStyle==6||content.content.displayStyle==7||content.content.displayStyle==8}}">
+      <scroll-view scroll-x class="banner-scroll">
+        <view class="banner-scroll-item" wx:for-items="{{content.content.nav_list}}" wx:key="{{index}}" style="border-radius: {{content.content.borderRadius}}rpx;margin:2rpx auto;" bindtap="{{item.url=='ad_scan'?'ad_scan':''}}">
+          <navigator open-type="{{item.type=='switchTab'?'reLaunch':'navigate'}}" url="{{filter.urlTransform(item.url)}}">
+            <image style="border-radius: {{content.content.borderRadius}}rpx;" mode="{{content.content.fillType==1?'widthFix':'aspectFit'}}" src="{{item.image}}"></image>
+          </navigator>
+          <view class="banner-scroll-text">{{item.title}}</view>
+        </view>
+      </scroll-view>
+    </block>
+  </view>
+</template>

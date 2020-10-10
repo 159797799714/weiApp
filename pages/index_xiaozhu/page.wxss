@@ -1,0 +1,41 @@
+/* pages/index/index.wxss */
+@import "../../wxParse/wxParse.wxss";
+@import "../../wxss/new_activity_module.wxss";
+@import "../../wxss/activities.wxss";
+@import "../../wxss/public/store_map.wxss";
+@import "../../wxss/public/image_ad2.wxss";
+
+.productTitle {
+        height:auto;
+}
+.no-data {
+  text-align:center;
+  font-size:24rpx;
+  color:#999;
+  padding-bottom:10rpx;
+  padding-top:10rpx;
+}
+.website .banner-list.bordered .banner-swiper{
+  width: 100%;
+  margin-left: 0rpx;
+  border-radius: 0!important;
+}
+.website .banner-list.bordered .banner-swiper image{
+  border-radius: 0!important;
+}
+.website .rich_text{
+  margin-bottom: 60rpx;
+}
+.website .wxParse-img{
+  margin-top: 32rpx;
+}
+.website .editStoreTextNavigation {
+  padding: 40rpx;
+  margin-top: 30rpx;
+}
+.website .rich_text,.website .videoed{
+  padding: 0 40rpx;
+}  
+page{
+  overflow-x: hidden;
+}

@@ -1,0 +1,15 @@
+<!-- 店铺抬头1 -->
+<template name="tpl_shop1">
+    <view class="tplShopBorder" data-page="page.public.tplShopBorder">
+        <view class="pageHeaderOne pageHeaderTwo" style="background:{{content.content.bgcolor}} url({{content.content.shop_head_bg_img}}) no-repeat center center;    background-size: cover;">
+            <view class="pageLogo"  style="{{(content.content.is_circle == 'true' || content.content.is_circle*1 == 1) ? 'border-radius:50%' : ''}}">
+                <image src="{{content.content.shop_head_logo_img}}"> </image>
+            </view>
+            <view class="pageInfo">
+                <view class="shopName" style="color:{{ content.content.fontcolor || '#ffffff'}};">
+                    <view>{{content.content.title}}</view>
+                </view>
+            </view>
+        </view>
+    </view>
+</template>

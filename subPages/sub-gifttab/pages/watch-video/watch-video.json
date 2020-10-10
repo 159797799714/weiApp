@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "观看视频",
+  "navigationBarBackgroundColor": "#FF5171",
+  "navigationBarTextStyle": "white",
+  "backgroundTextStyle": "dark",
+  "navigationStyle": "custom",
+  "usingComponents": {}
+}

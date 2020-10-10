@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "商品详情",
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "bottom-modal": "../../components/bottomModal/index",
+    "com-modal": "../../components/com-modal/com-modal",
+    "com-money-font": "../../components/com-money-font/com-money-font"
+  },
+  "disableScroll": true
+}

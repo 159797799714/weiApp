@@ -1,0 +1,19 @@
+<view class="applying-wrap">
+  <view class="datas">
+    <block wx:if="{{listData.length}}">
+      <view class="data-item" wx:for="{{listData}}" wx:key="index">
+        <view class="imgbox">
+          <image class="photoimg" mode="widthFix" src="{{item.headImg}}" />
+        </view>
+        <view class="info-part">
+          <view class="info-name">申请兑换{{item.pointsValue}}积分</view>
+          <view class="cnt order">兑换方式：{{convertType[item.applyType]}}</view>
+          <view class="cnt consume">账号：{{item.account}}</view>
+          <view class="cnt times">申请日期：{{item.applyDate}}</view>
+          <view class="status balance">申请中</view>
+        </view>
+      </view>
+    </block>
+    <view class="nodata" wx:else>暂无数据</view>
+  </view>
+</view>

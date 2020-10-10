@@ -1,0 +1,100 @@
+<!-- <import src="../public/editProductSearch.wxml" />
+<!--商品搜索 -->
+<!-- <import src="../public/warning.wxml" /> -->
+<!--警告提示-->
+<!--view class="container {{pageTheme}}">
+    <view class="containerLayer" wx:if="{{!containerLayer}}"></view>
+    <template is="search" data="{{keyword:keyword,placeholder:'搜索门店'}}" />
+    <view class="shopDetailsInfo shopHomeList ">
+        <view class="clearfix open li" wx:for="{{shopHomeData}}" wx:key="index">
+            <view data-id="{{item.pigcms_id}}" data-status="{{item.status}}" data-distance="{{item.distance}}" bindtap="goShopList">
+                <view data-id="{{item.pigcms_id}}">{{item.name}}
+                    <text data-id="{{item.pigcms_id}}" class="shop_sign shop_sign_main" style='color:#F6A414;font-weight:bold;' wx:if="{{item.main_store*1}}">(总店)</text>
+                </view>
+                <text data-id="{{item.pigcms_id}}" class="">{{item.address}}</text>
+            </view>
+            <view class="span" data-id="{{item.pigcms_id}}">
+                <text class="shop_sign shop_sign_normal" wx:if="{{item.status*1 == 1}}">营业</text>
+                <text class="shop_sign shop_sign_close" wx:if="{{item.status*1 != 1}}">打烊</text>
+                <text wx:if="{{item.distance==undefined}}" bindtap="getLocation">设置地址</text>
+                <text wx:if="{{item.distance!=undefined}}">≈{{item.distance}}</text>
+            </view>
+        </view>
+    </view>
+    <template is="warning" wx:if="{{warning.warningShow}}" data="{{warningTxt:warning.warningTxt}}" />
+</view>
+<include src="/pages/public/page_footer.wxml"></include>
+ -->
+
+
+<view class="container {{pageTheme}}">
+    <view class="top">
+        <view class="site" bind:tap="selectSite">
+            <text class="iconfont icon-dizhi text" style="color:#c8c8c8;"></text>
+            {{activeSite}}
+        </view>
+        <view class="map" bindtap="selectSite">
+            <text class="iconfont icon-qiehuan"style="color:#c8c8c8;"></text>
+            切换城市
+        </view>
+    </view>
+    <view class="shopList" wx:if="{{shopShow}}">
+        <block wx:for="{{shopHomeData}}">
+            <view class="shopListItem"    data-pigcmsid="{{item.pigcms_id}}" data-status="{{item.status}}">
+                <view class="shopInfo">
+                    <view class="shopimg">
+                        <image src="{{item.images}}"></image>
+                    </view>
+                    <view class="shopText">
+                        <view class="shopName">
+                            <view class="name">
+                                {{item.name}}<text data-id="{{item.pigcms_id}}" class="shop_sign shop_sign_main" style='color:#F6A414;font-weight:bold;' wx:if="{{item.main_store*1}}">(总店)</text>
+                            </view>
+                            <view class="kilom" data-lat="{{item.lat}}" data-long="{{item.long}}" catchtap="oppeMap">
+                                {{item.distance}}
+                               <text class="iconfont icon-dizhi text" style="color:#c8c8c8;"></text>
+                            </view>
+                        </view>
+                        <view class="shopTime">
+                            营业时间： <text>{{item.business_time[0].open_time}} —— {{item.business_time[0].close_time}}</text>
+                        </view>
+                        <view class="shopSite">
+                            <view class="site">
+                                {{item.address}}
+                            </view>
+                            <view class="goShopList" catchtap="goShopList" data-id="{{item.pigcms_id}}" data-city="{{activeSite}}" data-status="{{item.status}}" data-shopname="{{item.name}}">
+                                切换门店
+                            </view>
+                        </view>
+                    </view>
+
+                </view>
+      
+            </view>
+        </block>
+
+    </view>
+    <view class="provinceList" wx:if="{{provinceShow}}">
+        <view class="item" wx:for="{{provinceList}}" data-citylist="{{item.city_list}}" data-name="{{item.province_name}}" bind:tap="provinceClick">
+            <view>
+                {{item.province_name}}
+            </view>
+            <view>
+               <text class="arrow iconfont icon-xiayibu"style="color:#c8c8c8"></text>
+            </view>
+        </view>
+
+    </view>
+    <view class="cityList" wx:if="{{cityShow}}">
+        <view class="item" wx:for="{{cityList}}" data-citycode="{{item.city}}" bind:tap="cityClick" data-name="{{item.city_name}}">
+            <view>
+                {{item.city_name}}
+            </view>
+            <view>
+               <text class="arrow iconfont icon-xiayibu"style="color:#c8c8c8"></text>
+            </view>
+        </view>
+    </view>
+</view>
+
+<include src="/pages/public/page_footer.wxml"></include>

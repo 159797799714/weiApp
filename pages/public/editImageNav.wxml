@@ -1,0 +1,45 @@
+<!-- 图片导航 -->
+<wxs src="../../utils/filter.wxs" module="filter"></wxs>
+<wxs module="edtiNavFilter">
+    var classfilterFun = function(len) {    //根据tab长度，给tab设定class
+        return len==5 ? 'edtNav_5' : 'edtNav_flex';
+    }
+    var titleWidthFun = function(arr) {   //计算tab之间的margin值  每个字符宽度28rpx 左右padding共60rpx 宽度690=750-60  5:选中tab字体大
+        var len = arr.length, _str = '', _width = 0;
+        if (len < 5){
+            return 0;
+        }
+        for (var i=0; i<len; i++){
+            _str += arr[i].title;
+        }
+        return _width = parseInt((690 - _str.length*28)/(len - 1)) - 5;
+    }
+    module.exports = {
+        classfilterFun: classfilterFun,
+        titleWidthFun: titleWidthFun
+    }
+</wxs>
+<template name="image_nav">
+    <!-- tab栏: 点击跳转到其他页面 -->
+    <view class="clearfix editImageNav" wx:if="{{!isHotTab}}" data-page="page.public.editImageNav">
+        <block>
+            <view wx:for="{{content.content}}" wx:key="index" style="width:{{100/content.content.length}}%;" bindtap="{{item.url=='ad_scan'?'ad_scan':''}}">
+                <navigator url="{{filter.urlTransform(item.url)}}" data-type="{{item.type}}" hover-class="none" open-type="{{item.type == 'switchTab' ? 'reLaunch' : 'navigate'}}">
+                    <image src="{{item.image}}" wx:if='{{item.image}}' mode="widthFix"  style="height:{{(winWidth-content.content.length*6)/content.content.length}}px;width:{{(winWidth-content.content.length*6)/content.content.length}}px" ></image> 
+                    <!-- <image src="{{item.image}}" mode="aspectFit" ></image> -->
+                    <view style="height:50rpx;line-height:50rpx;">{{item.title}}</view>
+                </navigator>
+            </view>
+        </block>
+    </view>
+
+    <!-- tab栏: 普通tab 可点击切换 -->
+    <view class="clearfix editImageNav {{edtiNavFilter.classfilterFun(content.content.length)}}" wx:if="{{isHotTab && content.content.length > 1}}" data-page="page.public.editImageNav">
+        <block>
+            <view class="image-nav-tab {{currentTab==index?'active-imgnav':''}}" style="padding-right:{{edtiNavFilter.titleWidthFun(content.content)}}rpx;" wx:for="{{content.content}}" wx:key="index" data-name="{{item.title}}" data-index="{{index}}" bindtap="{{item.url=='ad_scan'?'ad_scan':'imageNavClickFun'}}">
+                <image src="{{item.image}}" wx:if='{{item.image}}' mode="widthFix"  style="height:{{(winWidth-content.content.length*6)/content.content.length}}px;width:{{(winWidth-content.content.length*6)/content.content.length}}px" ></image> 
+                <text class="imitem">{{item.title}}</text>
+            </view>
+        </block>
+    </view>
+</template>

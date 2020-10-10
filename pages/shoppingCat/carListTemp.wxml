@@ -1,0 +1,107 @@
+<template name="carListTemp">
+  <view class="size_3 shoppingCatSize">
+    <view class="clearfix shopProductList  shoppingCat">
+
+      <block wx:for="{{shoppingCatData}}" wx:if="{{item}}" wx:key="{{index}}">
+      
+        <block wx:if="{{foreignProductType&&item.foreign_product!=2}}">
+          <view class="clearfix">
+            <view class="shoppingChoice">
+              <text wx:if='{{otherStore}}' class="iconfont {{(editCartText!='完成')?'disabled-txt':''}} {{ item.isEditActive==1?'active':''}}" data-index="{{index}}" data-shoppingMoney="{{item.shoppingMoney}}" data-type='{{item.belong_to_physical}}' bindtap="forbidShopping"></text>
+              <text wx:else class="iconfont {{(isforeignProductType==1||isforeignProductType==0)?'':'disabled-txt'}} {{item.isActive==1?'active':''}} {{ item.isEditActive==1?'active':''}}" data-index="{{index}}" data-shoppingMoney="{{item.shoppingMoney}}" data-type='{{item.belong_to_physical}}'
+                bindtap="{{(isforeignProductType==1||isforeignProductType==0)?'choiceShopping':''}}" data-isforeignProductType="{{isforeignProductType}}"></text>
+            </view>
+            <navigator url="/pages/product/details?product_id={{item.product_id}}" class="navigator" hover-class="none" open-type="navigate">
+              <view class="productImg verticalCentering Zy">
+                <image src="{{item.image}}"></image>
+                <view class='ziying theme-bg-color' wx:if="{{item.is_self_support==0}}">自营</view>
+              </view>
+            </navigator>
+            <view class="productInfo clearfix ">
+              <navigator url="/pages/product/details?product_id={{item.product_id}}" hover-class="none" open-type="navigate">
+                <text class="productName textOmitted">{{item.name}}</text>
+                <view style='margin-bottom:10rpx;'>
+                  <block space="true" wx:for="{{item.sku_data}}" wx:for-item="list" wx:key="index">{{list.name}}:{{list.value}} </block>
+                </view>
+                <!-- <view>====={{item.pigcms_id}}///{{item.product_id}}</view> -->
+                <text class="productPrice">￥{{item.pro_price}}</text>
+                <view class='show-tips' wx:if='{{show_tips==1}}'>此商品门店库存不足【{{old_num?old_num:1}}】，默认切换为1</view>
+              </navigator>
+              <view class="shoppingInput" wx:if='{{!otherStore}}'>
+                <text class="reduce" bindtap="reduce" data-index="{{index}}" data-num="{{item.pro_num}}" data-cartId="{{item.pigcms_id}}" data-skuId="{{item.sku_id}}" data-productId="{{item.product_id}}">-</text>
+                <input placeholder="1" bindtap="shoppingInput" value="{{item.pro_num}}" bindblur="shoppingBlur" data-index="{{index}}" data-num="{{item.pro_num}}" data-cartId="{{item.pigcms_id}}" data-skuId="{{item.sku_id}}" data-productId="{{item.product_id}}"> </input>
+                <text class="plus" bindtap="plus" data-index="{{index}}" data-num="{{item.pro_num}}" data-cartId="{{item.pigcms_id}}" data-skuId="{{item.sku_id}}" data-productId="{{item.product_id}}">+</text>
+              </view>
+            </view>
+          </view>
+        </block>
+        <block wx:if="{{(!foreignProductType)&&item.foreign_product==2}}">
+          <view class="clearfix">
+            <view class="shoppingChoice">
+              <text wx:if='{{otherStore}}' class="iconfont {{(editCartText!='完成')?'disabled-txt':''}} {{ item.isEditActive==1?'active':''}}" data-index="{{index}}" data-shoppingMoney="{{item.shoppingMoney}}" data-type='{{item.belong_to_physical}}' bindtap="forbidShopping"></text>
+              <text wx:else class="iconfont {{(isforeignProductType==2||isforeignProductType==0)?'':'disabled-txt'}} {{item.isActive==1?'active':''}} {{ item.isEditActive==1?'active':''}}" data-index="{{index}}" data-shoppingMoney="{{item.shoppingMoney}}" data-type='{{item.belong_to_physical}}'
+                bindtap="{{(isforeignProductType==2||isforeignProductType==0)?'choiceShopping':''}}" data-isforeignProductType="{{isforeignProductType}}"></text>
+            </view>
+            <navigator url="/pages/product/details?product_id={{item.product_id}}" class="navigator" hover-class="none" open-type="navigate">
+              <view class="productImg verticalCentering Zy">
+                <image src="{{item.image}}"></image>
+                <view class='ziying theme-bg-color' wx:if="{{item.is_self_support==0}}">自营</view>
+              </view>
+            </navigator>
+            <view class="productInfo clearfix ">
+              <navigator url="/pages/product/details?product_id={{item.product_id}}" hover-class="none" open-type="navigate">
+                <text class="productName textOmitted">{{item.name}}</text>
+                <view style='margin-bottom:10rpx;'>
+                  <block space="true" wx:for="{{item.sku_data}}" wx:for-item="list" wx:key="index">{{list.name}}:{{list.value}} </block>
+                </view>
+                <!-- <view>====={{item.pigcms_id}}///{{item.product_id}}</view> -->
+                <text class="productPrice">￥{{item.pro_price}}</text>
+                <view class='show-tips' wx:if='{{show_tips==1}}'>此商品门店库存不足【{{old_num?old_num:1}}】，默认切换为1</view>
+              </navigator>
+              <view class="shoppingInput" wx:if='{{!otherStore}}'>
+                <text class="reduce" bindtap="reduce" data-index="{{index}}" data-num="{{item.pro_num}}" data-cartId="{{item.pigcms_id}}" data-skuId="{{item.sku_id}}" data-productId="{{item.product_id}}">-</text>
+                <input placeholder="1" bindtap="shoppingInput" value="{{item.pro_num}}" bindblur="shoppingBlur" data-index="{{index}}" data-num="{{item.pro_num}}" data-cartId="{{item.pigcms_id}}" data-skuId="{{item.sku_id}}" data-productId="{{item.product_id}}"> </input>
+                <text class="plus" bindtap="plus" data-index="{{index}}" data-num="{{item.pro_num}}" data-cartId="{{item.pigcms_id}}" data-skuId="{{item.sku_id}}" data-productId="{{item.product_id}}">+</text>
+              </view>
+            </view>
+          </view>
+        </block>
+        <block wx:if="{{other}}">
+        <view class="clearfix">
+            <view class="shoppingChoice">
+              <text wx:if='{{otherStore}}' class="iconfont {{(editCartText!='完成')?'disabled-txt':''}} {{ item.isEditActive==1?'active':''}}" data-index="{{index}}" data-shoppingMoney="{{item.shoppingMoney}}" data-type='{{item.belong_to_physical}}' bindtap="forbidShopping"></text>
+              <text wx:else class="iconfont {{item.isActive==1?'active':''}} {{ item.isEditActive==1?'active':''}}" data-index="{{index}}" data-shoppingMoney="{{item.shoppingMoney}}" data-type='{{item.belong_to_physical}}'
+                bindtap="choiceShopping">
+              </text>
+            </view>
+            <navigator url="/pages/product/details?product_id={{item.product_id}}" class="navigator" hover-class="none" open-type="navigate">
+              <view class="productImg verticalCentering Zy">
+                <image src="{{item.image}}"></image>
+                <view class='ziying theme-bg-color' wx:if="{{item.is_self_support==0}}">自营</view>
+              </view>
+            </navigator>
+            <view class="productInfo clearfix ">
+              <navigator url="/pages/product/details?product_id={{item.product_id}}" hover-class="none" open-type="navigate">
+                <text class="productName textOmitted">{{item.name}}</text>
+                <view style='margin-bottom:10rpx;'>
+                  <block space="true" wx:for="{{item.sku_data}}" wx:for-item="list" wx:key="index">{{list.name}}:{{list.value}} </block>
+                </view>
+                <!-- <view>====={{item.pigcms_id}}///{{item.product_id}}</view> -->
+                <text class="productPrice">￥{{item.pro_price}}</text>
+                <view class='show-tips' wx:if='{{show_tips==1}}'>此商品门店库存不足【{{old_num?old_num:1}}】，默认切换为1</view>
+              </navigator>
+              <view class="shoppingInput" wx:if='{{!otherStore}}'>
+                <text class="reduce" bindtap="reduce" data-index="{{index}}" data-num="{{item.pro_num}}" data-cartId="{{item.pigcms_id}}" data-skuId="{{item.sku_id}}" data-productId="{{item.product_id}}">-</text>
+                <input placeholder="1" bindtap="shoppingInput" value="{{item.pro_num}}" bindblur="shoppingBlur" data-index="{{index}}" data-num="{{item.pro_num}}" data-cartId="{{item.pigcms_id}}" data-skuId="{{item.sku_id}}" data-productId="{{item.product_id}}"> </input>
+                <text class="plus" bindtap="plus" data-index="{{index}}" data-num="{{item.pro_num}}" data-cartId="{{item.pigcms_id}}" data-skuId="{{item.sku_id}}" data-productId="{{item.product_id}}">+</text>
+              </view>
+            </view>
+          </view>
+        </block>
+      </block>
+    </view>
+  </view>
+
+
+
+</template>

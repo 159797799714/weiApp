@@ -1,0 +1,41 @@
+<import src="../../../../template/tabs/tabs.wxml" />
+<view class="order-list-wrap">
+  <view class="tabs-part scale-1px-top {{!showInstruction?'topline':''}}">
+    <template is="tabs" data="{{...tabsData}}" />
+  </view>
+  <view class="instruction" wx:if="{{showInstruction}}" bindtap="toCashoutInstruction">
+    <view class="lins iconfont icontishi">必看，返现提现和订单状态说明</view>
+    <view class="right-arrow">点击查看</view>
+  </view>
+  <view class="lists">
+    <block wx:if="{{listData&&listData.length}}">
+      <view class="order-item" wx:for="{{listData}}" wx:key="index" data-id="{{item.id}}" bindtap="toDetail">
+        <view class="infos-part scale-1px-bottom">
+          <view class="imgbox">
+            <image class="imgs" mode="widthFix" src="{{item.goods_thumbnail_url}}" />
+          </view>
+          <view class="info">
+            <view class="name">{{item.goods_name}}</view>
+            <view class="cashback iconfont icondaifanxian {{item.status==1?'red':(item.status==2?'origin':'gray')}}">
+              {{cashbackObj[item.status]}}
+              <text class="money {{item.status==2?'origin':''}}" wx:if="{{item.status!=3}}">{{item.return_amount ? item.return_amount/100+'元' : 0}}</text>
+            </view>
+          </view>
+        </view>
+        <view class="status-part">
+          <view class="lst">
+            <text class="laber iconfont {{sourceIcon[item.source_from].icon}}" style="color: {{sourceIcon[item.source_from].color}};"></text>
+            <text class="times">{{item.createtime}}下单</text>
+          </view>
+          <view class="status">{{statusObj[item.status]}}</view>
+        </view>
+      </view>
+    </block>
+    <view class="nodata_cps" wx:if="{{listData&&!listData.length}}">暂无数据~
+      <view class="tolook" bindtap="toHomeFun">
+        <view class="lookcnt">马上去逛逛</view>
+        <view class="arrows iconfont iconarrowright"></view>
+      </view>
+    </view>
+  </view>
+</view>

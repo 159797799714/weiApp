@@ -1,0 +1,50 @@
+
+var integral = function (type) {
+    switch (type) {
+      case 1:
+        return {
+          title: '确认兑换',
+          word: '',
+          iconUrl: 'https://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/integral/integral1.png'
+        }
+        break
+      case 2:
+        return {
+          title: '兑换成功',
+          word: '恭喜您兑换成功',
+          iconUrl: 'https://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/integral/integral2.png'
+        }
+        break
+      case 3:
+        return {
+          title: '商品已兑完',
+          word: '我们会尽快补货，请您保持关注',
+          iconUrl: 'https://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/integral/integral3.png'
+        }
+        break
+      case 4:
+        return {
+          title: '兑换失败',
+          word: '您的积分不足！',
+          iconUrl: 'https://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/integral/integral4.png'
+        }
+        break
+      default:
+        return {
+          title: '确认兑换',
+          word: '',
+          iconUrl: 'https://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/integral/integral1.png'
+        }
+        break
+    }
+  }
+  var num = function (numStr) {
+    numStr = numStr * 1 / 1
+    numStr = numStr.toString()
+    var arr = numStr.split('')
+    return arr
+  }
+  module.exports = {
+    integral: integral,
+    num: num
+  }

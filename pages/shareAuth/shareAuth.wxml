@@ -1,0 +1,45 @@
+<view class="shareauth-wrap">
+  <view class="showinfo">
+    <view class="top-part {{showtype == 2?'showcode':''}}">
+      <block wx:if="{{showtype == 1}}">
+        <view class="tk-title">请输入邀请码</view>
+        <view class="input-group">
+          <input class="codeinput" value="{{invitcode}}" focus="{{invitfocus}}" maxlength="6" data-key="invitcode" bindinput="bindKeyInput" bindfocus="bindfocus" bindblur="bindblur" />
+          <view class="verify-view">
+            <view class="verify-input" wx:for="{{invitcodeArr}}" wx:key="index">
+              <view class="varval">{{item || ""}}</view>
+              <view class="inpline {{invitfocus&&(index==invitcode.length-1 || (!invitcode.length&&index==0))?'focusAni':''}}"></view>
+            </view>
+          </view>
+        </view>
+      </block>
+
+      <block wx:if="{{showtype == 2}}">
+        <view class="tk-title sure-title">请确认您的邀请人</view>
+        <view class="imgbox">
+          <image class="imgs" mode="widthFix" src="{{headImg || 'https://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/default_photo.png'}}" />
+        </view>
+        <view class="tkname">{{nickName}}</view>
+      </block>
+    </view>
+    <view class="middle-part">
+      <view class="round left-round"></view>
+      <view class="dashed"></view>
+      <view class="round right-round"></view>
+    </view>
+    <view class="bottom-part">
+      <button class="changecode bluefont {{isReq?'grayfont':''}}" wx:if='{{_unlogin}}' type='primary' open-type="getUserInfo" data-noregister="{{true}}" bindtap="clickUserButtonFun" bindgetuserinfo="userCall" binderror="errCall">我想换个邀请码</button>
+      <view class="changecode bluefont {{isReq?'grayfont':''}}" wx:if='{{!_unlogin}}' bindtap="changecodeFun">我想换个邀请码</view>
+
+      <button class='nextbtn' wx:if='{{_unlogin}}' type='primary' open-type="getUserInfo" bindtap="clickUserButtonFun" bindgetuserinfo="userCall" binderror="errCall">下一步</button>
+      <!-- <button class='nextbtn' type='primary' wx:if="{{!_unlogin}}" open-type="getPhoneNumber" bindgetphonenumber="bindgetphonenumber">下一步</button> -->
+      <button class="nextbtn {{isReq?'gray':''}}" type='primary' wx:if='{{!_unlogin}}' bindtap="toGetPhonenumAuth">下一步</button>
+      <view class="suretip">
+        <text class="iconfont iconshibai"></text>
+        <text class="tip">请确认您的邀请人，注册后邀请人不可更改</text>
+      </view>
+      <text class="jump bluefont" bindtap="toback">跳过此步</text>
+    </view>
+  </view>
+</view>
+<include src="/pages/public/page_footer.wxml"></include>

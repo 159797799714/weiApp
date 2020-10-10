@@ -1,0 +1,19 @@
+<wxs src="../../../../utils/filter.wxs" module="filter"></wxs>
+<view class="charge-wrap" wx:if="{{oldList.length}}">
+    <view class="charge-date-item" wx:for="{{chargeList}}" wx:key="index">
+        <view class="date-text">{{filter.timeStr(item.createtime*1000, 'YM')}}</view>
+        <view class="charge-record-wrap">
+            <view class="charge-record-item" wx:for="{{item.subList}}" wx:for-item="subitem" wx:for-index="subindex"
+                wx:key="subindex">
+                <view class="rec-left">
+                    <view class="rec-suc">充电成功</view>
+                    <!-- {{filter.timestampFormat(item.createtime*1000, 'YYYY-MM-DD HH:mm')}} -->
+                    <view class="res-time">{{filter.timeStr(subitem.createtime*1000, 'YMDHms')}}
+                    </view>
+                </view>
+                <view class="rec-right">+{{subitem.points}}积分</view>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="nodata_cps" wx:else>暂无数据</view>

@@ -1,0 +1,22 @@
+
+
+<view class="main">
+  <!-- <view class="bigIcon iconfont icon-correct t-center f-bold col-ff"></view> -->
+
+  <view class="iconfont  bigIcon {{type === 'pay'? 'iconcomplete': 'iconshibai replyIcon'}} t-center f-bold col-ff"></view>
+
+  <block  wx:if="{{type === 'pay'}}">
+    <view class="t-center col-99 f-28">感谢您的购买</view>
+    <!-- <view class="t-center f-28">您的VIP会员已{{vipWord}}</view> -->
+  </block>
+  <block  wx:elif="{{type === 'reply'}}">
+    <view class="t-center f-32 m-bottom20">退款申请已提交</view>
+    <view class="t-center col-99 f-28">您的退款申请已提交，客服会尽快与您联系</view>
+  </block>
+
+  
+
+  <view wx:if="{{type === 'pay'}}" class="lookOrder cicle-btn col-f44 f-bold f-32 border-f4" bindtap="lookOrder">查看订单</view>
+  <navigator open-type="switchTab" url="/pages/index/index" class="dis-block cicle-btn f-bold col-99 f-32 {{type ==='reply'?'lookOrder': ''}}">返回首页</navigator>
+</view>
+

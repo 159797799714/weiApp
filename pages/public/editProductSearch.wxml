@@ -1,0 +1,14 @@
+<!-- 商品搜索 -->
+<template name="search" wx:if='{{!showSearch}}'>
+    <view class="editProductSearchPa {{searchWrapObj.className}} {{fiexdTop?'fiexdTop':''}}" style="background:{{searchWrapObj.bgcolor}}" data-page="page.public.editProductSearch">
+        <view class="editProductSearch">
+            <input type="text" placeholder="{{content.search_tips||placeholder||'请搜索商品'}}"
+                   bindinput="wxSearchInput"
+                   value="{{keyword}}"
+                   confirm-type="search"
+                   bindconfirm="wxSearchFn"
+            ></input>
+            <text class="iconfont icon-chazhao" style='color:{{themeColorValue}}' bindtap="wxSearchFn"></text>
+        </view>
+    </view>
+</template>

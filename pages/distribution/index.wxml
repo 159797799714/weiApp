@@ -1,0 +1,72 @@
+<!--分销管理佣金统计-->
+<view class="commision {{pageTheme}}" data-page="page.user.index">
+    <!-- <view class="section headerSection">
+        <view class="leftPart"><text class="iconfont icon-qiandai"></text></view>
+        <view class="centerPart">
+            <view class="row1">
+                <view class="money">￥{{storeData.store.income}}</view>
+                <view class="detail"><navigator url="/pages/distribution/detail">明细<text class="iconfont icon-xiayibu"></text></navigator></view>
+            </view>
+            <view class="row2">本店佣金统计(元)</view>
+        </view>
+        <view class="rightPart">
+            <view class="applyCashBtn"><navigator url="/pages/distribution/apply_cash">申请提现</navigator></view>
+        </view>
+    </view> -->
+   <view class="section headerSection" bindtap='goExit'>
+        <view class="leftPart">   
+          <image src='{{ storeData.store.logo }}' mode='aspectFill'></image>
+        </view>
+        <view class="centerPart">
+            <view class="row1">
+                <view class="storeName" >{{ storeData.store.name }}</view> 
+            </view>
+            <view class="row1"><text class='storeName storeName1'>推荐人：{{ storeData.drp_supplier_name }}</text></view>
+        </view> 
+        <view class='go_rg'> <image src='../../images/go_rg.png'></image></view> 
+    </view>
+ 
+    <view class="flex-wrp fansGong" style="flex-direction:row;">
+      <view class="flex-item" bindtap='go_user'>
+       <view>{{ storeData.fans_count }}</view><label>访问用户 ></label></view> 
+      <view class="flex-item" bindtap='fansGong'>
+        <view >{{ storeData.fx_count }}</view> <label>{{ storeData.fx_name }}></label></view>  
+    </view>  
+
+    <view class="section cakeChartSection" style='padding-bottom:0'>
+       <view class="section headerSection tixianB" style='margin-bottom:0; padding:20rpx'> 
+        <view class="centerPart">
+            <view class="row1">
+                <view class="moneyti">￥{{ storeData.store.balance}}</view>  
+            </view>
+            <view class="tiXian"><text>可提现</text><text bindtap='click_tixian'  class='activity_price_rmb tixian_line'>提现明细</text></view>
+        </view>
+        <view class="rightPart">
+            <view class="applyCashBtn"><navigator url="/pages/distribution/apply_cash">申请提现</navigator></view>
+        </view>
+    </view> 
+     
+     <view class="moneyList">
+            <view class="listItem"><text class="dot dot1"></text><text>已提现：￥{{storeData.store.withdrawal_amount}}</text></view>
+            <view class="listItem"><text class="dot dot2"></text><text>待提现：￥{{storeData.store.balance}}</text></view>
+            <!--<view class="listItem"><text class="dot dot3"></text><text>待结算：￥{{storeData.store.unbalance}}</text></view>-->
+        </view>
+        <view class="sectionTitle tiXian">
+          <view>佣金总额：￥{{storeData.store.income}}</view>  
+          <view bindtap='go_yong' class='activity_price_rmb tixian_line'>佣金明细</view> 
+        </view>
+        <view class="container">
+            <canvas canvas-id="pieCanvas" class="canvas" style="height:150px;width: 750rpx;pointer-events: none;"></canvas>
+        </view>
+    </view>
+    <!-- <view class="section lineChartSection">
+        <view class="sectionTitle">订单佣金折线图</view>
+        <view class="lineChartNav">
+                <view bindtap="switchNav" wx:for="{{lineChartType}}" wx:key="index" wx:for-index="index" data-current="{{index}}" data-id="lineChart_{{item.type}}" data-type="{{item.type}}" class="navItem nav_{{item.type}} {{currentTab == index ? 'active' : ''}}">{{item.title}}</view>
+        </view>
+        <view class="container">
+            <canvas canvas-id="lineChart" disable-scroll="true" class="canvas"></canvas>
+        </view>
+    </view> -->
+</view>
+<include src="/pages/public/page_footer.wxml"></include>

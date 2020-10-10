@@ -1,0 +1,72 @@
+// out: instruction.wxss, compress: true
+page{
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  background: #ddd0b9;
+}
+
+.instruction-wrap{
+  font-size: 28rpx;
+  color: #151515;
+  line-height: 42rpx;
+  padding: 40rpx 30rpx 70rpx;
+  .page-title{
+    font-size: 32rpx;
+    color: #A26121;
+    line-height: 45rpx;
+    text-align: center;
+    margin-bottom: 35rpx;
+  }
+  .main{
+    background: #fff;
+    padding: 30rpx 40rpx 40rpx;
+    border-radius: 8rpx;
+    margin-bottom: 20rpx;
+    &:last-child{
+      margin: 0;
+    }
+    .title{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20rpx;
+    }
+    .tcnt{
+      font-size: 32rpx;
+      color: #A26121;
+      line-height: 45rpx;
+      margin: 0 25rpx;
+    }
+    .line{
+      width: 56rpx;
+      &::after{
+        background: #979797;
+      }
+    }
+    .content{
+      margin-bottom: 20rpx;
+    }
+    .red{
+      color: #FF4444;
+    }
+    .takecare{
+      color: #FF4444;
+      margin-bottom: 20rpx;
+    }
+    .care-part{
+      display: flex;
+      margin-bottom: 20rpx;
+      .order{
+        width: 42rpx;
+      }
+      .carecnt{
+        flex: 1;
+        color: #333;
+      }
+    }
+    .nomargin{
+      margin: 0;
+    }
+  }
+}

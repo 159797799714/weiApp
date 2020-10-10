@@ -1,0 +1,34 @@
+<import src="../../../../template/gift-list/gift-list.wxml" />
+<!-- 展示购物车悬浮图标 -->
+<import src="../../../../pages/public/contact.wxml" />
+<!-- 弹框类 -->
+<import src="../../../../pages/public/shoppingCat.wxml" />
+<import src="../../../../pages/public/warning.wxml" />
+<import src="../../../../pages/public/soldOutBox.wxml" />
+
+<view class="gift-store-wrap {{pageTheme}}">
+  <image class="topimg" mode="widthFix" src="https://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/top_vip.png" />
+  <view class="t-center">
+    <view class="title">礼包商品</view>
+  </view>
+  
+  <view class="pro-part">
+    <template is="giftList" data="{{giftListData,memberGrade}}" />
+  </view>
+
+  <!--加入购物车弹窗-->
+  <block wx:if="{{shoppingData.shoppingShow}}">
+    <template is="shoppingCat" data="{{shoppingData:shoppingData,animation:animation,warning:warning,store_nav_list,store_nav_list_show,serviceval}}" />
+  </block>
+
+  <!--加载弹窗-->
+  <template is="warning" wx:if="{{warning.warningShow}}" data="{{warningTxt:warning.warningTxt}}" />
+
+  <!--售罄弹窗-->
+  <template is="soldOutBox" wx:if="{{soldOutBoxShow}}" data="{{content:soldOutBoxData}}" />
+
+  <!-- 展示购物车悬浮图标 -->
+  <!-- <template is="contact" data="{{shoppingCatNum}}" /> -->
+</view>
+
+<include src="/pages/public/page_footer.wxml"></include>

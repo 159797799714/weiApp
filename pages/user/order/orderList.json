@@ -1,0 +1,10 @@
+{
+    "navigationBarTitleText": "我的订单",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "backgroundTextStyle": "dark",
+    "usingComponents": {
+        "bottom-modal": "../../../components/bottomModal/index",
+        "dialog-modal": "../../../components/dialog/index"
+    }
+}

@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "优惠券",
+  "navigationBarBackgroundColor": "#FF4444",
+  "navigationBarTextStyle": "white",
+  "backgroundColor": "#f2f3f5",
+  "backgroundColorTop": "#f2f3f5",
+  "backgroundTextStyle": "dark",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "com-modal": "../../components/com-modal/com-modal"
+  }
+}

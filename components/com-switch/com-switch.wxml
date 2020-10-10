@@ -1,0 +1,6 @@
+<view class="com-switch-wrap {{className}}" bindtap="onChange">
+  <view class="custom-switch {{disabled?'isdisabled':''}}" style="width:{{width}}rpx;height:{{height}}rpx;background:{{color}};border-radius:{{height}}rpx;">
+    <view class="sw-gray-bg" hidden="{{ischecked}}"></view>
+    <view class="sw-round" style="width:{{height-4}}rpx;height:{{height-4}}rpx;left:{{ischecked?(width-height+2):'2'}}rpx;"></view>
+  </view>
+</view>

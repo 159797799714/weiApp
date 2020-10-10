@@ -1,0 +1,469 @@
+// out: false
+.together-dialog-wrap{
+  .imgbox{
+    overflow: hidden;
+    .imgs{
+      display: block;
+      width: 100%;
+    }
+  }
+  .sure-box{
+    width: 560rpx;
+    min-height: 680rpx;
+    position: relative;
+    .tgimgbox{
+      width: 560rpx;
+      height: 680rpx;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+    .mcontent{
+      padding-top: 180rpx;
+      position: relative;
+      z-index: 1;
+      .mtitle{
+        width: 354rpx;
+        font-size: 28rpx;
+        color: #B5843D;
+        line-height: 40rpx;
+        margin: 0 auto 26rpx;
+      }
+      .tinfo{
+        width: 404rpx;
+        font-size: 26rpx;
+        color: #2C2C2C;
+        line-height: 37rpx;
+        margin: 0 auto 50rpx;
+      }
+      .canclebtn{
+        width: 380rpx;
+        height: 68rpx;
+        font-size: 28rpx;
+        color: #fff;
+        margin-bottom: 160rpx;
+        background: linear-gradient(90deg, #575757 0%, #2C2C2C 100%);
+        border-radius: 100rpx;
+        box-shadow: 3rpx 3rpx 10rpx rgba(0, 0, 0, 0.4);
+        &::after{
+          display: none;
+        }
+      }
+    }
+  }
+  .comsure{
+    min-height: auto;
+    .bgimgbox{
+      width: 100%;
+      height: 300rpx;
+      background: #fff;
+    }
+    .comcontent{
+      background: #fff;
+      padding: 40rpx 0 56rpx;
+      margin-bottom: 15rpx;
+      border-radius: 0 0 16rpx 16rpx;
+      .mtitle{
+        font-size: 30rpx;
+        color: #999;
+        line-height: 42rpx;
+        margin-bottom: 30rpx;
+      }
+      .tinfo{
+        width: 460rpx;
+        font-size: 28rpx;
+        color: #333;
+        line-height: 40rpx;
+        display: -webkit-box;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        margin: 0 auto 50rpx;
+      }
+    }
+  }
+  .canclebtn{
+    width: 460rpx;
+    height: 80rpx;
+    font-size: 32rpx;
+    color: #fff;
+    margin: 0 auto;
+    background: linear-gradient(90deg, #FF7979 6%, #FF4444 92%);
+    border-radius: 100rpx;
+    box-shadow: 0rpx 8rpx 15rpx rgba(255,68,68,0.5);
+    &::after{
+      display: none;
+    }
+  }
+  .closeicon{
+    width: 50rpx;
+    font-size: 50rpx;
+    color: #fff;
+    line-height: 50rpx;
+    padding: 15rpx;
+    margin: 0 auto;
+    opacity: 0.7;
+  }
+  .invicode-box{
+    box-sizing: border-box;
+    overflow: hidden;
+    .shtop-part{
+      height: 202rpx;
+      background: url('https://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/invit_top_bg.png')no-repeat;
+      background-size: contain;
+      padding-top: 50rpx;
+      box-sizing: border-box;
+    }
+    .mtitle{
+      font-size: 32rpx;
+      color: #333;
+      line-height: 45rpx;
+      font-weight: 500;
+      margin-bottom: 10rpx;
+    }
+    .tinfo{
+      font-size: 28rpx;
+      color: #666;
+      line-height: 40rpx;
+    }
+    .inv-code{
+      display: flex;
+      align-items: center;
+      &:first-child{
+        margin-bottom: 20rpx;
+      }
+    }
+    .invname{
+      font-size: 28rpx;
+      color: #666;
+    }
+    .invval, .invcnt{
+      font-size: 32rpx;
+      color: #333;
+      font-weight: 500;
+    }
+    .invperson{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .imgbox{
+      width: 50rpx;
+      height: 50rpx;
+      overflow: hidden;
+      margin-right: 15rpx;
+      border-radius: 50%;
+      .imgs{
+        display: block;
+        width: 100%;
+      }
+    }
+    .input-group{
+      margin-bottom: 50rpx;
+      position: relative;
+    }
+    .codeinput{
+      width: 300%;
+      height: 96rpx;
+      color: transparent;
+      text-align: left;
+      background: transparent;
+      border: transparent;
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 2;
+    }
+    .verify-view{
+      width: 100%;
+      display: flex;
+      position: relative;
+      z-index: 1;
+      .verify-input{
+        width: 70rpx;
+        height: 96rpx;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 20rpx;
+        border-bottom: 2rpx solid #2C2C2C;
+        &:last-child{
+          margin: 0;
+        }
+        .varval{
+          min-width: 1rpx;
+          height: 96rpx;
+          font-size: 68rpx;
+          color: #333;
+          line-height: 95rpx;
+          text-align: center;
+        }
+        .inpline{
+          width: 1rpx;
+          height: 68rpx;
+          background: none;
+        }
+      }
+    }
+    .jump{
+      display: flex;
+      justify-content: flex-end;
+      .jump-text{
+        font-size: 26rpx;
+        color: #999;
+        line-height: 33rpx;
+        padding: 10rpx;
+      }
+    }
+    .focusAni{
+      animation: waver 1s 0.3s ease infinite;
+    }
+    @keyframes waver{
+      0% { opacity: 1; background: #333; }
+      50% { opacity: 1; background: #333; }
+      100% { opacity: 0; background: #333; }
+    }
+  }
+  .input-invicode{
+    padding: 50rpx 40rpx 30rpx;
+    .mtitle{
+      margin-bottom: 18rpx;
+    }
+    .tinfo, .ttip{
+      font-size: 24rpx;
+      color: #999;
+      line-height: 33rpx;
+    }
+    .ttip{
+      color: #FF4444;
+      margin-bottom: 70rpx;
+    }
+    .tinfo-3{
+      margin-bottom: 10rpx;
+    }
+  }
+  .showcode-box{
+    .shocontent-part{
+      background: #fff;
+      padding: 15rpx 0 60rpx 0;
+      .invname{
+       font-size: 28rpx; 
+       color: #333;
+       line-height: 40rpx;
+       margin-bottom: 20rpx;
+      }
+      .codeval{
+        width: 300rpx;
+        height: 80rpx;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 46rpx;
+        color: #333;
+        font-weight: 500;
+        line-height: 65rpx;
+        background: #F5F5F5;
+        border-radius: 8rpx;
+        margin: 0 auto 30rpx;
+      }
+    }
+    .yesbtn{
+      width: 500rpx;
+      height: 80rpx;
+      font-size: 32rpx;
+      color: #fff;
+      margin: 70rpx auto 0;
+      background: linear-gradient(90deg, #FF4444 4%, #FF7979 100%);
+      border-radius: 100rpx;
+      &::after{
+        display: none;
+      }
+    }
+    .nobtn{
+      width: 330rpx;
+      height: 50rpx;
+      font-size: 30rpx;
+      color: #666;
+      line-height: 50rpx;
+      text-decoration: underline;
+      background: none;
+      margin: 20rpx auto 0;
+      &::after{
+        display: none;
+      }
+    }
+  }
+  .invsuccess-box{
+    padding-bottom: 50rpx;
+    .shtop-part{
+      height: 220rpx;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: url('https://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/invit_success.png')no-repeat;
+      background-size: contain;
+      padding: 0;
+      margin-bottom: 40rpx;
+    }
+    .mtitle{
+      color: #fff;
+    }
+    .invperson{
+      justify-content: flex-start;
+      padding-left: 47rpx;
+      margin-bottom: 50rpx;
+      .invname{
+        margin-right: 20rpx;
+      }
+    }
+    .suinfo-box{
+      display: flex;
+      font-size: 28rpx;
+      color: #3D3D3D;
+      line-height: 40rpx;
+      text-align: left;
+      padding: 0 40rpx 20rpx 47rpx;
+      &.suinfo2{
+        padding-bottom: 0;
+      }
+      .icons{
+        font-size: 28rpx;
+        color: #D1A96F;
+        margin-right: 20rpx;
+      }
+      .icons1{
+        font-size: 30rpx;
+      }
+      .inred{
+        color: #FF4444;
+      }
+    }
+    .canclebtn{
+      width: 500rpx;
+      margin-top: 60rpx;
+      box-shadow: none;
+      background: linear-gradient(90deg, #FF4444 4%, #FF7979 100%);
+    }
+    .closeicon{
+      position: absolute;
+      bottom: -100rpx;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+  .showpoint-box{
+    .icon-box{
+      height: 278rpx;
+      background: #F6FDFD;
+      padding-top: 57rpx;
+      border-radius: 15rpx 15rpx 0 0;
+      box-sizing: border-box;
+      .icons-imgs{
+        display: block;
+        width: 192rpx;
+        height: 181rpx;
+        margin: 0 auto;
+      }
+    }
+    .infos{
+      background: #fff;
+      padding: 33rpx 0 80rpx;
+      margin-bottom: 30rpx;
+      border-radius: 0 0 15rpx 15rpx;
+    }
+    .ptitle{
+      font-size: 32rpx;
+      color: #333;
+      font-weight: 700;
+      line-height: 45rpx;
+      margin-bottom: 30rpx;
+    }
+    .point-box{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 60rpx;
+    }
+    .cnt{
+      font-size: 32rpx;
+      color: #FF4444;
+      line-height: 45rpx;
+      margin-right: 10rpx;
+    }
+    .addicon{
+      font-size: 58rpx;
+      color: #FF4444;
+      line-height: 80rpx;
+      margin-right: 5rpx;
+    }
+    .point-val{
+      font-size: 68rpx;
+      color: #FF4444;
+      line-height: 80rpx;
+    }
+    .canclebtn{
+      background: linear-gradient(270deg, #FF5171 0%, #FD8E35 99%);
+    }
+  }
+  .pinit-box{
+    position: relative;
+    .imgs-box{
+      width: 580rpx;
+      overflow: hidden;
+      .pimgs{
+        display: block;
+        width: 100%;
+      }
+    }
+    .pval-box{
+      width: 540rpx;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 235rpx;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+      .pval{
+        font-size: 118rpx;
+        color: #1A1922;
+        font-weight: 700;
+        line-height: 144rpx;
+        margin-right: 20rpx;
+      }
+      .punit{
+        font-size: 56rpx;
+        color: #1A1922;
+        font-weight: 700;
+        line-height: 81rpx;
+        position: relative;
+        top: 10rpx;
+      }
+    }
+    .canclebtn{
+      width: 500rpx;
+      height: 88rpx;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32rpx;
+      color: #FFE8BD;
+      font-weight: bold;
+      background: none;
+      margin: 0;
+      position: absolute;
+      bottom: 30rpx;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+      box-shadow: none;
+      border-radius: 0;
+      .btncnt{
+        margin-right: 25rpx;
+      }
+    }
+  }
+}

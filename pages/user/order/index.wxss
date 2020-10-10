@@ -1,0 +1,195 @@
+/* pages/user/order/index.wxss */
+@import "../../../wxss/circle_buy_timeline.wxss";
+.logistics-box{
+  border: none!important;
+  padding-top:0!important;
+}
+.logistics-box>text{
+  border-bottom: 1rpx solid #f4f4f4;
+  padding:20rpx 0;
+}
+/* 订单状态 */
+.order-status{
+  height: 160rpx;
+  width: 100%;
+  line-height: 160rpx;
+  box-sizing: border-box;
+  padding: 0 90rpx 0 40rpx;
+  background-size: cover;
+  background-image: url(data:image/png;base64,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);
+}
+.order-status .status-text{
+  width: 510rpx;
+  text-align: left;
+  vertical-align: top;
+}
+.order-status .iconfont{
+  max-width: 80rpx;
+  vertical-align: top;
+}
+.paymentProduct{
+  padding: 0 0 30rpx 0!important;
+}
+.store{
+  line-height: 40rpx;
+  padding: 30rpx 30rpx 20rpx;
+}
+.store-icon{
+  margin-right: 20rpx;
+}
+.addressRow{
+  padding: 30rpx;
+}
+.addressRow .user-info{
+  line-height: 42rpx;
+  margin-bottom: 10rpx;
+}
+.m-top0{
+  margin-top: 0!important;
+}
+.addressRow .user-info text:first-of-type{
+  margin-right: 30rpx;
+}
+.addressRow .textOmitted{
+  line-height: 37rpx;
+}
+.bottom-box{
+  text-align: right;
+  z-index: 999;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 37rpx 30rpx 30rpx;
+}
+.logisticsLayer .logisticsList .delivery-view{
+  display:flex;
+  justify-content: space-between;
+  border: none;
+  padding-bottom: 5rpx;
+}
+
+.logisticsLayer .logisticsList .delivery-view+text{
+  padding-left: 20rpx;
+}
+
+.list-slide-down{
+  text-align:center;
+  font-size:28rpx;
+  padding-bottom:20rpx;
+  color: #999;
+}
+.list-slide-down .iconfont {
+  font-size:24rpx;
+}
+/* 金豆 */
+.gold-refund{
+  color: #999!important;
+  border-color: #999!important;
+}
+.isChannel{
+  font-size: 20rpx;
+  border: 1px solid;
+  border-radius: 10rpx;
+  padding: 0 10rpx;
+  margin-left: 8rpx;
+}
+
+
+
+.community_store{
+  width: 100%;
+	min-height: 166rpx;
+	background-color: #ffffff;
+	box-shadow: 0rpx 0rpx 46rpx 0rpx 
+		rgba(0, 0, 0, 0.06);
+	/* border-radius: 10rpx; */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0 auto;
+  /* margin-bottom: 10rpx; */
+}
+.community_store .head{
+  width: 160rpx;
+  height: 100%;
+  display: flex;
+  /* align-items: center; */
+  align-content: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.community_store .head .head_img{
+  width: 86rpx;
+	height: 86rpx;
+  border-radius: 50%
+}
+.community_store .head .head_img image{
+  width: 86rpx;
+	height: 86rpx;
+  border-radius: 50%;
+
+}
+.community_store .head  .head_name{
+  font-family: PingFang-SC-Bold;
+	font-size: 28rpx;
+	font-weight: normal;
+	font-stretch: normal;
+	line-height: 44rpx;
+	letter-spacing: 0rpx;
+	color: #333333;
+  width: 100%;
+  height: 44rpx;
+  text-align: center;
+}
+.community_store .address_store .address_name{
+	font-family: PingFang-SC-Medium;
+	font-size: 24rpx;
+	font-weight: normal;
+	font-stretch: normal;
+	line-height: 60rpx;
+	letter-spacing: 0rpx;
+	color: #c7c7c7;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center
+}
+.community_store .address_store .address_name text{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 75rpx;
+	height: 26rpx;
+	background-color: #ffcebf;
+	border-radius: 13rpx;
+	font-family: PingFang-SC-Regular;
+	font-size: 20rpx;
+	font-weight: normal;
+	font-stretch: normal;
+	line-height: 60rpx;
+	letter-spacing: 0rpx;
+	color: #fd5d2c;
+  margin-right: 10rpx;
+}
+.community_store .address_store .store_name{
+  	font-family: PingFang-SC-Bold;
+	font-size: 36rpx;
+	font-weight: normal;
+	font-stretch: normal;
+	line-height: 44rpx;
+	letter-spacing: 0rpx;
+	color: #333333;
+}
+.community_store .address_store  .store_time{
+  font-family: PingFang-SC-Regular;
+	font-size: 24rpx;
+	font-weight: normal;
+	font-stretch: normal;
+	line-height: 44rpx;
+	letter-spacing: 0rpx;
+	color: #444444;
+}
+.community_store .address_store  .store_time text{
+	font-size: 24rpx;
+}

@@ -1,0 +1,104 @@
+<import src="../../template/tabs/tabs.wxml" />
+<import src="../../template/together-dialog/together-dialog.wxml" />
+
+<view class="index-wrap {{tabsData.activeTab!=0&&proListData&&!proListData.length?'nopro':''}}">
+  <view class="search-part">
+    <view class="search-input" bindtap="toSearchFun">
+      <text text class="searicon iconfont iconsousuo">搜索海量商品，领券优惠购买</text>
+    </view>
+  </view>
+
+  <!-- 类目tab -->
+  <scroll-view class="category" scroll-x="true" scroll-left="{{scrollLeft}}" scroll-with-animation="true">
+    <template is="tabs" data="{{...tabsData}}"></template>
+  </scroll-view>
+
+  <view class="main-part" wx:if="{{tabsData.activeTab == 0}}">
+    <!-- 顶部banner -->
+    <view class="topbanner" wx:if="{{bannerList.length}}">
+      <swiper class="com-swiper" autoplay="{{true}}" circular="{{true}}" interval="{{3000}}" data-type="bannerIndex" bindchange="swiperChange">
+        <block wx:for="{{bannerList}}" wx:key="index">
+          <swiper-item class="swiperitem" data-id="{{item.id}}" data-from="banner" bindtap="toBannerDetail">
+            <image class="swiper-item imgs" mode="widthFix" src="{{item.img_url}}" />
+
+            <!-- 授权昵称头像 -->
+            <button class='authbtn' wx:if='{{_unlogin}}' type='primary' open-type="getUserInfo" bindtap="clickUserButtonFun" bindgetuserinfo="userCall" binderror="errCall"></button>
+            <!-- 授权手机号码 -->
+            <button class='authbtn' wx:if='{{!_unlogin&&!_has_phone}}' type='primary' bindtap="toGetPhonenumAuth"></button>
+          </swiper-item>
+        </block>
+      </swiper>
+      <view class="dots" wx:if="{{bannerList.length > 1}}">
+        <view class="dots-item {{bannerIndex == index ? 'dots-active' : ''}}" wx:for="{{bannerList}}" wx:key="index"></view>
+      </view>
+    </view>
+    
+    <!-- 频道 -->
+    <view class="channel-part" wx:if="{{channelList.length}}">
+      <view class="channel-item" wx:for="{{channelList}}" wx:key="index" data-id="{{item.id}}" data-type="{{item.type}}"  data-from="channel" bindtap="tochannelDetail">
+        <view class="chaimg imgbox">
+          <image class="imgs" mode="widthFix" src="{{item.icon_image}}" />
+          <image class="gifimg" mode="widthFix" wx:if="{{item.banner_image}}" src="{{item.banner_image}}" />
+        </view>
+        <view class="chaname">{{item.title}}</view>
+      </view>
+    </view>
+
+    <view class="activity-part">
+      <!-- 页面内banner -->
+      <view class="inner-banner" wx:if="{{innerBannerList.length}}">
+        <view class="initem imgbox" wx:for="{{innerBannerList}}" wx:key="index" data-id="{{item.id}}" data-from="banner" bindtap="toBannerDetail">
+          <image class="imgs" mode="widthFix" src="{{item.img_url}}" />
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 商品列表 -->
+  <view class="pro-part" wx:if="{{proListData&&proListData.length}}">
+    <view class="proitem" wx:for="{{proListData}}" wx:key="index" data-id="{{item.goods_id}}" bindtap="toProductDetail">
+      <view class="proimg imgbox">
+        <image class="imgs" mode="widthFix" src="{{item.goods_thumbnail_url}}" lazy-load="{{true}}"/>
+      </view>
+      <view class="pro-info">
+        <view class="proname">
+          <text class="laber iconfont {{sourceIcon[item.source_from].icon}}" style="color: {{sourceIcon[item.source_from].color}};"></text>
+          <text class="name">{{item.goods_name}}</text>
+        </view>
+        <view class="benefit">
+          <view class="quan" wx:if="{{item.has_coupon&&item.coupon_discount}}">
+            <view class="round rleft"></view>
+            <view class="quan-cnt">{{item.coupon_discount/100}}元券</view>
+            <view class="round rright"></view>
+          </view>
+          <view class="cashback" wx:if="{{item.return_amount}}">
+            <text class="caval">返现￥{{item.return_amount/100}}</text>
+          </view>
+        </view>
+        <view class="market">
+          <view class="oldprice">
+            <text class="odt">市场价</text>
+            <text class="odval">￥{{item.min_group_price/100}}</text>
+          </view>
+          <text class="sell">已销{{item.sales_tip}}件</text>
+        </view>
+        <view class="quan-price">
+          <text class="qt">券后价</text>
+          <text class="unit">￥</text>
+          <text class="price">{{item.coupon_price/100}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="nodata-box" wx:if="{{proListData&&!proListData.length}}">
+    <view class="nodata_cps">暂无商品数据~</view>
+  </view>
+
+  <!-- 授权手机号码 -->
+  <button class='authbtn' wx:if='{{!_unlogin&&!_has_phone}}' type='primary' bindtap="toGetPhonenumAuth"></button>
+
+  <!-- 首页合作/商品搜索 弹框 -->
+  <template is="togetherDialog" data='{{...commonModalData, _unlogin}}'></template>
+
+</view>
+<include src="/pages/public/page_footer.wxml"></include>

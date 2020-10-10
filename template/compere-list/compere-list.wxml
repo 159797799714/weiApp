@@ -1,0 +1,10 @@
+<template name="comperelist">
+  <view class="lists">
+    <view class="data-item" wx:for="{{listData}}" wx:key="index" data-roomid="{{item.roomId}}" bindtap="toRoomFun">
+      <view class="compere-img-box">
+        <image class="compere-img" mode="widthFix" src="{{item.coverImg}}" />
+      </view>
+      <view class="compere-name">{{item.liveName}}</view>
+    </view>
+  </view>
+</template>

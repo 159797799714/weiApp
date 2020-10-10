@@ -1,0 +1,64 @@
+// out: VIP-record.wxss, compress: true
+@import '../../../../template/tabs/tabs.less';
+page{
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  background: #fff;
+}
+
+.VIP-record-wrap{
+  .tabs-wrap{
+    margin-bottom: 25rpx;
+    .tabactive{
+      &:after{
+        width: 110rpx;
+      }
+    }
+  }
+  .record-lists{
+    .record-item{
+      display: flex;
+      align-items: center;
+      padding: 0 50rpx;
+      .img-box{
+        width: 80rpx;
+        height: 80rpx;
+        margin-right: 30rpx;
+        border-radius: 50%;
+        overflow: hidden;
+        .photos{
+          display: block;
+          width: 100%;
+        }
+      }
+      .info-box{
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 33rpx 0;
+        border-bottom: 1rpx solid #E6E6E6 ;
+        .name{
+          font-size: 30rpx;
+          color: #33270D;
+          line-height: 30rpx;
+          margin-bottom: 22rpx;
+        }
+        .times{
+          font-size: 24rpx;
+          color: #666;
+          line-height: 24rpx;
+        }
+        .status{
+          font-size: 28rpx;
+          color: #F46C36 ;
+          line-height: 28rpx;
+        }
+        .ended{
+          color: #999;
+        }
+      }
+    }
+  }
+}

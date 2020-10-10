@@ -1,0 +1,34 @@
+<template name="cpsProlist">
+  <view class="product-list">
+    <block wx:if="{{proListData&&proListData.length}}">
+      <view class="proitem" wx:for="{{proListData}}" wx:key="index" data-id="{{item.goods_id}}" bindtap="toProductDetail">
+        <view class="imgbox proimg">
+          <image class="imgs" mode="widthFix" src="{{item.goods_thumbnail_url}}" />
+        </view>
+        <view class="info-part">
+          <view class="proname">
+            <text class="laber iconfont {{sourceIcon[item.source_from].icon}}" style="color: {{sourceIcon[item.source_from].color}};"></text>
+            <text class="name">{{item.goods_name}}</text>
+          </view>
+          <view class="group-used">已拼{{item.sales_tip}}件</view>
+          <view class="benefit">
+            <view class="quan" wx:if="{{item.has_coupon&&item.coupon_discount}}">
+              <view class="round rleft"></view>
+              <text class="quan-cnt">{{item.coupon_discount/100}}元券</text>
+              <view class="round rright"></view>
+            </view>
+            <view class="cashback" wx:if="{{item.return_amount}}">
+              <text class="caval">返现￥{{item.return_amount/100}}</text>
+            </view>
+          </view>
+          <view class="newprice">
+            <text class="unit">￥</text>
+            <text class="price">{{item.coupon_price/100}}</text>
+            <text class="oldprice">￥{{item.min_group_price/100}}</text>
+          </view>
+        </view>
+      </view>
+    </block>
+    <view class="nodata_cps" wx:if="{{proListData&&!proListData.length}}">暂无数据~</view>
+  </view>
+</template>

@@ -1,0 +1,159 @@
+<template name="togetherDialog">
+  <view class="together-dialog-wrap">
+    <!-- 1:首页合作弹框: 图片为底，文字浮于上面 -->
+    <block wx:if="{{type==1}}">
+      <com-modal className="sure-modal nopadding-modal" show="{{showCommonModa}}" width="560" padding="0" radius="15">
+        <view class="sure-box" slot="body">
+          <view class="imgbox tgimgbox">
+            <image class="searchbg imgs" mode="widthFix" src="https://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/together_bg.png" />
+          </view>
+          <view class="mcontent">
+            <view class="mtitle">闪购Live是京东、拼多多的优质合作伙伴</view>
+            <view class="tinfo">所有优惠券及优惠商品均由京东和拼多多提供，享受官方售后保障，7天无理由退款等用户权益，请放心购买</view>
+            <!-- 授权昵称头像 -->
+            <button class='canclebtn' wx:if='{{_unlogin}}' type='primary' open-type="getUserInfo" data-key="unlogin" bindtap="toCancleTogether" bindgetuserinfo="userCall" binderror="errCall">我知道了</button>
+            <button class="canclebtn" wx:else type="primary" data-key="button" bindtap="toCancleTogether">我知道了</button>
+          </view>
+          <view class="closeicon iconfont iconsousuoguanbi" data-key="icon" bindtap="toCancleTogether"></view>
+        </view>
+      </com-modal>
+    </block>
+
+    <!-- 2:商品搜索弹框: 普通弹框(上面图片，下面文字按钮) -->
+    <block wx:if="{{type==2}}">
+      <com-modal className="sure-modal nopadding-modal" show="{{showCommonModa}}" width="560" padding="0" radius="15">
+        <view class="sure-box comsure" slot="body">
+          <view class="bgimgbox imgbox" wx:if="{{bgImg}}">
+            <image class="imgs" mode="widthFix" src="{{bgImg}}" />
+          </view>
+          <view class="comcontent">
+            <view class="mtitle">{{title}}</view>
+            <view class="tinfo">{{content}}</view>
+            <!-- 授权昵称头像 -->
+            <button class='canclebtn' wx:if='{{_unlogin}}' type='primary' open-type="getUserInfo" data-key="unlogin" bindtap="toCancleTogether" bindgetuserinfo="userCall" binderror="errCall">{{btnText}}</button>
+            <button class="canclebtn" wx:else type="primary" data-key="button" bindtap="toManageModal">{{btnText}}</button>
+          </view>
+          <view class="closeicon iconfont iconsousuoguanbi" wx:if="{{showCloseIcon}}" data-key="icon" bindtap="toCancleTogether"></view>
+        </view>
+      </com-modal>
+    </block>
+
+    <!-- 3:邀请码填写弹框: 文字加中间输入框 -->
+    <block wx:if="{{type==3}}">
+      <com-modal className="invicode-modal inputcode-modal" show="{{showCommonModa}}" width="600" padding="0" radius="15">
+        <view class="input-invicode invicode-box" slot="body">
+          <view class="mtitle">填写邀请码</view>
+          <view class="tinfo tinfo-3">填写邀请码后享受推广赚钱，邀请赚钱</view>
+          <view class="ttip">请切换至英文键盘输入邀请码</view>
+          <view class="input-group">
+            <input class="codeinput" value="{{invitcode}}" focus="{{invitfocus}}" maxlength="6" data-key="invitcode" bindinput="bindKeyInput" bindfocus="bindfocus" bindblur="bindblur" />
+            <view class="verify-view">
+              <view class="verify-input" wx:for="{{invitcodeArr}}" wx:key="index">
+                <view class="varval">{{item || ""}}</view>
+                <view class="inpline {{invitfocus&&(index==invitcode.length-1 || (!invitcode.length&&index==0))?'focusAni':''}}"></view>
+              </view>
+            </view>
+          </view>
+          <view class="jump">
+            <text class="jump-text" bindtap="jumpFun">没有邀请码，跳过 ></text>
+          </view>
+        </view>
+      </com-modal>
+    </block>
+
+    <!-- 4:识别到邀请码弹框 -->
+    <block wx:if="{{type==4}}">
+      <com-modal className="showinvited-modal nopadding-modal" show="{{showCommonModa}}" width="600" padding="0" radius="15">
+        <view class="showcode-box invicode-box" style="border-radius: 15rpx" slot="body">
+          <view class="shtop-part">
+            <view class="mtitle">识别到邀请码</view>
+            <view class="tinfo">请确认是否接受该用户的邀请</view>
+          </view>
+          <view class="shocontent-part">
+            <view class="invname">邀请码</view>
+            <view class="invval codeval">{{invitcode}}</view>
+            <view class="invname">邀请人</view>
+            <view class="invval invperson">
+              <view class="imgbox">
+                <image class="imgs" mode="widthFix" src="{{avatar || 'https://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/default_photo.png'}}" />
+              </view>
+              <text class="invcnt">{{invitationName}}</text>
+            </view>
+            <button class="ivbtn yesbtn" type="primary" bindtap="acceptCodeFun">接受邀请</button>
+            <button class="ivbtn nobtn" bindtap="reInputCodeFun">TA不是我的邀请人</button>
+          </view>
+        </view>
+      </com-modal>
+    </block>
+
+    <!-- 5:受邀成功弹框 -->
+    <block wx:if="{{type==5}}">
+      <com-modal className="inv-success-modal" show="{{showCommonModa}}" width="600" padding="0" radius="15">
+        <view class="invsuccess-box invicode-box" style="border-radius: 15rpx" slot="body">
+          <view class="shtop-part">
+            <view class="mtitle">受邀成功</view>
+          </view>
+          <view class="invval invperson">
+            <text class="invname">邀请人</text>
+            <view class="imgbox">
+              <image class="imgs" mode="widthFix" src="{{avatar || 'https://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/default_photo.png'}}" />
+            </view>
+            <text class="invcnt">{{invitationName}}</text>
+          </view>
+          <view class="suinfo-box">
+            <text class="icons icons1 iconfont iconhuiyuan-2"></text>
+            <view class="suinfo">
+              <view class="cnt">恭喜您受邀成为闪购Live普通会员，</view>
+              <view class="cnt">享受推广商品赚佣金的权益</view>
+            </view>
+          </view>
+          <view class="suinfo-box suinfo2">
+            <text class="icons icons2 iconfont iconhuiyuan"></text>
+            <view class="suinfo">
+              <view class="cnt">升级为VIP会员后，还可享受最多</view>
+              <view class="cnt"><text class="inred">1.4倍</text>的自购返利和推广返利的权益</view>
+            </view>
+          </view>
+          <button class="canclebtn" type="primary" data-key="icon" bindtap="toCancleTogether">我知道了</button>
+          <view class="closeicon iconfont iconsousuoguanbi" wx:if="{{showCloseIcon}}" data-key="icon" bindtap="toCancleTogether"></view>
+        </view>
+      </com-modal>
+    </block>
+
+    <!-- 6:猛犸充电用户-充电获得积分弹框 -->
+    <block wx:if="{{type==6}}">
+      <com-modal className="showpoint-modal nopadding-modal" show="{{showCommonModa}}" width="600" padding="0" radius="15">
+        <view class="showpoint-box" style="border-radius: 15rpx" slot="body">
+          <view class="icon-box">
+            <image class="icons-imgs" src="https://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/exchange_success_icon.png" />
+          </view>
+          <view class="infos">
+            <view class="ptitle">恭喜获得猛犸充电积分</view>
+            <view class="point-box">
+              <text class="cnt">积分</text>
+              <text class="addicon">+</text>
+              <text class="point-val">{{inc_points}}</text>
+            </view>
+            <button class="canclebtn" type="primary" data-key="icon" bindtap="toCancleTogether">收下积分</button>
+          </view>
+        </view>
+      </com-modal>
+    </block>
+
+    <!-- 7:猛犸充电用户-发放初始化积分弹框 -->
+    <block wx:if="{{type==7}}">
+      <com-modal className="pointinit-modal nopadding-modal" show="{{showCommonModa}}" width="580" padding="0" radius="15">
+        <view class="pinit-box" style="border-radius: 15rpx" slot="body">
+          <view class="imgs-box">
+            <image class="pimgs" mode="widthFix" src="https://frontend-mam.oss-cn-hangzhou.aliyuncs.com/live/pint_init_1.png?ver=1" />
+          </view>
+          <view class="pval-box">
+            <view class="pval">{{inc_points}}</view>
+            <view class="punit">积分</view>
+          </view>
+          <button class="canclebtn" type="primary" data-key="icon" catchtap="toCancleTogether"><text class="btncnt">马上去兑换</text></button>
+        </view>
+      </com-modal>
+    </block>
+  </view>
+</template>
